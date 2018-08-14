@@ -112,14 +112,14 @@ public class Hb0101 extends BaseModel implements java.io.Serializable{
 	private  String rowid_;
 	
 		
-	//Get Methods
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
-	
+//	//Get Methods
+//	@Id
+//	@GeneratedValue(strategy = IDENTITY)
+//	@Column(name = "ID_", unique = true, nullable = false)
+//	public Integer getId() {
+//		return this.id;
+//	}
+//	
 	@Column(name = "Hb0101001", length =64)
 	public String getHb0101001() {
 		return this.hb0101001;

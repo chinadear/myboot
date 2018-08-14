@@ -12,7 +12,7 @@
 <div class="container-fluid innerScroll">
 	<div class="row ">
 		<div class="col-md-12">
-			<h3 class="heading">列表信息</h3>
+			<!-- <h3 class="heading">列表信息</h3> -->
 			<table class="table table-bordered table-striped  table-hover tablecut" id="smpl_tbl">
 				<thead>
 					<tr>

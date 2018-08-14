@@ -17,18 +17,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bootplus.controller.LoginController;
 import com.bootplus.dao.IUserDao;
-
+import com.bootplus.service.ILoginService;
+/**
+ * spring security 的业务用户接口，实现此接口，用于提供spring security验证用户权限。
+ * @author liulu
+ *
+ */
 @Component
 @Transactional
 public class AuthUserDetailsServiceImpl implements UserDetailsService {
 	
 	private final Logger logger=LoggerFactory.getLogger(LoginController.class);
 	@Autowired
-	private IUserDao baseDao;
+	private ILoginService loginService;
 	@Override
 	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		com.bootplus.model.UserLogin user = baseDao.findUserByName(s);
+		com.bootplus.model.UserLogin user = loginService.findUserLoginByName(s);
 		if(user==null) {
 			throw new BadCredentialsException("no user");
 		}

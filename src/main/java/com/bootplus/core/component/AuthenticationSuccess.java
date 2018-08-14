@@ -2,6 +2,7 @@ package com.bootplus.core.component;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -25,6 +25,7 @@ import com.bootplus.controller.LoginController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.dao.IResourceDao;
 import com.bootplus.dao.IUserDao;
+import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
 import com.bootplus.service.ILoginService;
 import com.bootplus.service.IResourceService;
@@ -57,14 +58,16 @@ public class AuthenticationSuccess implements AuthenticationSuccessHandler {
 		/*UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
 			    .getAuthentication()
 			    .getPrincipal();*/
-		UserLogin ul=loginService.findUserByName(authentication.getName());
+		UserLogin ul=loginService.findUserLoginByName(authentication.getName());
 		UserSession userSession=new UserSession();
 		userSession.setLoginName(ul.getUsername());
 		userSession.setName(ul.getUserId().getName());
 		userSession.setUserId(ul.getUserId().getId());
 		userSession.setResource(resourceService.getSidebarMenu());
 		request.getSession().setAttribute(userSession.SESSION_USER_KEY, userSession);
-		System.out.println("=============="+userSession.getName());
+		User user=ul.getUserId();
+		user.setLastLoginTime(new Date());
+		loginService.update(user);//更新登录时间
         new DefaultRedirectStrategy().sendRedirect(request, response, "/");
 	}
 

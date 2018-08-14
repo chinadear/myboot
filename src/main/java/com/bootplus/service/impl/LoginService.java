@@ -25,9 +25,9 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public UserLogin findUserByName(String name) {
+	public UserLogin findUserLoginByName(String name) {
 		// TODO Auto-generated method stub
-		return userDao.findUserByName(name);
+		return userDao.findUserLoginByName(name);
 	}
 
 	@Override
@@ -70,6 +70,18 @@ public class LoginService implements ILoginService {
 	public void update(User user) {
 		// TODO Auto-generated method stub
 		userDao.update(user);
+	}
+
+	@Override
+	public UserLogin findUserLoginById(String id) {
+		// TODO Auto-generated method stub
+		return (UserLogin)userDao.get(UserLogin.class, id);
+	}
+
+	@Override
+	public List<User> queryUser(User user) {
+		// TODO Auto-generated method stub
+		return userDao.queryUser(user);
 	}
 
 }

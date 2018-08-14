@@ -59,23 +59,18 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping("/registerAdmin")
 	public String registerAdmin(Model model, HttpServletRequest request) {
-		UserLogin userlogin=loginService.findUserByName("admin");
+		UserLogin userlogin=loginService.findUserLoginByName("admin");
 		if(userlogin==null) {
 			User user=new User();
 			user.setBirthday(DateUtil.getDate(new Date()));
-			user.setCreateTime(new Date());
 			user.setName("系统管理员");
 			user.setStatus("1");
-			user.setUpdateTime(new Date());
 			user.setUserType("0");
-			user.setLastLoginTime(new Date());
 			loginService.save(user);
 			UserLogin u=new UserLogin();
 			u.setUsername("admin");
 			u.setPassword(passwordEncoder.encode("12345678"));
 			u.setUserId(user);
-			u.setCreateTime(new Date());
-			u.setUpdateTime(new Date());
 			loginService.save(u);
 		}
 		return "redirect:/auth/login";

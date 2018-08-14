@@ -5,11 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 import com.bootplus.core.base.BaseModel;
 
@@ -18,12 +14,6 @@ import com.bootplus.core.base.BaseModel;
 public class User extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 3870740272700243791L;
-
-	@Id//代表主键
-	@GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid.hex")
-	@Column(name = "ID", unique = true, nullable = false)
-	private String id;
 	@Column(name = "NAME")
 	private String name;
 	@Column(name = "REALNAME")
@@ -50,18 +40,6 @@ public class User extends BaseModel implements Serializable {
 	//状态0，删除，1正常
 	@Column(name = "STATUS")
 	private String status;
-	//创建时间
-	@Column(name = "CREATE_TIME")
-	private Date createTime;
-	//更新时间
-	@Column(name = "UPDATE_TIME")
-	private Date updateTime;
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
@@ -128,18 +106,6 @@ public class User extends BaseModel implements Serializable {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 	public Date getLastLoginTime() {
 		return lastLoginTime;

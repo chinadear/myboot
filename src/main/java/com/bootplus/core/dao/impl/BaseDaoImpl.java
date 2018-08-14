@@ -79,15 +79,15 @@ public class BaseDaoImpl {
 	 * 保存对象
 	 */
 	public void update(BaseModel o) {
-//		o.setUpdateTime(new Date());
+		o.setUpdateTime(new Date());
 		getSession().update(o);
 	}
 	/**
 	 * 保存对象
 	 */
 	public void save(BaseModel o) {
-//		o.setCreateTime(new Date());
-//		o.setUpdateTime(new Date());
+		o.setCreateTime(new Date());
+		o.setUpdateTime(new Date());
 		getSession().save(o);
 	}
 	

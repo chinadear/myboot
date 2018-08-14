@@ -8,7 +8,8 @@ import com.bootplus.model.UserLogin;
 public interface ILoginService {
 
 	public void save(UserLogin user);
-	public UserLogin findUserByName(String name);
+	public UserLogin findUserLoginByName(String name);
+	public UserLogin findUserLoginById(String id);
 	public List<UserLogin> queryUserLoginList();
 	public void	update(UserLogin ul);
 	//账户可以物理删除
@@ -18,4 +19,5 @@ public interface ILoginService {
 	public User findUserById(String id);
 	public List<User> queryUserList();
 	public void update(User user);
+	public List<User> queryUser(User user);
 }

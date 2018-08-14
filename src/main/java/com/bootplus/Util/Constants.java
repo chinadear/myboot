@@ -29,5 +29,9 @@ public class Constants {
 	 * 网站会员
 	 */
 	public static final String SYSTEM_DIC_USERTYPE_MEMBER= "2";
+	/**
+	 * 默认密码的key值
+	 */
+	public static final String SYSTEM_DIC_DEFAULT_PASSWORD_KEY= "DEFAULT_PASSWORD";
 	
 }

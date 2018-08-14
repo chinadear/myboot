@@ -1,21 +1,15 @@
 package com.bootplus.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import com.bootplus.Util.IdUtil;
 import com.bootplus.core.base.BaseModel;
 
 /**
@@ -26,11 +20,6 @@ import com.bootplus.core.base.BaseModel;
 @Table(name = "resource", catalog = "boot")
 public class Resource extends BaseModel implements java.io.Serializable{
 	private static final long serialVersionUID = 4832981854919755967L;
-		@Id//代表主键
-		@GeneratedValue(generator = "uuid")
-	    @GenericGenerator(name = "uuid", strategy = "uuid.hex")
-		@Column(name = "ID", unique = true, nullable = false)
-		private String id;
 		//上级
 		@ManyToOne
 		@JoinColumn(name = "PARENT_ID", nullable=true)
@@ -59,20 +48,10 @@ public class Resource extends BaseModel implements java.io.Serializable{
 		//备注
 		@Column(name = "COMMENTS", length =1500)
 		private String comments;
-		//创建时间
-		@Column(name = "CREATE_TIME")
-		private Date createTime;
-		//更新时间
-		@Column(name = "UPDATE_TIME")
-		private Date updateTime;
 
 		//子节点，不映射
 		@Transient
 		private List<Resource> childList = new ArrayList<Resource>();
-		
-		public String getId() {
-			return this.id;
-		}
 		
 		public Resource getParent() {
 			return parent;
@@ -136,26 +115,6 @@ public class Resource extends BaseModel implements java.io.Serializable{
 
 		public void setComments(String comments) {
 			this.comments = comments;
-		}
-
-		public Date getCreateTime() {
-			return createTime;
-		}
-
-		public void setCreateTime(Date createTime) {
-			this.createTime = createTime;
-		}
-
-		public Date getUpdateTime() {
-			return updateTime;
-		}
-
-		public void setUpdateTime(Date updateTime) {
-			this.updateTime = updateTime;
-		}
-
-		public void setId(String id) {
-			this.id = id;
 		}
 
 		public List<Resource> getChildList() {
