@@ -1,0 +1,164 @@
+package com.bootplus.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.bootplus.Util.Constants;
+import com.bootplus.dao.IResourceDao;
+import com.bootplus.model.Resource;
+import com.bootplus.service.IResourceService;
+
+/**
+ * 	@EnableCaching 启用缓存配置
+	@Cacheable 指定某个方法的返回值是可以缓存的。在注解属性中指定缓存规则。
+		参数：value、cacheNames：两个等同的参数
+		key:#p0表示第一个参数，或者用#+第一个参数名与#p0等同，要使用SpEL表达式#fx.id
+		condition：condition="#name.length() < 32"
+		unless="#result.hardback"
+	@Cacheput 将方法的返回值缓存到指定的key中
+	@CacheEvict 删除指定的缓存数据
+		参数：与@cacheable相同，多出2个参数：
+		allEntries：非必需，默认为false。当为true时，会移除所有数据
+		beforeInvocation：非必需，默认为false，会在调用方法之后移除数据。当为true时，会在调用
+	@Cacheable和@Cacheput都会将方法的执行结果按指定的key放到缓存中，
+	@Cacheable在执行时，会先检测缓存中是否有数据存在，如果有，直接从缓存中读取。
+	如果没有，执行方法，将返回值放入缓存，而@Cacheput会先执行方法，然后再将执行结果写入缓存。
+	使用@Cacheput的方法一定会执行
+ * @author liulu
+ *
+ */
+@Service
+@Transactional
+public class ResourceService implements IResourceService {
+
+	@Autowired
+	private IResourceDao resourceDao;
+
+	@Override
+	public void save(Resource res) {
+		// TODO Auto-generated method stub
+		resourceDao.save(res);
+	}
+
+	@Override
+	public List<Resource> queryResourceList(Resource resource) {
+		// TODO Auto-generated method stub
+		return resourceDao.queryResourceList(resource);
+	}
+	//根据父节点获取子节点
+	@Override
+	public List<Resource> getResourcesByParent(Resource parent) {
+		return resourceDao.getResourcesByParent(parent);
+	}
+	//根据id获取资源
+	@Override
+	public Resource getResourceById(String id) {
+		//是否无效状态不返回？待修改
+		return resourceDao.getResourceById(id);
+	}
+	//根据父节点递归删除子节点
+	public void deleteResourcesByParent(Resource parent) {
+		List<Resource> deleteList = new ArrayList();
+		Resource resource = new Resource();
+		resource.setType(null);
+		List<Resource> allResourceList = resourceDao.getResources(resource);
+		Resource p = resourceDao.getResourceById(parent.getId());
+		deleteList.add(p);
+		List<Resource> parentList = new ArrayList();
+		parentList.add(p);
+		//循环遍历需要删除的资源
+		while (parentList != null && parentList.size() > 0) {
+			List<Resource> tempList = new ArrayList<Resource>();
+			for (Resource p2 : parentList) {
+				for (Resource child : allResourceList) {
+					if (child.getParent() != null && p2.getId().equals(child.getParent().getId())) {
+						tempList.add(child);
+						deleteList.add(child);
+					}
+				}
+			}
+			parentList = tempList;
+		}
+		if (deleteList.size() > 0) {
+			Resource r = new Resource();
+			r.setStatus(Constants.SYSTEM_DIC_DELETE_STATUS);//0删除，1正常
+			resourceDao.updateResourceStatus(deleteList, r);
+		}
+		
+	}
+	//查询父节点下是否含有指定名称的资源
+	@Override
+	public boolean isExistByParentAndName(Resource parent, String name, String id) {
+		Resource resource = new Resource();
+		resource.setName(name);
+		List<Resource> list = resourceDao.getResourcesByParentAndName(parent, resource);
+		boolean b = false;
+		if (list != null && list.size() > 0) {
+			for (Resource res : list) {
+				if (!res.getId().equals(id)) {
+					b = true;
+				}
+			}
+		}
+		return b;
+	}
+	@Override
+	public boolean isExistMenuByCode(String code,String id) {
+		// TODO Auto-generated method stub
+		List<Resource> list = resourceDao.getResourcesByCode(code);
+		boolean b = false;
+		if(list!=null && list.size()>0){
+			for (Resource res : list) {
+				if (!res.getId().equals(id)) {
+					b = true;
+				}
+			}
+		}
+		return b;
+	}
+	
+	@Override
+	public void update(Resource res) {
+		// TODO Auto-generated method stub
+		resourceDao.update(res);
+	}
+
+	@Override
+	public void swapSeqNum(Resource source, Resource target) {
+		// TODO Auto-generated method stub
+		int temp = target.getSeqNum();
+		target.setSeqNum(source.getSeqNum());
+		source.setSeqNum(temp);
+		this.update(source);
+		this.update(target);
+	}
+
+	/**
+	 * 获取sidebar的菜单，需要遍历子菜单，渲染出菜单结构
+	 * 包含了childList
+	 */
+	@Override
+	public Resource getSidebarMenu() {
+		// TODO Auto-generated method stub
+		List<Resource> list = resourceDao.getResourcesByCode(Constants.ROOT_MENU_BOOT_CODE);
+		if(list.size()==0) {
+			return new Resource();
+		}else {
+			return iterationResource(list.get(0));
+		}
+	}
+	
+	public Resource iterationResource(Resource parent){
+		List<Resource> childList=this.getResourcesByParent(parent);
+		parent.setChildList(childList);
+		if(childList.size()>0) {
+			for(Resource r:childList) {
+				iterationResource(r);
+			}
+		}
+		return parent;
+	}
+}
