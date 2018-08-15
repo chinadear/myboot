@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bootplus.Util.Constants;
+import com.bootplus.core.base.BaseServiceImpl;
 import com.bootplus.dao.IResourceDao;
 import com.bootplus.model.Resource;
 import com.bootplus.service.IResourceService;
@@ -32,7 +33,7 @@ import com.bootplus.service.IResourceService;
  */
 @Service
 @Transactional
-public class ResourceService implements IResourceService {
+public class ResourceService extends BaseServiceImpl implements IResourceService {
 
 	@Autowired
 	private IResourceDao resourceDao;

@@ -17,7 +17,11 @@ import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.model.Resource;
 import com.bootplus.service.IResourceService;
-
+/**
+ * 主页面
+ * @author liulu
+ *
+ */
 @Controller
 public class MainController extends BaseController {
 	@Autowired 

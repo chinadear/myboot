@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bootplus.core.base.BaseServiceImpl;
 import com.bootplus.dao.IUserDao;
 import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
@@ -13,7 +14,7 @@ import com.bootplus.service.ILoginService;
 
 @Service
 @Transactional
-public class LoginService implements ILoginService {
+public class LoginService extends BaseServiceImpl implements ILoginService {
 
 	@Autowired
 	private IUserDao userDao;

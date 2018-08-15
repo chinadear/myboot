@@ -41,6 +41,6 @@
 	      <textarea class="form-control" id="comments_" name="comments_" cols="20" rows="3">${res.comments?html}</textarea>
 	    </div>
  	</div>
- 	
+ </form>	
  	
 	

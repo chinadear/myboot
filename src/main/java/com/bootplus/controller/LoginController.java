@@ -26,7 +26,11 @@ import com.bootplus.service.ILoginService;
 import com.bootplus.service.IResourceService;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
-
+/**
+ * 登录
+ * @author liulu
+ *
+ */
 @Controller
 public class LoginController extends BaseController{
 	@Autowired

@@ -6,7 +6,7 @@
 </head>
 <body>
 <div  class="inner-header">
-	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addAccount();">创建账户</button>
+	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addAccount();">创建账号</button>
 </div>
 <div class="container-fluid innerScroll">
 	<div class="row ">
@@ -15,8 +15,8 @@
 				<thead>
 					<tr>
 						<th width="5%">编号</th>
-						<th>用户名</th>
-    					<th>账户</th>
+						<th>昵称</th>
+    					<th>账号</th>
 						<th>姓名</th>
     					<th>手机号</th>
     					<th>QQ号</th>
@@ -74,7 +74,7 @@
 </div><!-- /.modal -->  
  <script type="text/javascript">
  	window.onload = function(){
- 		comp.validate.addRemote("nameIsExsit","${rc.contextPath}/account/isExsit/name",{name:function(){return $('#name').val();},id:function(){return $("#id").val();}},"用户名已存在");
+ 		comp.validate.addRemote("nameIsExsit","${rc.contextPath}/account/isExsit/name",{name:function(){return $('#name').val();},id:function(){return $("#id").val();}},"此昵称已存在");
  	}
  	//弹出编辑窗口
  	function editAccount(id){
@@ -128,8 +128,8 @@
 				email: {email:true,maxlength: 150}
 					},
 			messages:{
-				name:{required:"用户名称不能为空"},
-				realName:{required:"姓名不能为空"},
+				name:{required:"请为您自己起个昵称"},
+				realName:{required:"请填写您的姓名"},
 				phone:{number:"请输入正确格式的手机号"},
 				qq: {number:"请输入正确格式的QQ号码"}
 				}

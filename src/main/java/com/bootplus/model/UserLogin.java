@@ -23,6 +23,9 @@ public class UserLogin extends BaseModel implements java.io.Serializable{
 	@ManyToOne()
 	@JoinColumn(name = "USER_ID", nullable=true)
     private User userId;
+	//状态0，删除，1正常
+	@Column(name = "STATUS")
+	private String status;
 	//确认密码，不持久化
 	@Transient
 	private String repassword;
@@ -53,6 +56,12 @@ public class UserLogin extends BaseModel implements java.io.Serializable{
 	}
 	public void setRepassword(String repassword) {
 		this.repassword = repassword;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

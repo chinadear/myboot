@@ -38,6 +38,7 @@ public class AuthUserDetailsServiceImpl implements UserDetailsService {
 			throw new BadCredentialsException("no user");
 		}
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        //授予权限角色
         authorities.add(new SimpleGrantedAuthority("admin"));
         return new User(user.getUsername(), user.getPassword(), authorities);
 	}

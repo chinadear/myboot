@@ -97,3 +97,14 @@ CREATE TABLE `sysconfig` (
 		   `UPDATE_TIME` datetime DEFAULT NULL,
 		   PRIMARY KEY (`ID`)
 		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `role` (
+		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+		   `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '角色名称',
+		   `TYPE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型',
+		   `CODE` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '编码',
+		   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
+		   `COMMENTS` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+		   `UPDATE_TIME` datetime DEFAULT NULL,
+		   `CREATE_TIME` datetime DEFAULT NULL,
+		   PRIMARY KEY (`ID`)
+		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

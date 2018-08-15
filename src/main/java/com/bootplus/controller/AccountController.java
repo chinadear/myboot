@@ -21,7 +21,12 @@ import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
 import com.bootplus.service.ILoginService;
 import com.bootplus.service.ISysManageService;
-
+/**
+ * 账号管理
+ * 系统用户
+ * @author liulu
+ *
+ */
 @Controller
 public class AccountController extends BaseController {
 	private final static String RESOURCE_MENU_PREFIX="/member/account";
@@ -31,7 +36,12 @@ public class AccountController extends BaseController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private ISysManageService sysManageService;
-	
+	/**
+	 * 账号管理
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/account/list")
 	public String loginPage(Model model, HttpServletRequest request) {
 		List<UserLogin> ullist=loginService.queryUserLoginList();
@@ -81,6 +91,39 @@ public class AccountController extends BaseController {
 		return RESOURCE_MENU_PREFIX+"/accountAdd";
 	}
 	/**
+	 * 提交新增
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/account/add")
+	public String add(Model model, HttpServletRequest request,User user,UserLogin userLogin) {
+		user.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		user.setUserType(Constants.SYSTEM_DIC_USERTYPE_USER);
+		loginService.save(user);
+		String pwd=userLogin.getPassword();
+		userLogin.setUserId(user);
+		userLogin.setPassword(passwordEncoder.encode(pwd));
+		userLogin.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		loginService.save(userLogin);
+		return "redirect:/account/list";
+	}
+	/**
+	 * 判断账号是否存在
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value="/account/isExsit/account",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String judgyAccount(String username) {
+		String flag="true";
+		UserLogin ul=loginService.findUserLoginByName(username);
+		if(ul!=null) {
+			flag="false";
+		}
+		return flag;
+	}
+	/**
 	 * 提交修改
 	 * @param model
 	 * @param user
@@ -109,13 +152,14 @@ public class AccountController extends BaseController {
 		UserLogin ul=loginService.findUserLoginById(id);
 		User user=ul.getUserId();
 		user.setStatus(Constants.SYSTEM_DIC_DELETE_STATUS);
+		ul.setStatus(Constants.SYSTEM_DIC_DELETE_STATUS);
 		loginService.update(user);
-		loginService.delete(ul);
+		loginService.update(ul);
 		return "redirect:/account/list";
 	}
 	
 	/**
-	 * 校验用户名是否重复
+	 * 校验昵称是否重复
 	 * @param name
 	 * @param id
 	 * @return

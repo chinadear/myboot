@@ -18,7 +18,11 @@ import com.bootplus.Util.TreeBean;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.model.Resource;
 import com.bootplus.service.IResourceService;
-
+/**
+ * 菜单管理
+ * @author liulu
+ *
+ */
 @Controller
 public class ResourceController extends BaseController {
 	@Autowired 
