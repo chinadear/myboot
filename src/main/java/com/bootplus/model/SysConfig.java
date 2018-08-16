@@ -13,7 +13,7 @@ import com.bootplus.core.base.BaseModel;
  *
  */
 @Entity
-@Table(name = "sysconfig", catalog = "boot")
+@Table(name = "sysconfig")
 public class SysConfig extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = -3345857255218454984L;

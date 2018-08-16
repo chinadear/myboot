@@ -68,7 +68,12 @@ public class RoleController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/role/add")
-	public String add(Model model, HttpServletRequest request,Role role) {
+	public String add(Model model, String name_,String type_,String code_,String comments_) {
+		Role role=new Role();
+		role.setCode(code_);
+		role.setComments(comments_);
+		role.setName(name_);
+		role.setType(type_);
 		role.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		roleService.save(role);
 		return "redirect:/role/list";
@@ -85,7 +90,8 @@ public class RoleController extends BaseController {
 		r.setCode(role.getCode());
 		r.setName(role.getName());
 		r.setType(role.getType());
-		roleService.update(role);
+		r.setComments(role.getComments());
+		roleService.update(r);
 		return "redirect:/role/list";
 	}
 	/**
@@ -111,7 +117,7 @@ public class RoleController extends BaseController {
 	public String judgyAccount(String code,String id) {
 		String flag="true";
 		Role role=new Role();
-		role.setName(code);
+		role.setCode(code);
 		List<Role> rlist=roleService.queryRoleList(role);
 		if(rlist.size()>0) {//=0直接返回true
 			if(StringUtils.hasText(id)) {//编辑情况下要判断是否是自身的情况

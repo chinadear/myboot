@@ -17,7 +17,7 @@ import com.bootplus.core.base.BaseModel;
  * 资源
  */
 @Entity
-@Table(name = "resource", catalog = "boot")
+@Table(name = "resource")
 public class Resource extends BaseModel implements java.io.Serializable{
 	private static final long serialVersionUID = 4832981854919755967L;
 		//上级

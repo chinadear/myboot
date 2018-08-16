@@ -1,7 +1,6 @@
 package com.bootplus.core.component;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -12,19 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 
 import com.bootplus.controller.LoginController;
 import com.bootplus.core.base.UserSession;
-import com.bootplus.dao.IResourceDao;
-import com.bootplus.dao.IUserDao;
 import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
 import com.bootplus.service.ILoginService;
@@ -66,6 +58,7 @@ public class AuthenticationSuccess implements AuthenticationSuccessHandler {
 		userSession.setResource(resourceService.getSidebarMenu());
 		request.getSession().setAttribute(userSession.SESSION_USER_KEY, userSession);
 		User user=ul.getUserId();
+		userSession.setLastLoginDate(user.getLastLoginTime());
 		user.setLastLoginTime(new Date());
 		loginService.update(user);//更新登录时间
         new DefaultRedirectStrategy().sendRedirect(request, response, "/");

@@ -44,8 +44,8 @@
 				                <td class="autocut">${u.lastLoginTime!}</td>
 				                <td class="autocut">${u.createTime!}</td>
 				                <td>
-									<a href="#" onclick="" title="修改"><i class="fa fa-edit"></i></a>
-									<a href="#" onclick="" title="重置密码"><i class="fa fa-lock"></i></a>
+									<!-- <a href="#" onclick="" title="修改"><i class="fa fa-edit"></i></a>
+									<a href="#" onclick="" title="重置密码"><i class="fa fa-lock"></i></a> -->
 				                </td>  
 		               		</tr>  
 						</#list>

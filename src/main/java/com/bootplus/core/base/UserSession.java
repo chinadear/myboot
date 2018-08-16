@@ -1,6 +1,7 @@
 package com.bootplus.core.base;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.bootplus.model.Resource;
@@ -23,6 +24,8 @@ public class UserSession implements Serializable {
 	private String curMenuId;
 	//当前选中的父菜单ID
 	private String curParentMenuId;
+	//上次登录时间
+	private Date lastLoginDate;
 	
 	public String getUserId() {
 		return userId;
@@ -65,6 +68,12 @@ public class UserSession implements Serializable {
 	}
 	public void setCurParentMenuId(String curParentMenuId) {
 		this.curParentMenuId = curParentMenuId;
+	}
+	public Date getLastLoginDate() {
+		return lastLoginDate;
+	}
+	public void setLastLoginDate(Date lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
 	}
 	
 }

@@ -1,6 +1,9 @@
 package com.bootplus.service.impl;
 
+import java.io.File;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -8,12 +11,16 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bootplus.Util.CompUtil;
+import com.bootplus.Util.Constants;
+import com.bootplus.Util.IdUtil;
 import com.bootplus.core.base.BaseServiceImpl;
 import com.bootplus.dao.ISysManageDao;
 import com.bootplus.model.SysConfig;
-import com.bootplus.model.User;
-import com.bootplus.model.UserLogin;
+import com.bootplus.model.UFile;
 import com.bootplus.service.ISysManageService;
 /**
  * 	@EnableCaching 启用缓存配置
@@ -72,6 +79,59 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
 	public SysConfig getSysConfigById(String id) {
 		// TODO Auto-generated method stub
 		return (SysConfig)sysManageDao.get(SysConfig.class, id);
+	}
+	@Override
+	public UFile uploadFile(MultipartFile file,HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		String defaultPath=null;
+		List<SysConfig> sclist=this.querySysConfigListByKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_UPLOADPATH_KEY);
+		if(sclist.size()>0&&StringUtils.hasText(sclist.get(0).getValue())) {
+			defaultPath=sclist.get(0).getValue()+File.separator+CompUtil.getCurDateDir();
+		}else {
+			if(sclist.size()>0&&!StringUtils.hasText(sclist.get(0).getValue())) {
+				defaultPath=request.getSession().getServletContext().getRealPath("/")+File.separator+"upload"+File.separator+CompUtil.getCurDateDir();
+				SysConfig sc=sclist.get(0);
+				sc.setValue(request.getSession().getServletContext().getRealPath("/")+File.separator+"upload"+File.separator);
+				sysManageDao.update(sc);
+			}else {
+				SysConfig sc=new SysConfig();
+				sc.setKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_UPLOADPATH_KEY);
+				sc.setValue(request.getSession().getServletContext().getRealPath("/")+File.separator+"upload"+File.separator);
+				sc.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+				sysManageDao.save(sc);
+			}
+			
+		}
+		File f=new File(defaultPath);
+		if(!f.exists()) {
+			f.mkdirs();
+		}
+		// 文件名
+        String fileName = file.getOriginalFilename();
+        // 文件后缀
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        // 重新生成唯一文件名，用于存储数据库
+        String newFileName = IdUtil.getUUIDHEXStr()+suffixName;
+        //创建文件
+        File dest = new File(defaultPath + newFileName);
+        System.out.println(dest.getAbsolutePath());
+        UFile uf=new UFile();
+        try {
+            file.transferTo(dest);
+            uf.setShowName(fileName.substring(fileName.lastIndexOf(File.separator)+1,fileName.lastIndexOf(".")));
+            uf.setFileName(newFileName);
+            uf.setSuffix(suffixName);
+            uf.setPath(CompUtil.getCurDateDir());
+            sysManageDao.save(uf);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return uf;
+	}
+	@Override
+	public UFile getUploadFileById(String id) {
+		// TODO Auto-generated method stub
+		return (UFile)sysManageDao.get(UFile.class, id);
 	}
 
 

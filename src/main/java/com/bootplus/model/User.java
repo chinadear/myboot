@@ -5,12 +5,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.bootplus.core.base.BaseModel;
 
 @Entity
-@Table(name = "user", catalog = "boot")
+@Table(name = "user")
 public class User extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 3870740272700243791L;
@@ -35,6 +37,10 @@ public class User extends BaseModel implements Serializable {
 	//用户类型0超级管理员,1系统用户，2成员（会员）
 	@Column(name = "USERTYPE")
 	private String userType;
+	//用户头像
+	@ManyToOne()
+	@JoinColumn(name = "HEADERIMG", nullable=true)
+	private UFile headerImg;
 	@Column(name = "LASTLOGINTIME")
 	private Date lastLoginTime;
 	//状态0，删除，1正常
@@ -112,5 +118,11 @@ public class User extends BaseModel implements Serializable {
 	}
 	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
+	}
+	public UFile getHeaderImg() {
+		return headerImg;
+	}
+	public void setHeaderImg(UFile headerImg) {
+		this.headerImg = headerImg;
 	}
 }

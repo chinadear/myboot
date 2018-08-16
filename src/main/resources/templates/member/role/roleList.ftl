@@ -6,7 +6,7 @@
 </head>
 <body>
 <div  class="inner-header">
-	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="">控制</button>
+	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addRole()">增加角色</button>
 </div>
 <div class="container-fluid innerScroll">
 	<div class="row ">
@@ -15,37 +15,25 @@
 				<thead>
 					<tr>
 						<th width="5%">编号</th>
-						<th>昵称</th>
-						<th>姓名</th>
-    					<th>手机号</th>
-    					<th>QQ号</th>
-    					<th>Email</th>
-    					<th>openId</th>
-    					<th>出生日期</th>
-    					<th>通讯地址</th>
-    					<th>上次登录</th>
-    					<th>创建日期</th>
+						<th>角色名称</th>
+						<th>角色编码</th>
+    					<th>角色类型</th>
+    					<th>备注</th>
     					<th width="8%">操作</th>
 					</tr>
 				</thead>
 				<tbody>
-					<#if userList??>
-						<#list userList as u>
+					<#if roleList??>
+						<#list roleList as r>
 							<tr>   
-				                <td>${u_index+1}</td>
-				                <td class="autocut">${(u.name!)?html}</td>
-				                <td class="autocut">${(u.realName!)?html}</td>
-				                <td class="autocut">${(u.phone!)?html}</td>
-				                <td class="autocut">${(u.qq!)?html}</td>
-				                <td class="autocut">${(u.email!)?html}</td>
-				                <td class="autocut">${(u.openid!)?html}</td>
-				                <td class="autocut"><#if u.birthday??>${u.birthday?date('yyyy-MM-dd')}</#if></td>
-				                <td class="autocut">${(u.address!)?html}</td>
-				                <td class="autocut">${u.lastLoginTime!}</td>
-				                <td class="autocut">${u.createTime!}</td>
+				                <td>${r_index+1}</td>
+				                <td class="autocut">${(r.name!)?html}</td>
+				                <td class="autocut">${(r.code!)?html}</td>
+				                <td class="autocut"><#if r.type??><#if r.type=='1'>系统角色<#else>成员角色</#if></#if></td>
+				                <td class="autocut">${(r.comments!)?html}</td>
 				                <td>
-									<a href="#" onclick="" title="修改"><i class="fa fa-edit"></i></a>
-									<a href="#" onclick="" title="重置密码"><i class="fa fa-lock"></i></a>
+									<a href="#" onclick="editRole('${r.id!}')" title="修改角色"><i class="glyphicon glyphicon-edit"></i></a>
+									<a href="#" onclick="deleteRole('${r.id!}','${r.name}')" title="删除角色"><i class="glyphicon glyphicon-trash"></i></a>
 				                </td>  
 		               		</tr>  
 						</#list>
@@ -68,7 +56,7 @@
 		    </div>  
 			<div class="modal-footer">  
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
-				<button type="button" class="btn btn-primary" id="sure" onclick="addRole()">确认</button>  
+				<button type="button" class="btn btn-primary" id="sure" onclick="add_submit()">确认</button>  
 			</div>  
 		</div><!-- /.modal-content -->  
 	</div><!-- /.modal-dialog -->  
@@ -86,7 +74,7 @@
 		    </div>  
 			<div class="modal-footer">  
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
-				<button type="button" class="btn btn-primary" id="sure" onclick="editRole()">确认</button>  
+				<button type="button" class="btn btn-primary" id="sure" onclick="edit_submit()">确认</button>  
 			</div>  
 		</div><!-- /.modal-content -->  
 	</div><!-- /.modal-dialog -->  
@@ -94,42 +82,54 @@
  <script type="text/javascript">
  	window.onload = function(){
  		//编辑
- 		comp.validate.addRemote("roleNameIsExsit_","${rc.contextPath}/role/isExsit/name",{name:function(){return $("#name_").val();},id:function(){return $("#id").val();}},"角色名称有重复");
-		comp.validate.addRemote("roleCodeIsExsit_","${rc.contextPath}/role/isExsit/code",{name:function(){return $("#code_").val();},id:function(){return $("#id").val();}},"角色编码有重复");
+ 		comp.validate.addRemote("roleNameIsExsit","${rc.contextPath}/role/isExsit/name",{name:function(){return $("#name").val();},id:function(){return $("#id").val();}},"角色名称有重复");
+		comp.validate.addRemote("roleCodeIsExsit","${rc.contextPath}/role/isExsit/code",{code:function(){return $("#code").val();},id:function(){return $("#id").val();}},"角色编码有重复");
 		//新增
-		comp.validate.addRemote("roleNameIsExsit","${rc.contextPath}/role/isExsit/name",{name:function(){return $("#name").val();}},"角色名称有重复");
-		comp.validate.addRemote("roleCodeIsExsit","${rc.contextPath}/role/isExsit/code",{name:function(){return $("#code").val();}},"角色编码有重复");
+		comp.validate.addRemote("roleNameIsExsit_","${rc.contextPath}/role/isExsit/name",{name:function(){return $("#name_").val();}},"角色名称有重复");
+		comp.validate.addRemote("roleCodeIsExsit_","${rc.contextPath}/role/isExsit/code",{code:function(){return $("#code_").val();}},"角色编码有重复");
 		initAddValidate();
  	}
- 	function popEditWin(id){
+ 	function editRole(id){
 	 	$("#edittemp").load("${rc.contextPath}/noSitemesh/role/editRole",{"id":id},function(){
 			initEditValidate();
 	 	});
 		comp.showModal('editModal');
 	 }
- 	function popAddWin(){
+ 	function addRole(){
 		$(".addRoleForm").compReset();
 		comp.showModal('addModal');
 	}
+ 	function deleteRole(id,name){
+ 		var r=confirm("确定要删除“"+name+"”角色？");
+ 		if(r){
+ 			window.location.href="${rc.contextPath}/role/delete/"+id;
+ 		}
+ 	}
+ 	function add_submit(){
+ 		$(".addRoleForm").submit();
+ 	}
+ 	function edit_submit(){
+ 		$(".editRoleForm").submit();
+ 	}
  	function initAddValidate(){
 		$(".addRoleForm").compValidate({
 			rules:{
-				name:{required: true,maxlength: 150,roleNameIsExsit:true},
-				code:{required: true,maxlength: 150,roleCodeIsExsit:true},
-				comments: {maxlength: 150}
+				name_:{required: true,maxlength: 150,roleNameIsExsit_:true},
+				code_:{required: true,maxlength: 150,roleCodeIsExsit_:true},
+				comments_: {maxlength: 150}
 					},
 			messages:{
-				name:{required:"请填写一个角色名称"},
-				code:{required:"请填写角色编码"}
+				name_:{required:"请填写一个角色名称"},
+				code_:{required:"请填写角色编码"}
 				}
 		});
 	}
  	function initEditValidate(){
 		$(".editRoleForm").compValidate({
 			rules:{
-				name_:{required: true,maxlength: 150,roleNameIsExsit_:true},
-				code_:{required: true,maxlength: 150,roleCodeIsExsit_:true},
-				comments_: {maxlength: 150}
+				name:{required: true,maxlength: 150,roleNameIsExsit:true},
+				code:{required: true,maxlength: 150,roleCodeIsExsit:true},
+				comments: {maxlength: 150}
 					},
 			messages:{
 				name:{required:"请填写一个角色名称"},

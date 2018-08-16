@@ -1,22 +1,37 @@
 package com.bootplus.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
+import com.bootplus.core.base.UserSession;
 import com.bootplus.model.Resource;
 import com.bootplus.model.SysConfig;
+import com.bootplus.model.UFile;
 import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
 import com.bootplus.service.ILoginService;
@@ -58,7 +73,7 @@ public class AccountController extends BaseController {
 	@RequestMapping(value="/account/resetPassword",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String resetPassword(Model model, HttpServletRequest request,String id) {
-		List<SysConfig> keys=sysManageService.querySysConfigListByKey(Constants.SYSTEM_DIC_DEFAULT_PASSWORD_KEY);
+		List<SysConfig> keys=sysManageService.querySysConfigListByKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_DEFAULT_PASSWORD_KEY);
 		String defaultpassword="12345678";
 		if(keys.size()>0 && StringUtils.hasText(keys.get(0).getValue())) {
 			defaultpassword=keys.get(0).getValue();
@@ -97,7 +112,7 @@ public class AccountController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/account/add")
-	public String add(Model model, HttpServletRequest request,User user,UserLogin userLogin) {
+	public String add(Model model, @RequestParam("file") MultipartFile file, HttpServletRequest request,User user,UserLogin userLogin) {
 		user.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		user.setUserType(Constants.SYSTEM_DIC_USERTYPE_USER);
 		loginService.save(user);
@@ -130,7 +145,7 @@ public class AccountController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/account/edit")
-	public String edit(Model model,User user){
+	public String edit(Model model,User user,String flag){
 		User u=loginService.findUserById(user.getId());
 		u.setName(user.getName());
 		u.setRealName(user.getRealName());
@@ -138,7 +153,98 @@ public class AccountController extends BaseController {
 		u.setQq(user.getQq());
 		u.setEmail(user.getEmail());
 		loginService.update(u);
-		return "redirect:/account/list";
+		if(StringUtils.hasText(flag)) {//不为空，表示是从个人中心修改个人信息处跳转过来的
+			return "redirect:/account/persional/center";
+		}else {
+			return "redirect:/account/list";
+		}
+	}
+	/**
+	 * 个人中心
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/account/persional/center")
+	public String persionalCenter(HttpServletRequest request,Model model) {
+		UserSession us=(UserSession)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		List<String> navList=new ArrayList<String>();
+		navList.add("个人中心");
+		navList.add("个人中心");
+		us.setNavList(navList);
+		UserLogin userLogin=loginService.findUserLoginByName(us.getLoginName());
+		model.addAttribute("userLogin", userLogin);
+		return RESOURCE_MENU_PREFIX+"/persionalCenter";
+	}
+	/**
+	 * 更换头像
+	 * @param id
+	 * @param file
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/account/persional/headerimg/modify")
+	public String modifyHeaderImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+		UserSession us=(UserSession)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		User user=loginService.findUserById(us.getUserId());
+		if(!file.isEmpty()) {
+			UFile uf=sysManageService.uploadFile(file, request);
+			if(StringUtils.hasText(uf.getId())) {
+				user.setHeaderImg(uf);
+				loginService.update(user);
+			}
+		}
+		return "redirect:/account/persional/center";
+	}
+	/**
+	 * 显示头像
+	 * @param id 用户id
+	 * @return
+	 */
+	@RequestMapping(value = "/account/headerimg/{id}", method = RequestMethod.GET)
+	public String IoheaderImage(@PathVariable String id,HttpServletRequest request,HttpServletResponse response){
+		ServletOutputStream out = null;
+		FileInputStream ips = null;
+		String imgpath=null;
+		User user=loginService.findUserById(id);
+		if(user.getHeaderImg()!=null) {
+			UFile ufile=sysManageService.getUploadFileById(user.getHeaderImg().getId());
+			List<SysConfig> sclist=sysManageService.querySysConfigListByKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_UPLOADPATH_KEY);
+			if(sclist.size()>0&&StringUtils.hasText(sclist.get(0).getValue())) {//存在
+				imgpath=CompUtil.formatDir(sclist.get(0).getValue())+ufile.getPath()+ufile.getFileName();
+			}
+		}
+		try {
+			if(imgpath==null) {//直接获取系统默认头像
+				try {
+					ips = new FileInputStream(ResourceUtils.getFile("classpath:static//lib//dist//img//user2-160x160.jpg"));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				ips = new FileInputStream(imgpath);
+			}
+			response.setContentType("image/*"); 
+			int i=ips.available();
+			byte data[]=new byte[i];
+			ips.read(data);
+			out=response.getOutputStream();
+			//输出数据
+			out.write(data);
+			out.flush();
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				out.close();
+				ips.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 	/**
 	 * 删除账户及关联的用户信息
@@ -157,7 +263,6 @@ public class AccountController extends BaseController {
 		loginService.update(ul);
 		return "redirect:/account/list";
 	}
-	
 	/**
 	 * 校验昵称是否重复
 	 * @param name

@@ -32,7 +32,7 @@ public class RoleDao extends BaseDaoImpl implements IRoleDao {
 			sb.append(" and name=:name");
 			paramMap.put("name", role.getName());
 		}
-		sb.append(" order by updateTime");
+		sb.append(" order by createTime");
 		return (List<Role>)this.query(sb.toString(), paramMap);
 	}
 

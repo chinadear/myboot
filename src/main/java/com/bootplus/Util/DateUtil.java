@@ -19,7 +19,15 @@ public class DateUtil {
 		}
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 	}
-
+	public static String getCurYear() {
+		return new SimpleDateFormat("yyyy").format(new Date());
+	}
+	public static String getCurMonth() {
+		return new SimpleDateFormat("MM").format(new Date());	
+	}
+	public static String getCurDay() {
+		return new SimpleDateFormat("dd").format(new Date());
+	}
 	public static String getDate(Date date){
 		if(date==null){
 			return "";

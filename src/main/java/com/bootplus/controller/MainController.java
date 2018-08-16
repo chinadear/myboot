@@ -71,6 +71,7 @@ public class MainController extends BaseController {
 		}
 		return "redirect:" + link;
 	}
+
 	/**
 	 * 迭代父菜单，但是包含了根菜单，根菜单无业务意义，因此在前端需要过滤掉根菜单
 	 * @param parent

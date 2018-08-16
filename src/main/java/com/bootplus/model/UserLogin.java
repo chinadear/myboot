@@ -10,7 +10,7 @@ import javax.persistence.Transient;
 import com.bootplus.core.base.BaseModel;
 
 @Entity
-@Table(name = "userlogin", catalog = "boot")
+@Table(name = "userlogin")
 public class UserLogin extends BaseModel implements java.io.Serializable{
     /**
 	 * 

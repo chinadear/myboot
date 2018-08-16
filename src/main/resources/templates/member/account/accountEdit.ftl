@@ -36,4 +36,5 @@
 		</div>
 	</div>
 	<input type="hidden" id="id" name="id" value="${userLogin.userId.id}">
+	<input type="hidden" id="flag" name="flag" value="">
 </form>

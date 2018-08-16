@@ -10,7 +10,7 @@ import javax.persistence.Transient;
 import com.bootplus.core.base.BaseModel;
 
 @Entity
-@Table(name = "role", catalog = "boot")
+@Table(name = "role")
 public class Role extends BaseModel implements java.io.Serializable{
 	private static final long serialVersionUID = -6928725591394366409L;
 	@Column(name = "NAME")

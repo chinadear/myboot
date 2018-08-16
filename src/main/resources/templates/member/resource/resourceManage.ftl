@@ -201,27 +201,26 @@
 			var treeObj = comp.getTreeObj("tree");
 			var node = treeObj.getNodeByParam("id", id, null);
 			var pnode=node.getParentNode();
-			comp.confirm("确定要删除"+node.name+"菜单",function(r){
-				if(r){
-					$.ajax({
-						async :false,
-						cache :false,
-						dataType :"text",
-						type:"POST",
-						timeout: 100000,
-						url: "${rc.contextPath}/resource/deleteMenu?id="+node.id,
-						error: function () {//请求失败处理函数
-							comp.message("请求失败，请稍后再试","error");
-							return;
-						},
-						success:function(data){ //请求成功后处理函数。  
-							treeObj.removeNode(node);
-							comp.message("菜单删除成功！");
-							$("#smpl_tbl").load("${rc.contextPath}/noSitemesh/resource/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
-						}
-					});
-				}
-			});
+			var r=confirm("确定要删除“"+node.name+"”菜单吗？");
+			if(r){
+				$.ajax({
+					async :false,
+					cache :false,
+					dataType :"text",
+					type:"POST",
+					timeout: 100000,
+					url: "${rc.contextPath}/resource/deleteMenu?id="+node.id,
+					error: function () {//请求失败处理函数
+						comp.message("请求失败，请稍后再试","error");
+						return;
+					},
+					success:function(data){ //请求成功后处理函数。  
+						treeObj.removeNode(node);
+						comp.message("菜单删除成功！");
+						$("#smpl_tbl").load("${rc.contextPath}/noSitemesh/resource/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
+					}
+				});
+			}
 		}
 	//编辑菜单
 	function editTreeNode(){

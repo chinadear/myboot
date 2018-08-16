@@ -40,10 +40,10 @@
 				                <td class="autocut">${al.userId.lastLoginTime!}</td>
 				                <td class="autocut">${al.createTime!}</td>
 				                <td>
-									<a href="#" onclick="editAccount('${al.id}')" title="修改"><i class="fa fa-edit"></i></a>
-									<a href="#" onclick="resetPassword('${al.id}')" title="重置密码"><i class="fa fa-lock"></i></a>
+									<a href="#" onclick="editAccount('${al.id}')" title="修改"><i class="glyphicon glyphicon-edit"></i></a>
+									<a href="#" onclick="resetPassword('${al.id}','${al.username!}')" title="重置密码"><i class="glyphicon glyphicon-lock"></i></a>
 				                	<#if al.userId.userType!='0'>
-				                		<a href="#" onclick="delAccount('${al.id}')" title="删除"><i class="fa fa-trash-o"></i></a>
+				                		<a href="#" onclick="delAccount('${al.id}','${al.username!}')" title="删除"><i class="glyphicon glyphicon-trash"></i></a>
 									</#if>
 				                </td>  
 		               		</tr>  
@@ -90,33 +90,31 @@
  	function addAccount(){
  		window.location.href="${rc.contextPath}/account/addAccount";
  	}
-	function delAccount(id){
-		comp.confirm("确定要删除该账号？",function(r){
-			if(r){
-				window.location.href="${rc.contextPath}/account/delete/"+id;
-			}
-		});
+	function delAccount(id,name){
+		var r=confirm("确定要删除“"+name+"”账号？");
+		if(r){
+			window.location.href="${rc.contextPath}/account/delete/"+id;
+		}
 	}
-	function resetPassword(id){
-		comp.confirm("确定要重置密码？",function(r){
-			if(r){
-				$.ajax({
-					async :false,
-					cache :false,
-					timeout: 100000,
-					type:"POST",
-					url: "${rc.contextPath}/account/resetPassword",
-					data:{id:id},
-					error: function () {//请求失败处理函数
-						comp.message("请求失败，请稍后再试","error");
-						return;
-					},
-					success:function(data){ //请求成功后处理函数。  
-						comp.message("密码重置成功！");
-					}
-				});
-			}
-		});
+	function resetPassword(id,name){
+		var r=confirm("确定要重置“"+name+"”的密码吗？");
+		if(r){
+			$.ajax({
+				async :false,
+				cache :false,
+				timeout: 100000,
+				type:"POST",
+				url: "${rc.contextPath}/account/resetPassword",
+				data:{id:id},
+				error: function () {//请求失败处理函数
+					comp.message("请求失败，请稍后再试","error");
+					return;
+				},
+				success:function(data){ //请求成功后处理函数。  
+					comp.message("密码重置成功！");
+				}
+			});
+		}
 	}
 	function initEditValidate(){
 		$(".editAccountForm").compValidate({

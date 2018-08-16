@@ -32,8 +32,8 @@
 				                <td class="autocut">${(cl.value!)?html}</td>
 				                <td class="autocut">${(cl.comments!)?html}</td>
 				                <td>
-				                	<a href="#" onclick="delSysConfig('${cl.id}')" title="删除"><i class="fa fa-trash-o"></i></a>
-									<a href="#" onclick="editsysconfig('${cl.id}')" title="修改"><i class="fa fa-edit"></i></a>
+				                	<a href="#" onclick="delSysConfig('${cl.id}','${cl.key}')" title="删除"><i class="glyphicon glyphicon-trash"></i></a>
+									<a href="#" onclick="editsysconfig('${cl.id}')" title="修改"><i class="glyphicon glyphicon-edit"></i></a>
 				                </td>  
 		               		</tr>  
 						</#list>
@@ -120,12 +120,11 @@
  	function edit_submit(){
  		$(".editSysConfigForm").submit();
  	}
-	function delSysConfig(id){
-		comp.confirm("确定要删除该配置？",function(r){
-			if(r){
-				window.location.href="${rc.contextPath}/system/config/delete/"+id;
-			}
-		});
+	function delSysConfig(id,key){
+		var r=confirm("确定要删除key值为“"+key+"”的配置项吗？");
+		if(r){
+			window.location.href="${rc.contextPath}/system/config/delete/"+id;
+		}
 	}
 	function initAddValidate(){
 		$(".addSysConfigForm").compValidate({

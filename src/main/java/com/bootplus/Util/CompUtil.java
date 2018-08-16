@@ -1,5 +1,6 @@
 package com.bootplus.Util;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashMap;
@@ -117,5 +118,26 @@ public class CompUtil {
 			}
 		}
 		return sstr.toString();
+	}
+	public static String getCurDateDir() {
+		return DateUtil.getCurYear()+File.separator+DateUtil.getCurMonth()+File.separator+DateUtil.getCurDay()+File.separator;
+	}
+	/**
+	 * 无头有尾
+	 * a/b/c/
+	 * @return
+	 */
+	public static String formatDir(String path) {
+		if(!"".equals(path)){
+			String firstChar = path.substring(0,1);
+			String lastChar = path.substring(path.length()-1,path.length());
+			if("/".equals(firstChar)||"\\".equals(firstChar)){
+				path=path.substring(1);
+			}
+			if(!"/".equals(lastChar)&&!"\\".equals(lastChar)) {
+				path=path+File.separator;
+			}
+		}
+		return path;
 	}
 }

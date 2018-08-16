@@ -32,6 +32,10 @@ public class Constants {
 	/**
 	 * 默认密码的key值
 	 */
-	public static final String SYSTEM_DIC_DEFAULT_PASSWORD_KEY= "DEFAULT_PASSWORD";
-	
+	public static final String SYSTEM_DIC_SYSTEMCONFIG_DEFAULT_PASSWORD_KEY= "DEFAULT_PASSWORD";
+	/**
+	 * 系统配置中设置的附件上传目录
+	 */
+	public static final String SYSTEM_DIC_SYSTEMCONFIG_UPLOADPATH_KEY= "UPLOADPATH";
+	public static final String SESSION_USER_KEY="sessionUser";
 }
