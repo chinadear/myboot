@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-			    <label for="config_key" class="col-sm-2 control-label"><font color="red">*</font>姓名：</label>
+			    <label for="config_key" class="col-sm-2 control-label"><font color="red">*</font>实名：</label>
 		   		<div class="col-sm-9">
 					<input type="text" class="form-control" id="realName" name="realName" maxlength="20" value="" placeholder="用户名">
 				</div>

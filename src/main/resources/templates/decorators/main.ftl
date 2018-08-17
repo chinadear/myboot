@@ -47,5 +47,6 @@
 <script src="${rc.contextPath}/lib/validation/jquery.validate.min.js"></script>
 <script src="${rc.contextPath}/lib/sticky/sticky.js"></script>
 <script src="${rc.contextPath}/js/myjs_message_cn.js"></script>
+<script src="${rc.contextPath}/lib/turnPage/extendPagination.js"></script>
 </body>
 </html>

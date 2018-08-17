@@ -56,3 +56,12 @@ div.shade{
 /*遮罩层 end*/
 label.error{color:red;}
 .logo-img{max-width:50px;max-height:50px;}
+.form-horizontal .control-label-left{    
+	padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;}
+.hr-bottom{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 0;
+    border-bottom: 1px solid #eee;}

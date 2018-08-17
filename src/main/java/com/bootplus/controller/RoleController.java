@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
+import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Resource;
 import com.bootplus.model.Role;
 import com.bootplus.model.SysConfig;
@@ -45,9 +46,24 @@ public class RoleController extends BaseController {
 	 */
 	@RequestMapping("/role/list")
 	public String loginPage(Model model, HttpServletRequest request) {
-		List<Role> rlist=roleService.queryRoleList(new Role());
-		model.addAttribute("roleList", rlist);
+		Page page=roleService.queryRolePage(new Role(),1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("roleList", page);
 		return RESOURCE_MENU_PREFIX+"/roleList";
+	}
+	/**
+	 * 加载角色列表
+	 * totalCount:200,//总记录数
+	    showPage:5,//分页栏显示页数，其他页数...代替
+	    limit:8,//每页显示记录数
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/noSitemesh/role/loadroletable")
+	public String loadroletable(Model model, HttpServletRequest request,String pageNo) {
+		Page page=roleService.queryRolePage(new Role(),StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("roleList", page);
+		return RESOURCE_MENU_PREFIX+"/roleTable";
 	}
 	/**
 	 * 初始化编辑框

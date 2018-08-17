@@ -2,6 +2,7 @@ package com.bootplus.service;
 
 import java.util.List;
 
+import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Role;
 
 public interface IRoleService {
@@ -11,4 +12,5 @@ public interface IRoleService {
 	public void update(Role role);
 	public void delete(Role role);
 	public Role findRoleById(String id);
+	public Page queryRolePage(Role role,int pageNo, int pageSize);
 }

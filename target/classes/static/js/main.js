@@ -35,7 +35,7 @@ resizefun();
 function resizefun(){
 	pingHeight=document.documentElement.clientHeight;
 	pingWidth=document.documentElement.clientWidth;
-	$(".innerScroll").css({"height":pingHeight-191})//191=banner50+inner-header45+footer40+navbar56
+	$(".innerScroll").css({"height":pingHeight-171})//171=(banner)50+(inner-header)45+(footer)40+(navbar)36
 	$(".content-wrapper").css({"height":pingHeight-90})//body(业务页面)区域，包括inner-header所以只减90=banner+footer
 	$(".content-wrapper").css({"padding-top":50})//body区域下移50防止banner遮挡
 	$(".sidebar-menu").css({"height":pingHeight-50})//左侧菜单下移防止banner遮挡

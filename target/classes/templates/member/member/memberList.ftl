@@ -16,7 +16,7 @@
 					<tr>
 						<th width="5%">编号</th>
 						<th>昵称</th>
-						<th>姓名</th>
+						<th>实名</th>
     					<th>手机号</th>
     					<th>QQ号</th>
     					<th>Email</th>

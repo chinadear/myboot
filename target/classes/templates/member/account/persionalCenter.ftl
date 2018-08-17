@@ -32,42 +32,49 @@
  		<div class="col-md-9">
  			<div class="row" id="viewpersional" style="margin-top:10px;">
  				<div class="col-md-12">
-					<div class="form-group">
-					    <label for="config_key" class="col-sm-2 control-label">昵称：</label>
-				   		<div class="col-sm-9">
-							<label class="col-sm-4 control-label">${(userLogin.userId.name!)?html}</label>
+ 					<form class="form-horizontal">
+						<div class="form-group">
+						    <label for="config_key" class="col-sm-2 control-label">昵称：</label>
+					   		<div class="col-sm-9">
+								<p class="col-sm-4 form-control-static">${(userLogin.userId.name!)?html}</p>
+							</div>
 						</div>
-					</div>
-					<div class="form-group"><h4>
-					    <label for="config_key" class="col-sm-2 control-label">姓名：</label>
-				   		<div class="col-sm-9">
-							<label class="col-sm-4 control-label">${(userLogin.userId.realName!)?html}</label>
-						</div></h4>
-					</div>
-					<div class="form-group">
-						<label for="config_value" class="col-sm-2 control-label">账户：</label>
-						<div class="col-sm-9">
-				   			<label class="col-sm-4 control-label">${(userLogin.username!)?html}</label>
+						<div class="hr-bottom"></div>
+						<div class="form-group">
+						    <label for="config_key" class="col-sm-2 control-label">实名：</label>
+					   		<div class="col-sm-9">
+								<p class="col-sm-4 form-control-static">${(userLogin.userId.realName!)?html}</p>
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="config_comment" class="col-sm-2 control-label">手机号：</label>
-						<div class="col-sm-9">
-							<label class="col-sm-4 control-label">${(userLogin.userId.phone!)?html}</label>
+						<div class="hr-bottom"></div>
+						<div class="form-group">
+							<label for="config_value" class="col-sm-2 control-label">账号：</label>
+							<div class="col-sm-9">
+					   			<p class="col-sm-4 form-control-static">${(userLogin.username!)?html}</p>
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="config_comment" class="col-sm-2 control-label">QQ号：</label>
-						<div class="col-sm-9">
-							<label class="col-sm-4 control-label">${(userLogin.userId.qq!)?html}</label>
+						<div class="hr-bottom"></div>
+						<div class="form-group">
+							<label for="config_comment" class="col-sm-2 control-label">手机号：</label>
+							<div class="col-sm-9">
+								<p class="col-sm-4 form-control-static">${(userLogin.userId.phone!)?html}</p>
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="config_comment" class="col-sm-2 control-label">Email：</label>
-						<div class="col-sm-9">
-							<label class="col-sm-4 control-label">${(userLogin.userId.email!)?html}</label>
+						<div class="hr-bottom"></div>
+						<div class="form-group">
+							<label for="config_comment" class="col-sm-2 control-label">QQ号：</label>
+							<div class="col-sm-9">
+								<p class="col-sm-4 form-control-static">${(userLogin.userId.qq!)?html}</p>
+							</div>
 						</div>
-					</div>
+						<div class="hr-bottom"></div>
+						<div class="form-group">
+							<label for="config_comment" class="col-sm-2 control-label">Email：</label>
+							<div class="col-sm-9">
+								<p class="col-sm-4 form-control-static">${(userLogin.userId.email!)?html}</p>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 			<div class="row" style="display:none;margin-top:10px;" id="editpersional">

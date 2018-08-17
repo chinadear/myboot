@@ -22,7 +22,7 @@
 							src="${rc.contextPath}/account/headerimg/${sessionUser.userId}"
 							class="img-circle" alt="User Image">
 							<p>
-								<#if sessionUser??>${sessionUser.name!} </#if><small>上次登录时间：<#if sessionUser??>${sessionUser.lastLoginDate!} </#if></small>
+								<#if sessionUser??>${sessionUser.name!} </#if><small>上次登录：<#if sessionUser??>${sessionUser.lastLoginDate!} </#if></small>
 								<small><a href="${rc.contextPath}/account/persional/center" style="color:#000;">[个人中心]</a></small>
 							</p>
 						</li>

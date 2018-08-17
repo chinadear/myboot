@@ -2974,10 +2974,10 @@ table.text-center th {
   }
 }
 .modal-header {
-  border-bottom-color: #f4f4f4;
+  border-bottom-color: #e6e1e1;
 }
 .modal-footer {
-  border-top-color: #f4f4f4;
+  border-top-color: #e6e1e1;
 }
 .modal-primary .modal-header,
 .modal-primary .modal-footer {

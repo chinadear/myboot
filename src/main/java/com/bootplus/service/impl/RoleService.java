@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bootplus.core.base.BaseServiceImpl;
+import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.IRoleDao;
 import com.bootplus.model.Role;
 import com.bootplus.service.IRoleService;
@@ -46,6 +47,12 @@ public class RoleService extends BaseServiceImpl implements IRoleService {
 	public Role findRoleById(String id) {
 		// TODO Auto-generated method stub
 		return (Role)roleDao.get(Role.class, id);
+	}
+
+	@Override
+	public Page queryRolePage(Role role, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return roleDao.queryRolePage(role, pageNo, pageSize);
 	}
 
 }

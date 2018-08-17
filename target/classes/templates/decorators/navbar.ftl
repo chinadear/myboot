@@ -1,4 +1,4 @@
-<ol class="breadcrumb">
+<ol class="breadcrumb" style="margin-bottom:0;border-bottom: 1px solid #e6e1e1;"><!-- nav 的高度减少20px,因为breadcrumb中的margin-bottom的20px去掉了 -->
 <#if sessionUser?? && sessionUser.navList?? && sessionUser.navList?size gt 0>
 	<#list sessionUser.navList as nav>
 		<#if nav_index!=0>

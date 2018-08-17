@@ -10,37 +10,12 @@
 </div>
 <div class="container-fluid innerScroll">
 	<div class="row ">
-		<div class="col-md-12">
-			<table class="table table-bordered table-striped  table-hover tablecut" id="smpl_tbl">
-				<thead>
-					<tr>
-						<th width="5%">编号</th>
-						<th>角色名称</th>
-						<th>角色编码</th>
-    					<th>角色类型</th>
-    					<th>备注</th>
-    					<th width="8%">操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<#if roleList??>
-						<#list roleList as r>
-							<tr>   
-				                <td>${r_index+1}</td>
-				                <td class="autocut">${(r.name!)?html}</td>
-				                <td class="autocut">${(r.code!)?html}</td>
-				                <td class="autocut"><#if r.type??><#if r.type=='1'>系统角色<#else>成员角色</#if></#if></td>
-				                <td class="autocut">${(r.comments!)?html}</td>
-				                <td>
-									<a href="#" onclick="editRole('${r.id!}')" title="修改角色"><i class="glyphicon glyphicon-edit"></i></a>
-									<a href="#" onclick="deleteRole('${r.id!}','${r.name}')" title="删除角色"><i class="glyphicon glyphicon-trash"></i></a>
-				                </td>  
-		               		</tr>  
-						</#list>
-					</#if>
-				</tbody>
-			</table>
+		<div class="col-md-12 roletable-balabala">
+			<#include "roleTable.ftl">
 		</div>
+	</div>
+	<div class="row ">
+		<div id="callBackPager" style="position:fixed;bottom:25px;right:15px;/*float:right; margin-right:15px;margin-top:-35px; */"></div>
 	</div>
 </div>
 <!--增加角色页面-->
@@ -80,7 +55,21 @@
 	</div><!-- /.modal-dialog -->  
 </div><!-- /.modal -->
  <script type="text/javascript">
+	function roleTable(currPage, limit, total) {
+		$(".roletable-balabala").load("${rc.contextPath}/noSitemesh/role/loadroletable",{pageNo:currPage},function(){});
+	}
+	function callBackPagination() {
+	    $('#callBackPager').extendPagination({
+	        totalCount:${roleList.totalCount},//总记录数
+	        showPage:5,//分页栏显示页数，其他页数...代替
+	        limit:10,//每页显示记录数
+	        callback: function (curr, limit, totalCount) {//curr当前页数
+	            roleTable(curr, limit, totalCount);
+	        }
+	    });
+	}
  	window.onload = function(){
+ 		callBackPagination();
  		//编辑
  		comp.validate.addRemote("roleNameIsExsit","${rc.contextPath}/role/isExsit/name",{name:function(){return $("#name").val();},id:function(){return $("#id").val();}},"角色名称有重复");
 		comp.validate.addRemote("roleCodeIsExsit","${rc.contextPath}/role/isExsit/code",{code:function(){return $("#code").val();},id:function(){return $("#id").val();}},"角色编码有重复");
