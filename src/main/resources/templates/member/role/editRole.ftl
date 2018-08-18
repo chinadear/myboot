@@ -14,7 +14,7 @@
  	<div class="form-group">
 	    <label class="col-sm-2 control-label">角色类型</label>
 	    <div class="col-sm-9">
-	    <select name="type" id="type">
+	    <select name="type" id="type" class="form-control">
     		<#if role.type?? && role.type=='1'>
 		    	<option value="1" selected>系统角色</option>
     		<#else>

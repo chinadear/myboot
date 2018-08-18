@@ -86,7 +86,7 @@ public class LoginController extends BaseController{
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping("/noSecurity/auth/getKaptchaImage")
+	@RequestMapping("/auth/noSecurity/getKaptchaImage")
     public void getKaptchaImage(Model model, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		response.setDateHeader("Expires", 0);
         // Set standard HTTP/1.1 no-cache headers.

@@ -26,6 +26,8 @@ public class UserSession implements Serializable {
 	private String curParentMenuId;
 	//上次登录时间
 	private Date lastLoginDate;
+	//sidebar的状态，1展开，0收缩
+	private String sidebarStatus;
 	
 	public String getUserId() {
 		return userId;
@@ -74,6 +76,12 @@ public class UserSession implements Serializable {
 	}
 	public void setLastLoginDate(Date lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
+	}
+	public String getSidebarStatus() {
+		return sidebarStatus;
+	}
+	public void setSidebarStatus(String sidebarStatus) {
+		this.sidebarStatus = sidebarStatus;
 	}
 	
 }

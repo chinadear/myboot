@@ -109,7 +109,7 @@
  		comp.showModal('addModal');
  	}
  	function editsysconfig(id){
- 		$("#edittemp").load("${rc.contextPath}/noSitemesh/system/config/initEdit",{"id":id},function(){
+ 		$("#edittemp").load("${rc.contextPath}/system/noSitemesh/config/initEdit",{"id":id},function(){
 			initEditValidate();
 	 	});
  		comp.showModal('editModal');

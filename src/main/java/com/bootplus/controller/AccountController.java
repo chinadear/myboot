@@ -29,12 +29,17 @@ import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
+import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Resource;
+import com.bootplus.model.Role;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.UFile;
 import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
+import com.bootplus.model.UserRole;
+import com.bootplus.service.IAuthService;
 import com.bootplus.service.ILoginService;
+import com.bootplus.service.IRoleService;
 import com.bootplus.service.ISysManageService;
 /**
  * 账号管理
@@ -51,6 +56,10 @@ public class AccountController extends BaseController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private ISysManageService sysManageService;
+	@Autowired 
+	private IAuthService authService;
+	@Autowired
+	private IRoleService roleService;
 	/**
 	 * 账号管理
 	 * @param model
@@ -59,9 +68,22 @@ public class AccountController extends BaseController {
 	 */
 	@RequestMapping("/account/list")
 	public String loginPage(Model model, HttpServletRequest request) {
-		List<UserLogin> ullist=loginService.queryUserLoginList();
-		model.addAttribute("accountList", ullist);
+		Page page=loginService.queryUserLoginPage(1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/accountList";
+	}
+	/**
+	 * 翻页刷新列表数据
+	 * @param model
+	 * @param request
+	 * @param pageNo
+	 * @return
+	 */
+	@RequestMapping("/account/noSitemesh/loadaccounttable")
+	public String loadaccounttable(Model model, HttpServletRequest request,String pageNo) {
+		Page page=loginService.queryUserLoginPage(StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
+		return RESOURCE_MENU_PREFIX+"/accountTable";
 	}
 	/**
 	 * 重置密码
@@ -89,9 +111,17 @@ public class AccountController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/noSitemesh/account/editAccount")
+	@RequestMapping("/account/noSitemesh/editAccount")
 	public String editAccount(Model model,String id){
 		UserLogin ul=loginService.findUserLoginById(id);
+		UserRole ur=new UserRole();
+		ur.setUser(ul.getUserId());
+		List<UserRole> urlist=authService.queryUserRoleList(ur);
+		if(urlist.size()>0) {
+			ul.getUserId().setRoleId(urlist.get(0).getRole().getId());
+		}
+		List<Role> rl=roleService.queryRoleList(new Role());
+		model.addAttribute("roles", rl);
 		model.addAttribute("userLogin", ul);
 		return RESOURCE_MENU_PREFIX+"/accountEdit";
 	}
@@ -103,6 +133,8 @@ public class AccountController extends BaseController {
 	 */
 	@RequestMapping("/account/addAccount")
 	public String addAccount(Model model, HttpServletRequest request) {
+		List<Role> rl=roleService.queryRoleList(new Role());
+		model.addAttribute("roles", rl);
 		return RESOURCE_MENU_PREFIX+"/accountAdd";
 	}
 	/**
@@ -112,7 +144,7 @@ public class AccountController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/account/add")
-	public String add(Model model, @RequestParam("file") MultipartFile file, HttpServletRequest request,User user,UserLogin userLogin) {
+	public String add(Model model,HttpServletRequest request,User user,UserLogin userLogin) {
 		user.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		user.setUserType(Constants.SYSTEM_DIC_USERTYPE_USER);
 		loginService.save(user);
@@ -121,6 +153,14 @@ public class AccountController extends BaseController {
 		userLogin.setPassword(passwordEncoder.encode(pwd));
 		userLogin.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		loginService.save(userLogin);
+		if(!"0".equals(user.getRoleId())) {//不等于0证明设置了角色
+			Role role=new Role();
+			role.setId(user.getRoleId());
+			UserRole ur=new UserRole();
+			ur.setUser(user);
+			ur.setRole(role);
+			authService.saveUserRole(ur);
+		}
 		return "redirect:/account/list";
 	}
 	/**
@@ -153,6 +193,17 @@ public class AccountController extends BaseController {
 		u.setQq(user.getQq());
 		u.setEmail(user.getEmail());
 		loginService.update(u);
+		if(StringUtils.hasText(user.getRoleId())) {//防止个人中心 修改过来的请求可能为空
+			authService.deleteUserRolesByUserId(user.getId());
+			if(!"0".equals(user.getRoleId())) {
+				Role role = new Role();
+				role.setId(user.getRoleId());
+				UserRole ur = new UserRole();
+				ur.setUser(u);
+				ur.setRole(role);
+				authService.saveUserRole(ur);
+			}
+		}
 		if(StringUtils.hasText(flag)) {//不为空，表示是从个人中心修改个人信息处跳转过来的
 			return "redirect:/account/persional/center";
 		}else {
@@ -173,6 +224,15 @@ public class AccountController extends BaseController {
 		navList.add("个人中心");
 		us.setNavList(navList);
 		UserLogin userLogin=loginService.findUserLoginByName(us.getLoginName());
+		UserRole ur=new UserRole();
+		ur.setUser(userLogin.getUserId());
+		List<UserRole> urlist=authService.queryUserRoleList(ur);
+		if(urlist.size()>0) {
+			userLogin.getUserId().setRoleId(urlist.get(0).getRole().getId());
+			model.addAttribute("roleName", urlist.get(0).getRole().getName());
+		}
+		List<Role> rl=roleService.queryRoleList(new Role());
+		model.addAttribute("roles", rl);
 		model.addAttribute("userLogin", userLogin);
 		return RESOURCE_MENU_PREFIX+"/persionalCenter";
 	}
@@ -275,7 +335,7 @@ public class AccountController extends BaseController {
 		String flag="true";
 		User user=new User();
 		user.setName(name);
-		List<User> ulist=loginService.queryUser(user);
+		List<User> ulist=loginService.queryUserList(user);
 		if(ulist.size()>0) {//=0直接返回true
 			if(StringUtils.hasText(id)) {//编辑情况下要判断是否是自身的情况
 				if(ulist.size()==1&&ulist.get(0).getId().equals(id)) {//有一个且是他自己

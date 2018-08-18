@@ -18,7 +18,12 @@ public interface IResourceService {
 	public boolean isExistByParentAndName(Resource parent, String name, String id);
 	public boolean isExistMenuByCode(String code,String id);
 	public void deleteResourcesByParent(Resource parent);
-	public Resource getSidebarMenu();
+	/**
+	 * 获取sidebar菜单，带权限过滤，通过用户权限过滤有权限的菜单
+	 * @param userId
+	 * @return
+	 */
+	public Resource getSidebarMenu(String userId);
 	public void update(Resource res);
 	//交换资源序号
 	public void swapSeqNum(Resource source,Resource target);

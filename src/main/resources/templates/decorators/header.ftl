@@ -12,6 +12,7 @@
 			role="button"></a> <span class="all_title"></span>
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
+				<li class="glyphicon glyphicon-envelope" style="color:#ffffff;margin-top:15px;font-size:20px;cursor:pointer;" onclick="aa();" title="消息"><span class="badge" style="background-color:#ffffff;color:#000">4</span></li>
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
 						src="${rc.contextPath}/account/headerimg/${sessionUser.userId}"
@@ -32,8 +33,12 @@
 							</div>
 						</li>
 					</ul></li>
-
 			</ul>
 		</div>
 	</nav>
+<script type="text/javascript">
+	function aa(){
+		comp.message("您有4个消息");
+	}
+</script>
 </header>

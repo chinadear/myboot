@@ -23,7 +23,7 @@
         </div>
         <div class="input-group" style="width: 259px;float: right;position: relative;">
 	    	<input type="text" name="kaptcha" style="text-align:center;height:56.5px;width:80px;position: relative;bottom: 32px;border:10px solid #e3e7ea;background-color: #f5f6f7;border-top-left-radius: 5px;border-bottom-left-radius: 5px;" placeholder="验证码">
-			<img src="${rc.contextPath}/noSecurity/auth/getKaptchaImage" onclick="this.src='${rc.contextPath}/noSecurity/auth/getKaptchaImage?abc='+Math.random()" style="position: relative;width:80px;height:75.5px;left: -2.5px;border-bottom-right-radius: 5px;top: 1.7px;" class="captcha changeCaptcha pull-left margin-r-5" title="看不清楚？点一下"/>
+			<img src="${rc.contextPath}/auth/noSecurity/getKaptchaImage" onclick="this.src='${rc.contextPath}/auth/noSecurity/getKaptchaImage?abc='+Math.random()" style="position: relative;width:80px;height:75.5px;left: -2.5px;border-bottom-right-radius: 5px;top: 1.7px;" class="captcha changeCaptcha pull-left margin-r-5" title="看不清楚？点一下"/>
 	    	<button class="button" id="submit" type="submit" style="position: relative;left: -27px;top: -8.2px;">登录</button>
         </div>
     </div>

@@ -14,7 +14,7 @@
  	<div class="form-group">
 	    <label class="col-sm-2 control-label">角色类型</label>
 	    <div class="col-sm-9">
-	    <select name="type_" id="type_">
+	    <select name="type_" id="type_" class="form-control">
 	    	<option value="1">系统角色</option>
 	    	<option value="2">成员角色</option>
 	    </select>

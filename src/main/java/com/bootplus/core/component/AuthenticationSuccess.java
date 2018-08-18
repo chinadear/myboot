@@ -55,7 +55,7 @@ public class AuthenticationSuccess implements AuthenticationSuccessHandler {
 		userSession.setLoginName(ul.getUsername());
 		userSession.setName(ul.getUserId().getName());
 		userSession.setUserId(ul.getUserId().getId());
-		userSession.setResource(resourceService.getSidebarMenu());
+		userSession.setResource(resourceService.getSidebarMenu(ul.getUserId().getId()));
 		request.getSession().setAttribute(userSession.SESSION_USER_KEY, userSession);
 		User user=ul.getUserId();
 		userSession.setLastLoginDate(user.getLastLoginTime());

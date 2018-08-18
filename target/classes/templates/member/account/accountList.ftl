@@ -10,48 +10,12 @@
 </div>
 <div class="container-fluid innerScroll">
 	<div class="row ">
-		<div class="col-md-12">
-			<table class="table table-bordered table-striped  table-hover tablecut" id="smpl_tbl">
-				<thead>
-					<tr>
-						<th width="5%">编号</th>
-						<th>昵称</th>
-    					<th>账号</th>
-						<th>实名</th>
-    					<th>手机号</th>
-    					<th>QQ号</th>
-    					<th>Email</th>
-    					<th>上次登录日期</th>
-    					<th>创建日期</th>
-    					<th width="8%">操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<#if accountList??>
-						<#list accountList as al>
-							<tr>   
-				                <td>${al_index+1}</td>
-				                <td class="autocut">${(al.userId.name!)?html}</td>
-				                <td class="autocut">${(al.username!)?html}</td>
-				                <td class="autocut">${(al.userId.realName!)?html}</td>
-				                <td class="autocut">${(al.userId.phone!)?html}</td>
-				                <td class="autocut">${(al.userId.qq!)?html}</td>
-				                <td class="autocut">${(al.userId.email!)?html}</td>
-				                <td class="autocut">${al.userId.lastLoginTime!}</td>
-				                <td class="autocut">${al.createTime!}</td>
-				                <td>
-									<a href="#" onclick="editAccount('${al.id}')" title="修改"><i class="glyphicon glyphicon-edit"></i></a>
-									<a href="#" onclick="resetPassword('${al.id}','${al.username!}')" title="重置密码"><i class="glyphicon glyphicon-lock"></i></a>
-				                	<#if al.userId.userType!='0'>
-				                		<a href="#" onclick="delAccount('${al.id}','${al.username!}')" title="删除"><i class="glyphicon glyphicon-trash"></i></a>
-									</#if>
-				                </td>  
-		               		</tr>  
-						</#list>
-					</#if>
-				</tbody>
-			</table>
+		<div class="col-md-12" id="accounttable">
+			<#include "accountTable.ftl">
 		</div>
+	</div>
+	<div class="row ">
+		<div class="paging-component"></div>
 	</div>
 </div>
 <!--修改账户页面-->
@@ -75,10 +39,25 @@
  <script type="text/javascript">
  	window.onload = function(){
  		comp.validate.addRemote("nameIsExsit","${rc.contextPath}/account/isExsit/name",{name:function(){return $('#name').val();},id:function(){return $("#id").val();}},"此昵称已存在");
+ 		callBackPagination();
  	}
+ 	function accountTable(currPage) {
+		$("#accounttable").load("${rc.contextPath}/account/noSitemesh/loadaccounttable",{pageNo:currPage},function(){});
+	}
+	//翻页组件初始化，翻页组件暂时职能采用table的load来刷新翻页的列表
+	function callBackPagination() {
+	    $('.paging-component').extendPagination({
+	        totalCount:${page.totalCount},//总记录数
+	        showPage:5,//分页栏显示页数，其他页数...代替
+	        limit:10,//每页显示记录数
+	        callback: function (curr, limit, totalCount) {//curr当前页数
+	            accountTable(curr);
+	        }
+	    });
+	}
  	//弹出编辑窗口
  	function editAccount(id){
- 		$("#edittemp").load("${rc.contextPath}/noSitemesh/account/editAccount",{"id":id},function(){
+ 		$("#edittemp").load("${rc.contextPath}/account/noSitemesh/editAccount",{"id":id},function(){
 			initEditValidate();
 	 	});
  		comp.showModal('editModal');

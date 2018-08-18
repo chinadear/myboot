@@ -1,14 +1,14 @@
 <aside class="main-sidebar" style="position:fixed;">
 	<section class="sidebar">
 		<ul class="sidebar-menu">
-		<!--li class="active"-->
 		<#if sessionUser??>
 			<#if (!sessionUser.curMenuId??)||sessionUser.curMenuId=='0'>
 				<li class="active">
 			<#else>
-				<li >
+				<li>
 			</#if>
-					<a href="${rc.contextPath}/security/dispatcher/0">
+					<!-- <a href="${rc.contextPath}/security/dispatcher/0"> -->
+					<a href="##" onclick="dispatcher('0');">
 						<i class="fa fa-home" style="font-size: 22px"></i> 
 						<span>首页</span>
 					</a>
@@ -23,7 +23,7 @@
 								<li class="treeview">
 							</#if>
 								<a href="#"> 
-									<i class="fa fa-sliders"></i>
+									<i class="${m.classCode!}"></i>
 									<span>
 										<#if m.name?length gt 10>
 											${m.name?substring(0,10)}...
@@ -37,13 +37,13 @@
 								</a>	
 								<ul class="treeview-menu">
 									<#list  m.childList as mc>
-									<#if sessionUser.curMenuId??&&sessionUser.curMenuId==mc.id>
-										<li class="active">
-									<#else>
-										<li>
-									</#if>
-										<a href="${rc.contextPath}/security/dispatcher/${mc.id}"><i class="fa fa-bookmark"></i>${mc.name!}</a>
-									</li>
+										<#if sessionUser.curMenuId??&&sessionUser.curMenuId==mc.id>
+											<li class="active">
+										<#else>
+											<li>
+										</#if>
+											<a href="##" onclick="dispatcher('${mc.id}');"><i class="${mc.classCode!}"></i>${mc.name!}</a>
+										</li>
 									</#list>
 								</ul>
 							</li>
@@ -52,58 +52,22 @@
 								<li class="active">
 							<#else>
 								<li>
-							</#if>
-							<a href="${rc.contextPath}/security/dispatcher/${m.id}"> <i class="fa fa-eye"></i> <span>${m.name!}</span></a></li>
+							</#if><!-- ${rc.contextPath}/security/dispatcher/${m.id} -->
+							<a href="##" onclick="dispatcher('${m.id}')"> <i class="${m.classCode!}"></i> <span>${m.name!}</span></a></li>
 						</#if>
 					</#list>
 				</#if>
 			</#if>
 		</#if>
-<!-- 		
-			<li >
-				<a href="${rc.contextPath}/">
-					<i class="fa fa-home" style="font-size: 22px"></i> 
-					<span>首页</span>
-				</a>
-			</li>
-			<li><a href="${rc.contextPath}/resource/list"> <i class="fa fa-eye"></i> <span>菜单管理</span></a></li>
-			<li><a href="##"> <i class="fa fa-print"></i> <span>运行监测</span></a></li>
-			<li class="treeview">
-				<a href="#"> 
-					<i class="fa fa-sliders"></i>
-					<span>负荷响应</span> 
-					<span class="pull-right-container"> 
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li><a href="xyxgpj.html"><i class="fa fa-bookmark"></i>响应效果评价</a></li>
-					<li><a href="fhxyfx.html"><i class="fa fa-bookmark"></i>负荷响应分析</a></li>
-					<li><a href="xyfagl.html"><i class="fa fa-bookmark"></i>响应方案管理</a></li>
-				</ul>
-			</li>
-			<li><a href="yjgl.html"> <i class="fa fa-bell"></i> <span>预警管理</span></a></li>
-			<li class="treeview">
-				<a href="#"> 
-					<i class="fa fa-gears"></i>
-					<span>设备管理</span> 
-					<span class="pull-right-container"> 
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li><a href="sbrk.html"><i class="fa fa-bookmark"></i>
-							设备入库</a></li>
-					<li><a href="sbaz.html"><i class="fa fa-bookmark"></i>
-							设备安装</a></li>
-					<li><a href="sbjx.html"><i class="fa fa-bookmark"></i>
-							设备检修</a></li>
-					<li><a href="sbbf.html"><i class="fa fa-bookmark"></i>
-							设备报废</a></li>
-					<li><a href="sbcx.html"><i class="fa fa-bookmark"></i>
-							设备查询</a></li>
-				</ul>
-			</li> -->
 		</ul>	
 	</section>
 </aside>
+<script type="text/javascript">
+function dispatcher(id){
+	if($("body").hasClass("sidebar-collapse")){
+		window.location.href="${rc.contextPath}/security/dispatcher/"+id+"/0";
+	}else{
+		window.location.href="${rc.contextPath}/security/dispatcher/"+id+"/1";
+	}
+}
+</script>

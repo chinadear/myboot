@@ -77,7 +77,7 @@ public class SysManageController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/noSitemesh/system/config/initEdit")
+	@RequestMapping("/system/noSitemesh/config/initEdit")
 	public String initEdit(Model model, HttpServletRequest request,String id) {
 		SysConfig sc=sysManageService.getSysConfigById(id);
 		model.addAttribute("sysconfig", sc);

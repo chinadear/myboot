@@ -111,7 +111,7 @@
 		if(nodes[0].level!=2){
 			$("#smpl_tbl").show();
 			$("#addChildbtn").show();			
-			$("#smpl_tbl").load("${rc.contextPath}/noSitemesh/resource/childlist",{"pId":nodes[0].id,"level":nodes[0].level},function(){});
+			$("#smpl_tbl").load("${rc.contextPath}/resource/noSitemesh/childlist",{"pId":nodes[0].id,"level":nodes[0].level},function(){});
 		}else{
 			$("#smpl_tbl").hide();
 			$("#addChildbtn").hide();
@@ -140,7 +140,7 @@
 		var node = treeObj.getNodeByParam("id", id, null);
 		var pnode=node.getParentNode();
 	 	$("#hpid").val(id);
-	 	$("#edittemp").load("${rc.contextPath}/noSitemesh/resource/initEditMenu",{"id":id,"fatherMenu":pnode.name},function(){
+	 	$("#edittemp").load("${rc.contextPath}/resource/noSitemesh/initEditMenu",{"id":id,"fatherMenu":pnode.name},function(){
 			initEditValidate();
 			//$(".addMenuForm").compReset();
 			ob();//触发图标预览
@@ -191,7 +191,7 @@
 					treeObj.selectNode(pnode);
 					comp.hideModal('addModal');
 					comp.message("菜单添加成功！");
-					$("#smpl_tbl").load("${rc.contextPath}/noSitemesh/resource/childlist",{"pId":nodes[0].id,"level":nodes[0].level},function(){});
+					$("#smpl_tbl").load("${rc.contextPath}/resource/noSitemesh/childlist",{"pId":nodes[0].id,"level":nodes[0].level},function(){});
 				}
 			});
 		}
@@ -217,7 +217,7 @@
 					success:function(data){ //请求成功后处理函数。  
 						treeObj.removeNode(node);
 						comp.message("菜单删除成功！");
-						$("#smpl_tbl").load("${rc.contextPath}/noSitemesh/resource/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
+						$("#smpl_tbl").load("${rc.contextPath}/resource/noSitemesh/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
 					}
 				});
 			}
@@ -250,7 +250,7 @@
 					treeObj.updateNode(node);	
 					comp.hideModal('editModal');
 					comp.message("菜单信息修改成功！");
-					$("#smpl_tbl").load("${rc.contextPath}/noSitemesh/resource/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
+					$("#smpl_tbl").load("${rc.contextPath}/resource/noSitemesh/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
 				}
 			});
 		}
@@ -284,7 +284,7 @@
 			},
 			success:function(data){ //请求成功后处理函数。  
 				treeObj.moveNode(preNode,node,"prev");
-				$("#smpl_tbl").load("${rc.contextPath}/noSitemesh/resource/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
+				$("#smpl_tbl").load("${rc.contextPath}/resource/noSitemesh/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
 			}
 		});
         
@@ -313,7 +313,7 @@
 			},
 			success:function(data){ //请求成功后处理函数。  
 				treeObj.moveNode(preNode,node,"next");
-				$("#smpl_tbl").load("${rc.contextPath}/noSitemesh/resource/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
+				$("#smpl_tbl").load("${rc.contextPath}/resource/noSitemesh/childlist",{"pId":pnode.id,"level":pnode.level},function(){});
 			}
 		});
     }

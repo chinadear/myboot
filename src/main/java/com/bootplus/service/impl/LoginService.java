@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bootplus.core.base.BaseServiceImpl;
+import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.IUserDao;
 import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
@@ -62,9 +63,9 @@ public class LoginService extends BaseServiceImpl implements ILoginService {
 	}
 
 	@Override
-	public List<User> queryUserList() {
+	public List<User> queryUserList(User user) {
 		// TODO Auto-generated method stub
-		return userDao.queryUserList();
+		return userDao.queryUserList(user);
 	}
 
 	@Override
@@ -80,9 +81,14 @@ public class LoginService extends BaseServiceImpl implements ILoginService {
 	}
 
 	@Override
-	public List<User> queryUser(User user) {
+	public Page queryUserLoginPage(int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
-		return userDao.queryUser(user);
+		return userDao.queryUserLoginPage(pageNo, pageSize);
 	}
 
+	@Override
+	public Page queryUserPage(User user,int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return userDao.queryUserPage(user, pageNo, pageSize);
+	}
 }

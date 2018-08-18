@@ -10,12 +10,12 @@
 </div>
 <div class="container-fluid innerScroll">
 	<div class="row ">
-		<div class="col-md-12 roletable-balabala">
+		<div class="col-md-12" id="roletable">
 			<#include "roleTable.ftl">
 		</div>
 	</div>
 	<div class="row ">
-		<div id="callBackPager" style="position:fixed;bottom:25px;right:15px;/*float:right; margin-right:15px;margin-top:-35px; */"></div>
+		<div class="paging-component"></div>
 	</div>
 </div>
 <!--增加角色页面-->
@@ -55,16 +55,17 @@
 	</div><!-- /.modal-dialog -->  
 </div><!-- /.modal -->
  <script type="text/javascript">
-	function roleTable(currPage, limit, total) {
-		$(".roletable-balabala").load("${rc.contextPath}/noSitemesh/role/loadroletable",{pageNo:currPage},function(){});
+	function roleTable(currPage) {
+		$("#roletable").load("${rc.contextPath}/role/noSitemesh/loadroletable",{pageNo:currPage},function(){});
 	}
+	//翻页组件初始化，翻页组件暂时职能采用table的load来刷新翻页的列表
 	function callBackPagination() {
-	    $('#callBackPager').extendPagination({
+	    $('.paging-component').extendPagination({
 	        totalCount:${roleList.totalCount},//总记录数
 	        showPage:5,//分页栏显示页数，其他页数...代替
 	        limit:10,//每页显示记录数
 	        callback: function (curr, limit, totalCount) {//curr当前页数
-	            roleTable(curr, limit, totalCount);
+	            roleTable(curr);
 	        }
 	    });
 	}
@@ -79,7 +80,7 @@
 		initAddValidate();
  	}
  	function editRole(id){
-	 	$("#edittemp").load("${rc.contextPath}/noSitemesh/role/editRole",{"id":id},function(){
+	 	$("#edittemp").load("${rc.contextPath}/role/noSitemesh/editRole",{"id":id},function(){
 			initEditValidate();
 	 	});
 		comp.showModal('editModal');

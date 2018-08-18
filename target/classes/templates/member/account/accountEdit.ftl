@@ -20,6 +20,30 @@
 		</div>
 	</div>
 	<div class="hr-bottom"></div>
+	<div class="form-group" id="persionalView" style="display:none;">
+		<label for="config_comment" class="col-sm-2 control-label">角色：</label>
+		<div class="col-sm-9">
+   			<p class="col-sm-4 form-control-static">${roleName!'游客'}</p>
+		</div>
+	</div>
+	<div class="form-group" id="accountView">
+		<label for="config_comment" class="col-sm-2 control-label">角色：</label>
+		<div class="col-sm-9">
+			<select name="roleId" id="roleId" class="form-control">
+				<option value="0">请选择...</option>
+				<#if roles?? && roles?size gt 0>
+					<#list roles as r>
+						<#if userLogin.userId.roleId?? && userLogin.userId.roleId==r.id>
+							<option value="${r.id}" selected>${r.name}</option>
+						<#else>
+							<option value="${r.id}">${r.name}</option>
+						</#if>
+					</#list>
+				</#if>
+			</select>
+		</div>
+	</div>
+	<div class="hr-bottom"></div>
 	<div class="form-group">
 		<label for="config_comment" class="col-sm-2 control-label">手机号：</label>
 		<div class="col-sm-9">

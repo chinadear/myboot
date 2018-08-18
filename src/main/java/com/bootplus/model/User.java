@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.bootplus.core.base.BaseModel;
 
@@ -46,6 +47,10 @@ public class User extends BaseModel implements Serializable {
 	//状态0，删除，1正常
 	@Column(name = "STATUS")
 	private String status;
+	//临时存储用户分配的角色，不持久化
+	@Transient
+	private String roleId;
+	
 	public String getName() {
 		return name;
 	}
@@ -124,5 +129,11 @@ public class User extends BaseModel implements Serializable {
 	}
 	public void setHeaderImg(UFile headerImg) {
 		this.headerImg = headerImg;
+	}
+	public String getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 }

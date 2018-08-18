@@ -48,7 +48,20 @@
 			<div class="form-group">
 			    <label for="config_key" class="col-sm-2 control-label"><font color="red">*</font>实名：</label>
 		   		<div class="col-sm-9">
-					<input type="text" class="form-control" id="realName" name="realName" maxlength="20" value="" placeholder="用户名">
+					<input type="text" class="form-control" id="realName" name="realName" maxlength="20" value="" placeholder="真实姓名">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="config_comment" class="col-sm-2 control-label">角色：</label>
+				<div class="col-sm-9">
+					<select name="roleId" id="roleId" class="form-control">
+						<option value="0">请选择...</option>
+						<#if roles?? && roles?size gt 0>
+							<#list roles as r> 
+								<option value="${r.id}">${r.name}</option>
+							</#list>
+						</#if>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
@@ -77,7 +90,7 @@
   <div class="row" style="text-align:center;">
   	<button type="button" class="btn btn-primary btn-sm optionbtn" id="pre" style="display:none;" onclick="pre();">上一步</button>
 	<button type="button" class="btn btn-primary btn-sm optionbtn" id="next" onclick="next();">下一步</button>
- 	<button type="button" class="btn btn-primary btn-sm optionbtn" id="submit" style="display:none;" onclick="submit();">submit</button>
+ 	<button type="button" class="btn btn-primary btn-sm optionbtn" id="submit" style="display:none;" onclick="submit();">提交</button>
   </div>
 </div>
 <input type="hidden" value="0" id="index">
@@ -158,8 +171,8 @@
 				email: {email:true,maxlength: 150}
 					},
 			messages:{
-				name:{required:"请为您自己起个昵称"},
-				realName:{required:"请填写您的姓名"},
+				name:{required:"请填写昵称"},
+				realName:{required:"请填写真实姓名"},
 				phone:{number:"请输入正确格式的手机号"},
 				qq: {number:"请输入正确格式的QQ号码"}
 				}

@@ -59,7 +59,7 @@ public class RoleController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/noSitemesh/role/loadroletable")
+	@RequestMapping("/role/noSitemesh/loadroletable")
 	public String loadroletable(Model model, HttpServletRequest request,String pageNo) {
 		Page page=roleService.queryRolePage(new Role(),StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("roleList", page);
@@ -71,7 +71,7 @@ public class RoleController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/noSitemesh/role/editRole")
+	@RequestMapping("/role/noSitemesh/editRole")
 	public String editRole(Model model,String id){
 		Role role=roleService.findRoleById(id);
 		model.addAttribute("role", role);

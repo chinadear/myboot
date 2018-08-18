@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import com.bootplus.Util.Constants;
 import com.bootplus.core.dao.impl.BaseDaoImpl;
+import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.IUserDao;
 import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
@@ -29,13 +30,7 @@ public class UserDao extends BaseDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public List<User> queryUserList() {
-		// TODO Auto-generated method stub
-		return (List<User>)this.query("from User where status='1' and userType=?", Constants.SYSTEM_DIC_USERTYPE_MEMBER);
-	}
-
-	@Override
-	public List<User> queryUser(User user) {
+	public List<User> queryUserList(User user) {
 		// TODO Auto-generated method stub
 		StringBuffer sb=new StringBuffer("from User where status='1' ");
 		Map paramMap = new HashMap();
@@ -49,6 +44,29 @@ public class UserDao extends BaseDaoImpl implements IUserDao {
 		}
 		sb.append(" order by updateTime");
 		return (List<User>)this.query(sb.toString(), paramMap);
+	}
+
+	@Override
+	public Page queryUserLoginPage(int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return this.pagedQuery("from UserLogin where status='1'", pageNo, pageSize, null);
+	}
+
+	@Override
+	public Page queryUserPage(User user,int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		StringBuffer sb=new StringBuffer("from User where status='1' ");
+		Map paramMap = new HashMap();
+		if(StringUtils.hasText(user.getName())) {
+			sb.append(" and name=:name");
+			paramMap.put("name", user.getName());
+		}
+		if(StringUtils.hasText(user.getUserType())) {
+			sb.append(" and userType=:userType");
+			paramMap.put("userType", user.getUserType());
+		}
+		sb.append(" order by updateTime");
+		return this.pagedQuery(sb.toString(), paramMap, pageSize, pageNo);
 	}
 
 }

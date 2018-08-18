@@ -42,10 +42,11 @@ public class MainController extends BaseController {
 		}
 		
 	}
-	@RequestMapping(value="/security/dispatcher/{id}")
-	public String menuDispatch(HttpServletRequest request, HttpServletResponse response,@PathVariable String id){
+	@RequestMapping(value="/security/dispatcher/{id}/{status}")
+	public String menuDispatch(HttpServletRequest request, HttpServletResponse response,@PathVariable String id,@PathVariable String status){
 		UserSession userSession=(UserSession)request.getSession().getAttribute(UserSession.SESSION_USER_KEY);
 		userSession.setCurMenuId(id);
+		userSession.setSidebarStatus(status);//1展开，0收缩
 		List<String> navList=new ArrayList<String>();
 		List<String> temp=new ArrayList<String>();
 		if("0".equals(id)) {//首页

@@ -1,15 +1,23 @@
 package com.bootplus.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseServiceImpl;
+import com.bootplus.dao.IAuthDao;
 import com.bootplus.dao.IResourceDao;
+import com.bootplus.dao.IUserDao;
+import com.bootplus.model.ResRole;
 import com.bootplus.model.Resource;
+import com.bootplus.model.User;
+import com.bootplus.model.UserRole;
 import com.bootplus.service.IResourceService;
 
 /**
@@ -37,7 +45,10 @@ public class ResourceService extends BaseServiceImpl implements IResourceService
 
 	@Autowired
 	private IResourceDao resourceDao;
-
+	@Autowired
+	private IAuthDao authDao;
+	@Autowired
+	private IUserDao userDao;
 	@Override
 	public void save(Resource res) {
 		// TODO Auto-generated method stub
@@ -142,16 +153,32 @@ public class ResourceService extends BaseServiceImpl implements IResourceService
 	 * 包含了childList
 	 */
 	@Override
-	public Resource getSidebarMenu() {
+	public Resource getSidebarMenu(String userId) {
 		// TODO Auto-generated method stub
 		List<Resource> list = resourceDao.getResourcesByCode(Constants.ROOT_MENU_BOOT_CODE);
-		if(list.size()==0) {
+		if(list.size()==0) {//没有菜单
 			return new Resource();
-		}else {
-			return iterationResource(list.get(0));
+		}else {//有菜单
+			User user=(User)userDao.get(User.class, userId);
+			if(Constants.SYSTEM_DIC_USERTYPE_ADMIN.equals(user.getUserType())) {
+				return iterationResource(list.get(0));//系统管理员看全部
+			}else {//普通用户
+				UserRole ur=new UserRole();
+				ur.setUser(user);
+				List<UserRole> urlist=authDao.queryUserRoleList(ur);
+				if(urlist.size()>0) {
+					ResRole rr=new ResRole();
+					rr.setRole(urlist.get(0).getRole());
+					List<ResRole> rrlist=authDao.queryResRoleList(rr);
+					Map<String,Boolean> map=list2Map(rrlist);
+					return iterationResource(list.get(0), map);
+				}else {
+					return new Resource();
+				}
+			}
 		}
 	}
-	
+	//迭代全部
 	public Resource iterationResource(Resource parent){
 		List<Resource> childList=this.getResourcesByParent(parent);
 		parent.setChildList(childList);
@@ -162,4 +189,34 @@ public class ResourceService extends BaseServiceImpl implements IResourceService
 		}
 		return parent;
 	}
+	//代权限迭代
+	public Resource iterationResource(Resource parent,Map<String,Boolean> map){
+		List<Resource> childList=this.getResourcesByParent(parent);
+		List<Resource> childtemp= new ArrayList<Resource>();
+		for(Resource res:childList) {
+			if(map.get(res.getId())!=null &&map.get(res.getId())) {
+				childtemp.add(res);
+			}
+		}
+		parent.setChildList(childtemp);
+		if(childtemp.size()>0) {
+			for(Resource r:childtemp) {
+				iterationResource(r,map);
+			}
+		}
+		return parent;
+	}
+	/**
+	 * list 转 map
+	 * @param list
+	 * @return
+	 */
+	public Map<String,Boolean> list2Map(List<ResRole> list){
+		Map<String,Boolean> map=new HashMap<String,Boolean>();
+		for(ResRole rr:list) {
+			map.put(rr.getResource().getId(),true);
+		}
+		return map;
+	}
+	
 }

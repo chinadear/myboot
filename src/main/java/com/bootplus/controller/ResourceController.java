@@ -83,7 +83,7 @@ public class ResourceController extends BaseController {
 	 * @param pId
 	 * @return
 	 */
-	@RequestMapping("/noSitemesh/resource/childlist")
+	@RequestMapping("/resource/noSitemesh/childlist")
 	public String getChildMenuNodes(Model model, String pId, String level){
 		Resource res=new Resource();
 		res.setId(pId);
@@ -98,7 +98,7 @@ public class ResourceController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/noSitemesh/resource/initEditMenu")
+	@RequestMapping("/resource/noSitemesh/initEditMenu")
 	public String initEditMenu(Model model,String id,String fatherMenu){
 		Resource res = resourceService.getResourceById(id);
 		model.addAttribute("res", res);
