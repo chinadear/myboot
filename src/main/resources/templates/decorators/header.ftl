@@ -15,16 +15,16 @@
 				<li class="glyphicon glyphicon-envelope" style="color:#ffffff;margin-top:15px;font-size:20px;cursor:pointer;" onclick="aa();" title="消息"><span class="badge" style="background-color:#ffffff;color:#000">4</span></li>
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="${rc.contextPath}/account/headerimg/${sessionUser.userId}"
+						src="${rc.contextPath}/security/account/headerimg/${sessionUser.userId}"
 						class="user-image" alt="User Image"> <span class="hidden-xs"><#if sessionUser??>${sessionUser.name!}</#if></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li class="user-header"><img
-							src="${rc.contextPath}/account/headerimg/${sessionUser.userId}"
+							src="${rc.contextPath}/security/account/headerimg/${sessionUser.userId}"
 							class="img-circle" alt="User Image">
 							<p>
 								<#if sessionUser??>${sessionUser.name!} </#if><small>上次登录：<#if sessionUser??>${sessionUser.lastLoginDate!} </#if></small>
-								<small><a href="${rc.contextPath}/account/persional/center" style="color:#000;">[个人中心]</a></small>
+								<small><a href="${rc.contextPath}/security/account/persional/center" style="color:#000;">[个人中心]</a></small>
 							</p>
 						</li>
 						<li class="user-footer">

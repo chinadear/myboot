@@ -216,7 +216,7 @@ public class AccountController extends BaseController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/account/persional/center")
+	@RequestMapping("/security/account/persional/center")
 	public String persionalCenter(HttpServletRequest request,Model model) {
 		UserSession us=(UserSession)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<String> navList=new ArrayList<String>();
@@ -261,7 +261,7 @@ public class AccountController extends BaseController {
 	 * @param id 用户id
 	 * @return
 	 */
-	@RequestMapping(value = "/account/headerimg/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/security/account/headerimg/{id}", method = RequestMethod.GET)
 	public String IoheaderImage(@PathVariable String id,HttpServletRequest request,HttpServletResponse response){
 		ServletOutputStream out = null;
 		FileInputStream ips = null;

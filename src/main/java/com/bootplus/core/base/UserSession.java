@@ -3,6 +3,7 @@ package com.bootplus.core.base;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.bootplus.model.Resource;
 
@@ -28,6 +29,8 @@ public class UserSession implements Serializable {
 	private Date lastLoginDate;
 	//sidebar的状态，1展开，0收缩
 	private String sidebarStatus;
+	//拥有的菜单权限，map
+	private Map<String,Boolean> ownMenuMap;
 	
 	public String getUserId() {
 		return userId;
@@ -82,6 +85,12 @@ public class UserSession implements Serializable {
 	}
 	public void setSidebarStatus(String sidebarStatus) {
 		this.sidebarStatus = sidebarStatus;
+	}
+	public Map<String, Boolean> getOwnMenuMap() {
+		return ownMenuMap;
+	}
+	public void setOwnMenuMap(Map<String, Boolean> ownMenuMap) {
+		this.ownMenuMap = ownMenuMap;
 	}
 	
 }

@@ -56,12 +56,13 @@ public class AuthenticationSuccess implements AuthenticationSuccessHandler {
 		userSession.setName(ul.getUserId().getName());
 		userSession.setUserId(ul.getUserId().getId());
 		userSession.setResource(resourceService.getSidebarMenu(ul.getUserId().getId()));
+		userSession.setOwnMenuMap(resourceService.getOwnMenusMap(ul.getUserId().getId()));
 		request.getSession().setAttribute(userSession.SESSION_USER_KEY, userSession);
 		User user=ul.getUserId();
 		userSession.setLastLoginDate(user.getLastLoginTime());
 		user.setLastLoginTime(new Date());
 		loginService.update(user);//更新登录时间
-        new DefaultRedirectStrategy().sendRedirect(request, response, "/");
+        new DefaultRedirectStrategy().sendRedirect(request, response, "/main");
 	}
 
 }

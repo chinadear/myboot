@@ -1,8 +1,11 @@
 package com.bootplus.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bootplus.Util.CompUtil;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.model.Resource;
@@ -32,7 +36,7 @@ public class MainController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/")
+	@RequestMapping("/main")
 	public String indexHome(Model model, HttpServletRequest request) {
 		List<Resource> list=resourceService.queryResourceList(new Resource());
 		if(list.size()==0) {
@@ -53,7 +57,8 @@ public class MainController extends BaseController {
 			navList.add("不显示的根节点");
 			navList.add("首页");
 			userSession.setNavList(navList);
-			return "redirect:/";
+//			CompUtil.forward2Target(request, response, "/");
+			return "redirect:/main";
 		}
 		Resource res=resourceService.getResourceById(id);
 		if(res.getParent().getParent()!=null) {//当前点击的菜单必然都有父菜单，只不过需要的是除了根菜单以外的父菜单，需要将父菜单激活，处于展开状态
@@ -70,9 +75,13 @@ public class MainController extends BaseController {
 		if (!link.startsWith("/")) {
 			link ="/" + link;
 		}
+//		CompUtil.forward2Target(request, response, link);
 		return "redirect:" + link;
 	}
-
+	@RequestMapping(value="/security/noSitemesh/noauthority/error")
+	public String error(HttpServletRequest request, HttpServletResponse response){
+		return "/error/error";
+	}
 	/**
 	 * 迭代父菜单，但是包含了根菜单，根菜单无业务意义，因此在前端需要过滤掉根菜单
 	 * @param parent

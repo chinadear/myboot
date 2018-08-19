@@ -148,6 +148,24 @@ public class ResourceService extends BaseServiceImpl implements IResourceService
 		this.update(target);
 	}
 
+	@Override
+	public Map<String, Boolean> getOwnMenusMap(String userId) {
+		// TODO Auto-generated method stub
+		User user=new User();
+		user.setId(userId);
+		UserRole ur=new UserRole();
+		ur.setUser(user);
+		List<UserRole> urlist=authDao.queryUserRoleList(ur);
+		if(urlist.size()>0) {//有角色
+			ResRole rr=new ResRole();
+			rr.setRole(urlist.get(0).getRole());
+			List<ResRole> rrlist=authDao.queryResRoleList(rr);//角色权限
+			return getOwnMenu2Map(rrlist);
+		}else {//没有角色
+			return new HashMap<String, Boolean>();
+		}
+	}
+
 	/**
 	 * 获取sidebar的菜单，需要遍历子菜单，渲染出菜单结构
 	 * 包含了childList
@@ -218,5 +236,11 @@ public class ResourceService extends BaseServiceImpl implements IResourceService
 		}
 		return map;
 	}
-	
+	public Map<String,Boolean> getOwnMenu2Map(List<ResRole> list){
+		Map<String,Boolean> map=new HashMap<String,Boolean>();
+		for(ResRole rr:list) {
+			map.put(rr.getResource().getCode().toUpperCase(),true);//key 均采用小写
+		}
+		return map;
+	}
 }

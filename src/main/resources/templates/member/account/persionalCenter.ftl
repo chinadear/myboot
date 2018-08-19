@@ -13,7 +13,7 @@
  		<div class="col-md-3" style="border-right:1px solid #e6e1e1;margin-top:10px;">
 			<div class="form-group">
 				<div style="text-align:center;">
-				<img src="${rc.contextPath}/account/headerimg/${sessionUser.userId}" class="img-circle" style="width:190px;height:190px;" alt="User Image">
+				<img src="${rc.contextPath}/security/account/headerimg/${sessionUser.userId}" class="img-circle" style="width:190px;height:190px;" alt="User Image">
 			   	</div>
 			   	<div id="modifyheader" style="text-align:center;">
 			   		<a href="##" onclick="modifyheader()">[更换头像]</a>
@@ -21,7 +21,7 @@
 				<div id="uploadarea" style="display:none;text-align:center;">
 				    <div class="col-sm-12" style="text-align:center;">
 				    <form enctype="multipart/form-data" id="uploadform" method="post" action="${rc.contextPath}/account/persional/headerimg/modify">
-					    <input type="file" id="file" name="file">
+					    <input type="file" id="file" name="file" class="upfile">
 					    <p class="help-block">请上传jpg、png图片文件</p>
 				    	<p><a href="##" onclick="submit_img()" class="btn btn-primary btn-sm" title="确认"><i class="glyphicon glyphicon-ok"></i></a><a href="##" onclick="cancle()" class="btn btn-primary btn-sm" style="margin-left:3px;" title="取消"><i class="glyphicon glyphicon-remove"></i></a></p>
 				    </form>
@@ -100,6 +100,8 @@
 window.onload = function(){
 	comp.validate.addRemote("nameIsExsit","${rc.contextPath}/account/isExsit/name",{name:function(){return $('#name').val();},id:function(){return $("#id").val();}},"此昵称已存在");
 	initEditValidate();
+	//绑定图片格式大小校验事件
+	$('.upfile').bind('change',addfile);
 }
 function modifyheader(){
 	$("#modifyheader").hide();
@@ -144,6 +146,27 @@ function initEditValidate(){
 			qq: {number:"请输入正确格式的QQ号码"}
 			}
 	});
+}
+//增加图片格式大小校验
+function addfile(){
+    var file = this.files[0];//上传的图片的所有信息
+    console.log(this.files[0]);
+    //首先判断是否是图片
+    if(!/image\/\w+/.test(file.type)){
+	    comp.message("格式不正确，请上传图片","error");
+	    $(this).val('')
+	    return false;
+    }
+    //在此限制图片的大小
+    var imgSize = file.size;
+    console.log(imgSize);
+    //35160  计算机存储数据最为常用的单位是字节(B)
+    //在此处我们限制图片大小为1M
+    if(imgSize>1*1024*1024){
+    	comp.message("上传的图片的大于1M，请重新选择","error");
+	    $(this).val('')
+	    return false;
+	}
 }
 </script>
 </body>

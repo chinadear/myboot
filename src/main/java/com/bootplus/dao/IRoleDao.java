@@ -10,4 +10,5 @@ public interface IRoleDao extends IBaseDao{
 
 	public List<Role> queryRoleList(Role role);
 	public Page queryRolePage(Role role, int pageNo, int pageSize);
+	public Role findRoleByCode(String code);
 }

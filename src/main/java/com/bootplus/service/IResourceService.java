@@ -1,7 +1,9 @@
 package com.bootplus.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.bootplus.model.ResRole;
 import com.bootplus.model.Resource;
 
 public interface IResourceService {
@@ -27,4 +29,10 @@ public interface IResourceService {
 	public void update(Resource res);
 	//交换资源序号
 	public void swapSeqNum(Resource source,Resource target);
+	/**
+	 * 获取用户有权限的菜单map，用于访问权限判定
+	 * @param userId
+	 * @return
+	 */
+	public Map<String,Boolean> getOwnMenusMap(String userId);
 }

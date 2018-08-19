@@ -58,4 +58,10 @@ public class RoleDao extends BaseDaoImpl implements IRoleDao {
 		return this.pagedQuery(sb.toString(), paramMap, pageSize, pageNo);
 	}
 
+	@Override
+	public Role findRoleByCode(String code) {
+		// TODO Auto-generated method stub
+		return (Role)this.queryUnique("from Role where status='1' and code=?", code);
+	}
+
 }

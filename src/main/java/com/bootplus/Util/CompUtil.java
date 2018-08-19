@@ -1,7 +1,7 @@
 package com.bootplus.Util;
 
 import java.io.File;
-import java.lang.reflect.Field;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +9,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * 组件工具类
  * @author liulu
@@ -139,5 +143,24 @@ public class CompUtil {
 			}
 		}
 		return path;
+	}
+	/**
+	 * 隐藏地址，采用forward方式跳转
+	 * @param request
+	 * @param response
+	 * @param link
+	 */
+	public static void forward2Target(HttpServletRequest request, HttpServletResponse response,String link) {
+		RequestDispatcher requestDispatcher =request.getRequestDispatcher(link);
+	    //调用forward()方法，转发请求      
+    try {
+		requestDispatcher.forward(request,response);
+	} catch (ServletException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	}
 }

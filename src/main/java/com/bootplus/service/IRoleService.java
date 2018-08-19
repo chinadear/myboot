@@ -13,4 +13,5 @@ public interface IRoleService {
 	public void delete(Role role);
 	public Role findRoleById(String id);
 	public Page queryRolePage(Role role,int pageNo, int pageSize);
+	public Role findRoleByCode(String code);
 }

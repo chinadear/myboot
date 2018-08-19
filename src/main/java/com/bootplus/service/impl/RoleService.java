@@ -55,4 +55,10 @@ public class RoleService extends BaseServiceImpl implements IRoleService {
 		return roleDao.queryRolePage(role, pageNo, pageSize);
 	}
 
+	@Override
+	public Role findRoleByCode(String code) {
+		// TODO Auto-generated method stub
+		return roleDao.findRoleByCode(code);
+	}
+
 }
