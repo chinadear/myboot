@@ -5,14 +5,12 @@ import org.sitemesh.config.ConfigurableSiteMeshFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.demon.controller.ViewController;
 /**
  * sitemesh的装饰过滤器的配置类
  * @author liulu
  *
  */
 public class WebSiteMeshFilter extends ConfigurableSiteMeshFilter {
-	private final Logger logger=LoggerFactory.getLogger(ViewController.class);
 	@Override   
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {     
 //		logger.info("進入sitemeshfilter");

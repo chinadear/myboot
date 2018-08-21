@@ -4,7 +4,7 @@
 			<img src="${rc.contextPath}/lib/vince/images/angelheart.png" class="logo-img" >
 		</span> 
 		<span class="logo-lg"> 
-			<img src="${rc.contextPath}/lib/vince/images/angelheart.png" class="logo-img" alt="Responsive image">ANQI
+			<img src="${rc.contextPath}/lib/vince/images/angelheart.png" class="logo-img" alt="Responsive image">BOOTPLUS
 		</span>
 	</a>
 	<nav class="navbar navbar-fixed-top">
