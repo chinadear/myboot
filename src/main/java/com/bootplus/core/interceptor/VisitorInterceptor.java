@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +21,8 @@ public class VisitorInterceptor implements HandlerInterceptor {
 		// TODO Auto-generated method stub
 //		return HandlerInterceptor.super.preHandle(request, response, handler);
 		String requestUri = request.getRequestURI();
-		if("/error".equals(requestUri)) {
+		System.out.println("requestUri:"+requestUri);
+		if("/error".equals(requestUri)||!StringUtils.hasText(requestUri)||"/".equals(requestUri)) {
 			return false;
 		}
 		HttpSession session = request.getSession();
