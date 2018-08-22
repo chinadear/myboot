@@ -20,7 +20,7 @@
 				</div>
 				<div id="uploadarea" style="display:none;text-align:center;">
 				    <div class="col-sm-12" style="text-align:center;">
-				    <form enctype="multipart/form-data" id="uploadform" method="post" action="${rc.contextPath}/account/persional/headerimg/modify">
+				    <form enctype="multipart/form-data" id="uploadform" method="post" action="${rc.contextPath}/security/account/persional/headerimg/modify">
 					    <input type="file" id="file" name="file" class="upfile">
 					    <p class="help-block">请上传jpg、png图片文件</p>
 				    	<p><a href="##" onclick="submit_img()" class="btn btn-primary btn-sm" title="确认"><i class="glyphicon glyphicon-ok"></i></a><a href="##" onclick="cancle()" class="btn btn-primary btn-sm" style="margin-left:3px;" title="取消"><i class="glyphicon glyphicon-remove"></i></a></p>
@@ -98,7 +98,7 @@
 </div>
 <script type="text/javascript">
 window.onload = function(){
-	comp.validate.addRemote("nameIsExsit","${rc.contextPath}/account/isExsit/name",{name:function(){return $('#name').val();},id:function(){return $("#id").val();}},"此昵称已存在");
+	comp.validate.addRemote("nameIsExsit","${rc.contextPath}/security/account/isExsit/name",{name:function(){return $('#name').val();},id:function(){return $("#id").val();}},"此昵称已存在");
 	initEditValidate();
 	//绑定图片格式大小校验事件
 	$('.upfile').bind('change',addfile);

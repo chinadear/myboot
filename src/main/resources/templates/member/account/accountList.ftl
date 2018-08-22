@@ -38,7 +38,7 @@
 </div><!-- /.modal -->  
  <script type="text/javascript">
  	window.onload = function(){
- 		comp.validate.addRemote("nameIsExsit","${rc.contextPath}/account/isExsit/name",{name:function(){return $('#name').val();},id:function(){return $("#id").val();}},"此昵称已存在");
+ 		comp.validate.addRemote("nameIsExsit","${rc.contextPath}/security/account/isExsit/name",{name:function(){return $('#name').val();},id:function(){return $("#id").val();}},"此昵称已存在");
  		callBackPagination();
  	}
  	function accountTable(currPage) {

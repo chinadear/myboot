@@ -31,7 +31,10 @@ public class VisitorInterceptor implements HandlerInterceptor {
 			return true;
 		} else {
 			Map<String,Boolean> m=userSession.getOwnMenuMap();
-			String menucode=requestUri.substring(1,requestUri.substring(1, requestUri.length()).indexOf("/")+1);
+			System.out.println("=========requestUri:"+requestUri);
+			int start=requestUri.indexOf("/",1);//去掉项目名/myboot/system/config/edit;只要system
+			int end=requestUri.indexOf("/",start+1);
+			String menucode=requestUri.substring(start+1,end);//1,requestUri.substring(1, requestUri.length()).indexOf("/")+1
 			if(m.get(menucode.toUpperCase())!=null && m.get(menucode.toUpperCase())) {
 				return true;
 			}else {

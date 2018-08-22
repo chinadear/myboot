@@ -127,17 +127,19 @@ public class CompUtil {
 		return DateUtil.getCurYear()+File.separator+DateUtil.getCurMonth()+File.separator+DateUtil.getCurDay()+File.separator;
 	}
 	/**
-	 * 无头有尾
-	 * a/b/c/
+	 * 无尾
+	 *win d://a/b/c+/
+	 *linux /opt/a+/
+	 *  结尾要加“/”
 	 * @return
 	 */
 	public static String formatDir(String path) {
 		if(!"".equals(path)){
-			String firstChar = path.substring(0,1);
+//			String firstChar = path.substring(0,1);
 			String lastChar = path.substring(path.length()-1,path.length());
-			if("/".equals(firstChar)||"\\".equals(firstChar)){
+			/*if("/".equals(firstChar)||"\\".equals(firstChar)){
 				path=path.substring(1);
-			}
+			}*/
 			if(!"/".equals(lastChar)&&!"\\".equals(lastChar)) {
 				path=path+File.separator;
 			}

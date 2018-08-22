@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Component  
 public class LogAspect {  
     @Pointcut("execution(public * com.bootplus.controller.*.*(..))")  
-    public void webLog(){System.out.println("101010101010101101010101010");}  
+    public void webLog(){}  
   
     @Before("webLog()")  
     public void deBefore(JoinPoint joinPoint) throws Throwable {  

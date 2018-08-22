@@ -205,7 +205,7 @@ public class AccountController extends BaseController {
 			}
 		}
 		if(StringUtils.hasText(flag)) {//不为空，表示是从个人中心修改个人信息处跳转过来的
-			return "redirect:/account/persional/center";
+			return "redirect:/security/account/persional/center";
 		}else {
 			return "redirect:/account/list";
 		}
@@ -243,7 +243,7 @@ public class AccountController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/account/persional/headerimg/modify")
+	@RequestMapping("/security/account/persional/headerimg/modify")
 	public String modifyHeaderImg(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		UserSession us=(UserSession)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		User user=loginService.findUserById(us.getUserId());
@@ -254,7 +254,7 @@ public class AccountController extends BaseController {
 				loginService.update(user);
 			}
 		}
-		return "redirect:/account/persional/center";
+		return "redirect:/security/account/persional/center";
 	}
 	/**
 	 * 显示头像
@@ -329,7 +329,7 @@ public class AccountController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/account/isExsit/name",produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/security/account/isExsit/name",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String judgyName(String name,String id) {
 		String flag="true";

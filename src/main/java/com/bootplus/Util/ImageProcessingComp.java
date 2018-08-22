@@ -5,7 +5,6 @@ import java.awt.image.ColorModel;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import com.sun.image.codec.jpeg.*;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -74,12 +73,15 @@ public class ImageProcessingComp {
 		// SCALE_SMOOTH 的缩略算法 生成缩略图片的平滑度的 优先级比速度高 生成的图片质量比较好 但速度慢
 		BufferedImage image = new BufferedImage(w, h,BufferedImage.TYPE_INT_RGB ); 
 		image.getGraphics().drawImage(img, 0, 0, w, h, null); // 绘制缩小后的图
-		File destFile = new File(destFileName);
+		
+		/*File destFile = new File(destFileName);
 		FileOutputStream out = new FileOutputStream(destFile); // 输出到文件流
 		// 可以正常实现bmp、png、gif转jpg
 		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
 		encoder.encode(image); // JPEG编码
-		out.close();
+		out.close();*/
+		String formatName = destFileName.substring(destFileName.lastIndexOf(".") + 1);
+        ImageIO.write(image, /*"GIF"*/ formatName /* format desired */ , new File(destFileName) /* target */ );
 	}
 	/**
 	 * 根据画质进行压缩

@@ -97,7 +97,7 @@
 <script type="text/javascript">
 	window.onload = function(){
 		comp.validate.addRemote("accountIsExsit","${rc.contextPath}/account/isExsit/account",{username:function(){return $('#username_').val();}},"此账号已存在");
-		comp.validate.addRemote("nameIsExsit","${rc.contextPath}/account/isExsit/name",{name:function(){return $('#name').val();}},"此昵称已存在");
+		comp.validate.addRemote("nameIsExsit","${rc.contextPath}/security/account/isExsit/name",{name:function(){return $('#name').val();}},"此昵称已存在");
 		comp.validate.addRule("repasswordIsEQ",function(value,element){
 			var result="t";
 			var pwd=$("#password_").val()
