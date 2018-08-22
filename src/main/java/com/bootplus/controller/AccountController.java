@@ -1,10 +1,8 @@
 package com.bootplus.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,6 @@ import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.core.dao.page.Page;
-import com.bootplus.model.Resource;
 import com.bootplus.model.Role;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.UFile;

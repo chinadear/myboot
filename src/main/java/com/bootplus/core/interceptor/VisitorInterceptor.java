@@ -21,6 +21,7 @@ public class VisitorInterceptor implements HandlerInterceptor {
 		// TODO Auto-generated method stub
 //		return HandlerInterceptor.super.preHandle(request, response, handler);
 		String requestUri = request.getRequestURI();
+		//首先请求链接需要是系统内的URL，非系统内的无法解析按照error处理，是系统url但是无权限按照跳转无权限页面处理
 		if(!StringUtils.hasText(requestUri)||"/".equals(requestUri)||requestUri.indexOf("/",1)<=0) {
 			return false;
 		}

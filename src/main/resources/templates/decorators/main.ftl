@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="${rc.contextPath}/lib/ztree/css/bootstrapStyle/bootstrapStyle.css"/>
   <link rel="stylesheet" href="${rc.contextPath}/lib/sticky/sticky.css" />
   <link rel="stylesheet" href="${rc.contextPath}/lib/editormd/css/editormd.css"/>
+  <link rel="shortcut icon" href="" type="image/x-icon"/>
   <!--[if lt IE 9]>
   <script src="${rc.contextPath}/lib/dist/js/html5shiv.min.js"></script>
   <script src="${rc.contextPath}/lib/dist/js/respond.min.js"></script>

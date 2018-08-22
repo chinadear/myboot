@@ -71,7 +71,7 @@
             "list-ul", "list-ol", "hr", "|",
             "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|",
             "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
-            "help", "info"
+            "help"//, "info"
         ],
         simple : [
             "undo", "redo", "|", 
@@ -1308,7 +1308,7 @@
             var _this        = this;
 			var editor       = this.editor;
             var classPrefix  = this.classPrefix;  
-            
+            //by ll
             var infoDialogHTML = [
                 "<div class=\"" + classPrefix + "dialog " + classPrefix + "dialog-info\" style=\"\">",
                 "<div class=\"" + classPrefix + "dialog-container\">",
