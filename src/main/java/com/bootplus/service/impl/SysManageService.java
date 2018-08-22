@@ -84,7 +84,7 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
 		return (SysConfig)sysManageDao.get(SysConfig.class, id);
 	}
 	@Override
-	public UFile uploadFile(MultipartFile file,HttpServletRequest request) {
+	public UFile uploadFile(MultipartFile file,String type,HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		String defaultPath=null;
 		List<SysConfig> sclist=this.querySysConfigListByKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_UPLOADPATH_KEY);
@@ -125,6 +125,7 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
             uf.setFileName(newFileName);
             uf.setSuffix(suffixName);
             uf.setPath(CompUtil.getCurDateDir());
+            uf.setType(type);
             sysManageDao.save(uf);
         } catch (Exception e) {
             e.printStackTrace();

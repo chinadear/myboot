@@ -17,7 +17,7 @@ public class WebSiteMeshFilter extends ConfigurableSiteMeshFilter {
 		builder.addDecoratorPath("/*", "/decorators/main") //设置模板装饰的请求，参数（请求，装饰该请求的装饰模板）       
 //	     .addDecoratorPath("/strategy/**", "/WEB-INF/views/decorators/decorator.jsp")//可设置不同请求用不同模板装饰           
 	     .addExcludedPath("/auth/login") //白名单，不进行过滤           
-	     .addExcludedPath("/*/noSitemesh/**");   //白名单，不进行过滤           
+	     .addExcludedPath("/**/noSitemesh/**");   //白名单，不进行过滤           
 //	     .addExcludedPath("/popup/**"); //白名单，不进行过滤    
 //	   builder.addTagRuleBundles(new DivExtractingTagRuleBundle());  //用于添加自定义标签
 	}

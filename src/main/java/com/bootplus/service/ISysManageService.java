@@ -28,9 +28,10 @@ public interface ISysManageService {
 	/**
 	 * 上传附件，返回附件ID
 	 * @param file
+	 * @param type type=1系统附件，=0博客图片
 	 * @return
 	 */
-	public UFile uploadFile(MultipartFile file,HttpServletRequest request);
+	public UFile uploadFile(MultipartFile file,String type,HttpServletRequest request);
 	
 	public UFile getUploadFileById(String id);
 }

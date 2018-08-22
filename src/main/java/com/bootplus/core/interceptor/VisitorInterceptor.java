@@ -21,8 +21,7 @@ public class VisitorInterceptor implements HandlerInterceptor {
 		// TODO Auto-generated method stub
 //		return HandlerInterceptor.super.preHandle(request, response, handler);
 		String requestUri = request.getRequestURI();
-		System.out.println("requestUri:"+requestUri);
-		if("/error".equals(requestUri)||!StringUtils.hasText(requestUri)||"/".equals(requestUri)) {
+		if(!StringUtils.hasText(requestUri)||"/".equals(requestUri)||requestUri.indexOf("/",1)<=0) {
 			return false;
 		}
 		HttpSession session = request.getSession();
@@ -31,10 +30,10 @@ public class VisitorInterceptor implements HandlerInterceptor {
 			return true;
 		} else {
 			Map<String,Boolean> m=userSession.getOwnMenuMap();
-			System.out.println("=========requestUri:"+requestUri);
-			int start=requestUri.indexOf("/",1);//去掉项目名/myboot/system/config/edit;只要system
+			/*int start=requestUri.indexOf("/",1);//去掉项目名/myboot/system/config/edit;只要system
 			int end=requestUri.indexOf("/",start+1);
-			String menucode=requestUri.substring(start+1,end);//1,requestUri.substring(1, requestUri.length()).indexOf("/")+1
+			String menucode=requestUri.substring(start+1,end);*/
+			String menucode=requestUri.substring(1,requestUri.substring(1, requestUri.length()).indexOf("/")+1);
 			if(m.get(menucode.toUpperCase())!=null && m.get(menucode.toUpperCase())) {
 				return true;
 			}else {

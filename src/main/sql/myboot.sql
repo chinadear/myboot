@@ -96,3 +96,11 @@ CREATE TABLE `USER_ROLE` (
    `UPDATE_TIME` datetime DEFAULT NULL,
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+ CREATE TABLE `bolg` (
+		   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+		   `content` longtext COLLATE utf8_unicode_ci NOT NULL,
+		   `html_content` longtext COLLATE utf8_unicode_ci NOT NULL,
+		   `summary` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+		   `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+		   PRIMARY KEY (`id`)
+		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -53,7 +53,7 @@ public class loginSecurityConfig extends WebSecurityConfigurerAdapter {
 		 http.addFilterBefore(new KaptchaAuthenticationFilter("/login","/auth/login?meg='验证码错误'"), UsernamePasswordAuthenticationFilter.class)
 //		http.headers()
         .authorizeRequests()//and()是链接符，and之间的内容有相同的作用域，比如A().B().permitAll();表示A,B都面对全部用户
-        .antMatchers("/registerAdmin").permitAll().antMatchers("/login").permitAll().antMatchers("/*/noSecurity/**").permitAll()//antMatchers无需权限 即可访问，permitAll全部用户
+        .antMatchers("/registerAdmin").permitAll().antMatchers("/login").permitAll().antMatchers("/**/noSecurity/**").permitAll()//antMatchers无需权限 即可访问，permitAll全部用户
         .anyRequest().authenticated()
         .and().formLogin().loginPage("/auth/login")//formlogin登录配置
         .successHandler(authenticationSuccess)//登陆成功处理
@@ -64,6 +64,7 @@ public class loginSecurityConfig extends WebSecurityConfigurerAdapter {
 //        .failureUrl("/auth/login").permitAll()
 //        .and().sessionManagement().invalidSessionUrl("/login")
 //        .and().rememberMe().tokenValiditySeconds(1209600)
+        .and().headers().frameOptions().disable()
         .and().logout().logoutSuccessUrl("/auth/login").permitAll()//设置登出后跳转的链接，一般设置登录页面，登录请求也是security内置的默认为logout,自定义登录链接用.logoutUrl(logoutUrl)
         .and().csrf().disable();// 关闭csrf防护
 	}

@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="${rc.contextPath}/css/main.css"/>
   <link rel="stylesheet" href="${rc.contextPath}/lib/ztree/css/bootstrapStyle/bootstrapStyle.css"/>
   <link rel="stylesheet" href="${rc.contextPath}/lib/sticky/sticky.css" />
+  <link rel="stylesheet" href="${rc.contextPath}/lib/editormd/css/editormd.css"/>
   <!--[if lt IE 9]>
   <script src="${rc.contextPath}/lib/dist/js/html5shiv.min.js"></script>
   <script src="${rc.contextPath}/lib/dist/js/respond.min.js"></script>
@@ -48,5 +49,6 @@
 <script src="${rc.contextPath}/lib/sticky/sticky.js"></script>
 <script src="${rc.contextPath}/js/myjs_message_cn.js"></script>
 <script src="${rc.contextPath}/lib/turnPage/extendPagination.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/lib/editormd/js/editormd.js"></script>
 </body>
 </html>
