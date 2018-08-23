@@ -6,7 +6,8 @@
 </head>
 <body>
 <div  class="inner-header">
-	  	<a type="button" class="optionbtn-left" href="##" onclick="goback()"><i class="glyphicon glyphicon-menu-left">返回</i></a>
+		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="goback();">返回</button>
+	  	<!-- <a type="button" class="optionbtn-left" href="##" onclick="goback()"><i class="glyphicon glyphicon-menu-left">返回</i></a> -->
 </div>
 <div class="container-fluid innerScroll">
 	<ul class="nav nav-tabs mytab" role="tablist">

@@ -2,22 +2,25 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8"/>
-    <title>Edit</title>
+    <title>写博客</title>
 </head>
 <body>
 	<div  class="inner-header">
 		<form class="form-inline">
-	    	<div class="col-sm-11" style="margin-left: -4px;">
+	    	<div class="col-sm-10" style="margin-left: -4px;">
 				<input type="text" class="form-control optionbtn-left" style="width:100%;" maxlength="50" name="title_" id="title_" placeholder="输入文章标题"/>
 	    	</div>
-	    	<div class="col-sm-1">
-				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog();">发布</button>
+	    	<div class="col-sm-2">
+	    		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="goback();">返回</button>
+				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('1');">发布</button>
+				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('0');">保存</button>
 			</div>
+		</form>
 	</div>
 	<div class="container-fluid innerScroll">
-		<form id="editddddddd" action="${rc.contextPath}/blog/save" method="post" >
+		<form id="blogform" action="${rc.contextPath}/blog/save" method="post" >
 			<input type="hidden" name="title" id="title" value=""/>
-		</form>
+			<input type="hidden" name="status" id="status" value=""/>
 			<div class="editormd" id="test-editormd"><!-- test-editormd-markdown-doc -->
 			    <textarea class="editormd-markdown-textarea" name="content" id="content"></textarea>
 			    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
@@ -39,6 +42,7 @@
 					</div><!-- /.modal-content -->  
 				</div><!-- /.modal-dialog -->  
 			</div><!-- /.modal -->
+		</form>
 	</div>
 <!-- 测试如何显示博客内容 ：需要初始化的js，绑定id=com-->
 <!-- <div id="com"><textarea style="display: none;" id="ccc"></textarea></div> -->
@@ -72,11 +76,11 @@ window.onload = function(){
             }
         });
     }
-		function submit() {
+		/* function submit() {
 			var htmlContent = $("#htmlContent").val();
 			var content = $("#htmlContent").val();
 		    $("#com").html(htmlContent);
-		   /*  editormd.markdownToHTML("com", {//注意：这里是上面DIV的id
+		     editormd.markdownToHTML("com", {//注意：这里是上面DIV的id
 		        htmlDecode : "style,script,iframe",
 		        emoji : true,
 		        taskList : true,
@@ -84,29 +88,31 @@ window.onload = function(){
 		        flowChart : true, // 默认不解析
 		        sequenceDiagram : false, // 默认不解析
 		        codeFold : true
-		    }); */
+		    }); 
 		    
 		    comp.showModal('editModal');
-		}
-        function submitblog() {
+		} */
+        function submitblog(status) {
+			var content = $("#htmlContent").val();
+			var title = $("#title_").val();
+			if(content=="" && title==""){
+				comp.message("请填写内容和标题","error");
+				return;
+			}else if(title==""){
+				comp.message("请填写标题","error");
+				return;
+			}else if(content==""){
+				comp.message("请填写内容","error");
+				return;
+			}
+			
         	$("#title").val($("#title_").val());
-        	var action=$("#editddddddd").html();
-        	alert(action);
-        	//$("#blogform").submit();
-           /*  var  title = $("#title").val();
-            var content = $("#content").val();
-            var htmlContent = $("#htmlContent").val();
-            $.ajax({
-                url: "submit",
-                data: {title: title, content:content,htmlContent:htmlContent},
-                success:function () {
-                    alert("发布成功");
-                },
-                error:function () {
-                    alert("发布失败");
-                }
-            }) */
+        	$("#status").val(status);
+        	$("#blogform").submit();
         }
+		function goback(){
+			window.location.href="${rc.contextPath}/blog/myblogs";
+		}
 
 </script>
 

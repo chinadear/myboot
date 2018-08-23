@@ -22,7 +22,7 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 	@Override
 	public List<Blog> getBlogList(Blog blog) {
 		//status：0草稿，1发布，2封禁
-		StringBuffer sb=new StringBuffer("from Blog 1=1 ");
+		StringBuffer sb=new StringBuffer("from Blog where 1=1 ");
 		Map paramMap = new HashMap();
 		if(blog.getUser()!=null && StringUtils.hasText(blog.getUser().getId())) {
 			sb.append(" and user.id=:userid");
@@ -32,14 +32,14 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 			sb.append(" and status=:status");
 			paramMap.put("status", blog.getStatus());
 		}
-		sb.append(" order by updateTime");
+		sb.append(" order by createTime");
 		return (List<Blog>)this.query(sb.toString(), paramMap);
 	}
 
 	@Override
 	public Page getBlogPage(Blog blog, int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
-		StringBuffer sb=new StringBuffer("from Blog 1=1 ");
+		StringBuffer sb=new StringBuffer("from Blog where 1=1 ");
 		Map paramMap = new HashMap();
 		if(blog.getUser()!=null && StringUtils.hasText(blog.getUser().getId())) {
 			sb.append(" and user.id=:userid");
@@ -49,7 +49,7 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 			sb.append(" and status=:status");
 			paramMap.put("status", blog.getStatus());
 		}
-		sb.append(" order by updateTime");
+		sb.append(" order by createTime");
 		return this.pagedQuery(sb.toString(), paramMap, pageSize, pageNo);
 	}
 

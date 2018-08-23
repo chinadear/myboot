@@ -31,11 +31,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
+import com.bootplus.core.base.UserSession;
+import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.UFile;
 import com.bootplus.model.User;
 import com.bootplus.service.IBlogService;
+import com.bootplus.service.ILoginService;
 import com.bootplus.service.ISysManageService;
 /**
  * 博客管理
@@ -53,12 +56,127 @@ public class BlogController extends BaseController {
 	private ISysManageService sysManageService;
 	@Autowired
 	private IBlogService blogService;
-	//进入博客编辑页面
+	@Autowired
+	private ILoginService loginService;
+	/**
+	 * 进入我的博客管理页面
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/blog/myblogs")
+	public String myblogs(Model model, HttpServletRequest request) {
+		UserSession us=(UserSession)request.getSession().getAttribute(UserSession.SESSION_USER_KEY);
+		User user=loginService.findUserById(us.getUserId());
+		Blog blog=new Blog();
+		blog.setUser(user);
+		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
+		return RESOURCE_MENU_PREFIX+"/listblog";
+	}
+	/**
+	 * 进入写博客页面
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/blog/write")
 	public String configList(Model model, HttpServletRequest request) {
-		return RESOURCE_MENU_PREFIX+"/edit";
+		return RESOURCE_MENU_PREFIX+"/writeblog";
 	}
-	//处理文件上传
+	/**
+	* 博文新增保存
+	* @param model
+	* @param request
+	* @param blog
+	* @return
+	*/
+	@RequestMapping("/blog/save")
+	public String saveBlog(Model model, HttpServletRequest request,Blog blog) {
+		UserSession us=(UserSession)request.getSession().getAttribute(UserSession.SESSION_USER_KEY);
+		User user=loginService.findUserById(us.getUserId());
+		blog.setUser(user);
+		blogService.save(blog);
+		return "redirect:/blog/myblogs";
+	}
+	/**
+	 * 进入编辑博客页面
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/blog/editblog/{id}")
+	public String editblog(Model model, HttpServletRequest request,@PathVariable String id) {
+		Blog blog=blogService.getBlogById(id);
+		model.addAttribute("blog", blog);
+		return RESOURCE_MENU_PREFIX+"/editblog";
+	}
+	/**
+	 * 博文编辑保存
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/blog/modify")
+	public String editblog(Model model, HttpServletRequest request,Blog blog) {
+		Blog b = blogService.getBlogById(blog.getId());
+		b.setContent(blog.getContent());
+		b.setTitle(blog.getTitle());
+		b.setSummary(blog.getSummary());
+		b.setStatus(blog.getStatus());
+		blogService.update(b);
+		return "redirect:/blog/myblogs";
+	}
+	/**
+	 * 删除博客
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/blog/delete",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String deleteblog(Model model, HttpServletRequest request,String id) {
+		Blog blog=blogService.getBlogById(id);
+		blogService.delete(blog);
+		return "t";
+	}
+	/**
+	 * 发布与取消发布
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping(value="/blog/updateStatus",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateStatus(String id,String status) {
+		Blog b = blogService.getBlogById(id);
+		b.setStatus(status);
+		blogService.update(b);
+		return "t";
+	}
+	/**
+	 * 翻页刷新列表
+	 * @param model
+	 * @param request
+	 * @param pageNo
+	 * @return
+	 */
+	@RequestMapping("/blog/noSitemesh/loadblogstable")
+	public String loadmembertable(Model model, HttpServletRequest request,String pageNo) {
+		UserSession us=(UserSession)request.getSession().getAttribute(UserSession.SESSION_USER_KEY);
+		User user=loginService.findUserById(us.getUserId());
+		Blog blog=new Blog();
+		blog.setUser(user);
+		Page page=blogService.getBlogPage(blog,StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
+		return RESOURCE_MENU_PREFIX+"/blogTable";
+	}
+	/**
+	 * 处理文件上传
+	 * @param file
+	 * @param request
+	 * @return
+	 */
     @RequestMapping(value="/blog/uploadimg",produces=MediaType.APPLICATION_JSON_VALUE)//text/plain,charset=UTF-8"
 	@ResponseBody
     public Map<String,Object> uploadimg(@RequestParam(value = "editormd-image-file", required = false) MultipartFile file, HttpServletRequest request) {
@@ -70,7 +188,13 @@ public class BlogController extends BaseController {
         resultMap.put("url",request.getContextPath()+"/blog/noSecurity/img/"+uf.getId());
         return resultMap;
     }
-    //显示博客内容包含的图片
+    /**
+     * 显示博客内容包含的图片
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/blog/noSecurity/img/{id}", method = RequestMethod.GET)
 	public String IoheaderImage(@PathVariable String id,HttpServletRequest request,HttpServletResponse response){
 		ServletOutputStream out = null;
@@ -114,9 +238,4 @@ public class BlogController extends BaseController {
 		}
 		return null;
 	}
-    @RequestMapping("/blog/save")
-	public String saveBlog(Model model, HttpServletRequest request,Blog blog) {
-    	blogService.save(blog);
-    	return "redirect:/blog/write";
-    }
 }
