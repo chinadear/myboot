@@ -97,10 +97,14 @@ CREATE TABLE `USER_ROLE` (
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
  CREATE TABLE `bolg` (
-		   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-		   `content` longtext COLLATE utf8_unicode_ci NOT NULL,
-		   `html_content` longtext COLLATE utf8_unicode_ci NOT NULL,
-		   `summary` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-		   `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+		   `CONTENT` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '内容源码',
+		   `HTML_CONTENT` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '转为HTML的内容',
+		   `SUMMARY` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '摘要',
+		   `TITLE` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题',
+		   `USER_ID` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '博客拥有者',
+		   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
+		   `CREATE_TIME` datetime DEFAULT NULL,
+		   `UPDATE_TIME` datetime DEFAULT NULL,
 		   PRIMARY KEY (`id`)
 		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -10,19 +10,24 @@ import javax.persistence.*;
 public class Blog extends BaseModel implements java.io.Serializable{
 	private static final long serialVersionUID = -5364474652996645555L;
 
-	@Column(name="title") // 映射为字段，值不能为空
+	@Column(name="TITLE")
     private String title;
 
-    @Column(name="summary")// 映射为字段，值不能为空
+    @Column(name="SUMMARY")
     private String summary;
 
     @Lob  // 大对象，映射 MySQL 的 Long Text 类型
-    @Column(name="content") // 映射为字段，值不能为空
+    @Column(name="CONTENT") 
     private String content;
     @Lob  // 大对象，映射 MySQL 的 Long Text 类型
-    @Column(name="html_content") // 映射为字段，值不能为空
+    @Column(name="HTML_CONTENT") 
     private String htmlContent; // 将 md 转为 html
-
+    //0草稿，1发布，2封禁
+    @Column(name="STATUS") 
+    private String status;
+    @ManyToOne()
+	@JoinColumn(name = "USER_ID", nullable=true)
+    public User user;
     public String getTitle() {
         return title;
     }
@@ -55,5 +60,19 @@ public class Blog extends BaseModel implements java.io.Serializable{
         this.htmlContent = htmlContent;
     }
 
+	public String getStatus() {
+		return status;
+	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

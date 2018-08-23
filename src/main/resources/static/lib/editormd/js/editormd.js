@@ -64,6 +64,13 @@
     editormd.classPrefix  = "editormd-";
     
     editormd.toolbarModes = {
+    	bootplus : [
+            "bold", /*"del", */"italic", "quote",/* "ucwords", "uppercase", "lowercase",*/ 
+            "h1", "h2", "h3", /*"h4", "h5", "h6",*/ 
+            "list-ul", "list-ol", "hr","link", /*"reference-link", */"image", /*"code", "preformatted-text", */"code-block", "table", "datetime",/* "emoji", */"html-entities", /*"pagebreak",*/ "undo", "redo", "|",
+            /*"goto-line", */"clear","summary", "|","watch", "preview", /*"fullscreen","search",*/ "|",
+            "help"//, "info"
+    	],
         full : [
             "undo", "redo", "|", 
             "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", 
@@ -71,7 +78,7 @@
             "list-ul", "list-ol", "hr", "|",
             "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|",
             "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
-            "help"//, "info"
+            "help", "info"
         ],
         simple : [
             "undo", "redo", "|", 
@@ -141,6 +148,7 @@
         onpreviewing         : function() {},
         onpreviewed          : function() {},
         onfullscreen         : function() {},
+        onsummary			 : function() {},
         onfullscreenExit     : function() {},
         onscroll             : function() {},
         onpreviewscroll      : function() {},
@@ -172,7 +180,7 @@
                 
         toolbar              : true,           // show/hide toolbar
         toolbarAutoFixed     : true,           // on window scroll auto fixed position
-        toolbarIcons         : "full",
+        toolbarIcons         : "bootplus",
         toolbarTitles        : {},
         toolbarHandlers      : {
             ucwords : function() {
@@ -220,7 +228,8 @@
             preview          : "fa-desktop",
             search           : "fa-search",
             fullscreen       : "fa-arrows-alt",
-            clear            : "fa-eraser",
+            summary		     : "fa-book",
+            clear            : "fa-edit",
             help             : "fa-question-circle",
             info             : "fa-info-circle"
         },        
@@ -253,7 +262,7 @@
                 "reference-link" : "引用链接",
                 image            : "添加图片",
                 code             : "行内代码",
-                "preformatted-text" : "预格式文本 / 代码块（缩进风格）",
+                "preformatted-text" : "代码块",
                 "code-block"     : "代码块（多语言风格）",
                 table            : "添加表格",
                 datetime         : "日期时间",
@@ -265,7 +274,8 @@
                 unwatch          : "开启实时预览",
                 preview          : "全窗口预览HTML（按 Shift + ESC还原）",
                 fullscreen       : "全屏（按ESC还原）",
-                clear            : "清空",
+                summary          : "添加摘要",
+                clear            : "写新文章",
                 search           : "搜索",
                 help             : "使用帮助",
                 info             : "关于" + editormd.title
@@ -1273,7 +1283,7 @@
                 }
                 
                 if (name !== "link" && name !== "reference-link" && name !== "image" && name !== "code-block" && 
-                    name !== "preformatted-text" && name !== "watch" && name !== "preview" && name !== "search" && name !== "fullscreen" && name !== "info") 
+                    name !== "preformatted-text" && name !== "watch" && name !== "preview" && name !== "search" && name !== "fullscreen" && name !== "info" && name !="summary") 
                 {
                     cm.focus();
                 }
@@ -2294,8 +2304,8 @@
          */
         
         clear : function() {
-            this.cm.setValue("");
-            
+        	var r=confirm("写新文章会清空当前正在编写的内容，确定要写新文章吗？");
+    		r?this.cm.setValue(""):"";
             return this;
         },
         
@@ -3180,7 +3190,11 @@
 
         info : function() {
             this.showInfoDialog();
+        },
+        summary:function(){
+        	$.proxy(this.settings.onsummary, this)();
         }
+     
     };
     
     editormd.keyMaps = {

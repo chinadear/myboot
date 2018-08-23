@@ -31,9 +31,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
+import com.bootplus.model.Blog;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.UFile;
 import com.bootplus.model.User;
+import com.bootplus.service.IBlogService;
 import com.bootplus.service.ISysManageService;
 /**
  * 博客管理
@@ -49,7 +51,10 @@ public class BlogController extends BaseController {
 	private final static String RESOURCE_MENU_PREFIX="/member/blog";
 	@Autowired
 	private ISysManageService sysManageService;
-	@RequestMapping("/blog/publish")
+	@Autowired
+	private IBlogService blogService;
+	//进入博客编辑页面
+	@RequestMapping("/blog/write")
 	public String configList(Model model, HttpServletRequest request) {
 		return RESOURCE_MENU_PREFIX+"/edit";
 	}
@@ -65,6 +70,7 @@ public class BlogController extends BaseController {
         resultMap.put("url",request.getContextPath()+"/blog/noSecurity/img/"+uf.getId());
         return resultMap;
     }
+    //显示博客内容包含的图片
     @RequestMapping(value = "/blog/noSecurity/img/{id}", method = RequestMethod.GET)
 	public String IoheaderImage(@PathVariable String id,HttpServletRequest request,HttpServletResponse response){
 		ServletOutputStream out = null;
@@ -108,4 +114,9 @@ public class BlogController extends BaseController {
 		}
 		return null;
 	}
+    @RequestMapping("/blog/save")
+	public String saveBlog(Model model, HttpServletRequest request,Blog blog) {
+    	blogService.save(blog);
+    	return "redirect:/blog/write";
+    }
 }
