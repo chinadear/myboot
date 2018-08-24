@@ -18,6 +18,7 @@
 		</form>
 	</div>
 	<div class="container-fluid innerScroll">
+	<div class="row ">
 		<form id="blogform" action="${rc.contextPath}/blog/save" method="post" >
 			<input type="hidden" name="title" id="title" value=""/>
 			<input type="hidden" name="status" id="status" value=""/>
@@ -43,14 +44,16 @@
 				</div><!-- /.modal-dialog -->  
 			</div><!-- /.modal -->
 		</form>
+		</div>
 	</div>
 <!-- 测试如何显示博客内容 ：需要初始化的js，绑定id=com-->
 <!-- <div id="com"><textarea style="display: none;" id="ccc"></textarea></div> -->
 <script type="text/javascript">
 window.onload = function(){
+		pingHeight=document.documentElement.clientHeight;
         editormd("test-editormd", {
             width   : "100%",
-            height  : 450,
+            height  : pingHeight-173,
             syncScrolling : "single",
            // emoji : true,
             //你的lib目录的路径，我这边用JSP做测试的
@@ -71,7 +74,7 @@ window.onload = function(){
                 //this.unwatch();
                 //this.watch().fullscreen();
                 this.width("100%");
-                this.height(450);//480
+                this.height(pingHeight-173);//450
                 //this.resize("100%", 640);
             }
         });
@@ -92,6 +95,7 @@ window.onload = function(){
 		    
 		    comp.showModal('editModal');
 		} */
+		//提交博客内容
         function submitblog(status) {
 			var content = $("#htmlContent").val();
 			var title = $("#title_").val();
@@ -110,6 +114,7 @@ window.onload = function(){
         	$("#status").val(status);
         	$("#blogform").submit();
         }
+		//返回博客列表
 		function goback(){
 			window.location.href="${rc.contextPath}/blog/myblogs";
 		}
