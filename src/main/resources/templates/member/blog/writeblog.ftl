@@ -12,8 +12,9 @@
 	    	</div>
 	    	<div class="col-sm-2">
 	    		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="goback();">返回</button>
-				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('1');">发布</button>
-				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('0');">保存</button>
+				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="articalMetaSet();">发布</button>
+				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('0');">保存草稿</button>
+				
 			</div>
 		</form>
 	</div>
@@ -22,6 +23,8 @@
 		<form id="blogform" action="${rc.contextPath}/blog/save" method="post" >
 			<input type="hidden" name="title" id="title" value=""/>
 			<input type="hidden" name="status" id="status" value=""/>
+			<input type="hidden" name="cateId" id="categoryid" value=""/>
+			<input type="hidden" name="tags" id="tags" value=""/>
 			<div class="editormd" id="test-editormd"><!-- test-editormd-markdown-doc -->
 			    <textarea class="editormd-markdown-textarea" name="content" id="content"></textarea>
 			    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
@@ -46,8 +49,44 @@
 		</form>
 		</div>
 	</div>
-<!-- 测试如何显示博客内容 ：需要初始化的js，绑定id=com-->
-<!-- <div id="com"><textarea style="display: none;" id="ccc"></textarea></div> -->
+<!-- 发布设置文章属性-->
+<div class="modal fade in" id="publishModal" tabindex="-1" role="dialog" aria-hidden="true">  
+	<div class="modal-dialog">  
+		<div class="modal-content">  
+			<div class="modal-header">  
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  
+		        <h4 class="modal-title">文章设置</h4>  
+	        </div>  
+			<div class="modal-body"> 
+				<form class="form-horizontal">
+				 	<div class="form-group">
+					    <label class="col-sm-2 control-label">分类</label>
+					    <div class="col-sm-9">
+					    <select name="cate" id="cate" class="form-control">
+					    	<option value="">其他分类</option>
+					    	<#if clist??>
+					    		<#list clist as cl>
+					    			<option value="${cl.id}">${cl.name!}</option>
+					    		</#list>
+					    	</#if>
+					    </select>
+					    </div>
+				 	</div>
+					 <div class="form-group">
+					    <label class="col-sm-2 control-label">标签</label>
+					    <div class="col-sm-9">
+					      <input type="text" class="form-control" maxlength="50" id="tagstr" name="tagstr" placeholder="各个标签通过逗号分隔">
+					    </div>
+				 	</div>
+			 	</form>
+		    </div>  
+			<div class="modal-footer">  
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="sure()">确定</button>  
+			</div>  
+		</div><!-- /.modal-content -->  
+	</div><!-- /.modal-dialog -->  
+</div><!-- /.modal -->
 <script type="text/javascript">
 window.onload = function(){
 		pingHeight=document.documentElement.clientHeight;
@@ -79,22 +118,16 @@ window.onload = function(){
             }
         });
     }
-		/* function submit() {
-			var htmlContent = $("#htmlContent").val();
-			var content = $("#htmlContent").val();
-		    $("#com").html(htmlContent);
-		     editormd.markdownToHTML("com", {//注意：这里是上面DIV的id
-		        htmlDecode : "style,script,iframe",
-		        emoji : true,
-		        taskList : true,
-		        tex : true, // 默认不解析
-		        flowChart : true, // 默认不解析
-		        sequenceDiagram : false, // 默认不解析
-		        codeFold : true
-		    }); 
-		    
-		    comp.showModal('editModal');
-		} */
+    	function articalMetaSet(){
+    		comp.showModal('publishModal');
+    	}
+    	function sure(){
+    		$("#categoryid").val($("#cate").val());
+    		var str=$("#tagstr").val();
+    		str=str.replace(/，/g,",").replace(/\s/g,'');
+    		$("#tags").val(str);
+    		submitblog('1');
+    	}
 		//提交博客内容
         function submitblog(status) {
 			var content = $("#htmlContent").val();

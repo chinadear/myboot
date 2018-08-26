@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,19 +35,28 @@ import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
+import com.bootplus.model.Category;
 import com.bootplus.model.SysConfig;
+import com.bootplus.model.Tag;
+import com.bootplus.model.TagBlog;
 import com.bootplus.model.UFile;
 import com.bootplus.model.User;
 import com.bootplus.service.IBlogService;
+import com.bootplus.service.ICategoryService;
 import com.bootplus.service.ILoginService;
 import com.bootplus.service.ISysManageService;
+import com.bootplus.service.ITagService;
 /**
  * 博客管理
  * @author liulu
  * 规则：
  * 1.key增加后不可修改，只可修改value
  * 2.删除配置要加保护，不能随便删除，打开保护，启用删除功能
- * 
+ * ========
+ * 博客状态变化图,0草稿；1发布；2未发布
+ * 0->1；2->1；1->2
+ * 发布状态变为1
+ * 保存状态不变0/2
  */
 @Controller
 public class BlogController extends BaseController {
@@ -58,6 +68,10 @@ public class BlogController extends BaseController {
 	private IBlogService blogService;
 	@Autowired
 	private ILoginService loginService;
+	@Autowired
+	private ICategoryService categoryService;
+	@Autowired
+	private ITagService tagService;
 	/**
 	 * 进入我的博客管理页面
 	 * @param model
@@ -82,6 +96,8 @@ public class BlogController extends BaseController {
 	 */
 	@RequestMapping("/blog/write")
 	public String configList(Model model, HttpServletRequest request) {
+		List<Category> clist=categoryService.queryCategoryList();
+		model.addAttribute("clist",clist);
 		return RESOURCE_MENU_PREFIX+"/writeblog";
 	}
 	/**
@@ -89,6 +105,7 @@ public class BlogController extends BaseController {
 	* @param model
 	* @param request
 	* @param blog
+	* @param blog.status：0草稿，1发布，2未发布
 	* @return
 	*/
 	@RequestMapping("/blog/save")
@@ -96,7 +113,29 @@ public class BlogController extends BaseController {
 		UserSession us=(UserSession)request.getSession().getAttribute(UserSession.SESSION_USER_KEY);
 		User user=loginService.findUserById(us.getUserId());
 		blog.setUser(user);
+		if(StringUtils.hasText(blog.getCateId())) {
+			Category cate=new Category();
+			cate.setId(blog.getCateId());
+			blog.setCategory(cate);
+		}
 		blogService.save(blog);
+		if("1".equals(blog.getStatus())) {//如果是发布 则还需要处理标签
+			if(StringUtils.hasText(blog.getTags())) {
+				String[] tags=blog.getTags().split(",");
+				for(String s:tags) {
+					Tag tag=tagService.getTagByName(s);
+					if(tag==null || !StringUtils.hasText(tag.getId())) {//已经存在跳过
+						tag=new Tag();
+						tag.setName(s);
+						tagService.save(tag);
+					}
+					TagBlog tagBlog=new TagBlog();
+					tagBlog.setBlog(blog);
+					tagBlog.setTag(tag);
+					tagService.save(tagBlog);
+				}
+			}
+		}
 		return "redirect:/blog/myblogs";
 	}
 	/**
@@ -108,6 +147,18 @@ public class BlogController extends BaseController {
 	@RequestMapping("/blog/editblog/{id}")
 	public String editblog(Model model, HttpServletRequest request,@PathVariable String id) {
 		Blog blog=blogService.getBlogById(id);
+		List<Category> clist=categoryService.queryCategoryList();
+		TagBlog tb=new TagBlog();
+		tb.setBlog(blog);
+		List<TagBlog> tblist=tagService.queryTagBlogList(tb);
+		if(tblist.size()>0) {
+			List<String> s=new ArrayList<String>();
+			for(TagBlog n:tblist) {
+				s.add(n.getTag().getName()); 
+			}
+			blog.setTags(s.toString().substring(1,s.toString().length()-1));
+		}
+		model.addAttribute("clist",clist);
 		model.addAttribute("blog", blog);
 		return RESOURCE_MENU_PREFIX+"/editblog";
 	}
@@ -115,15 +166,47 @@ public class BlogController extends BaseController {
 	 * 博文编辑保存
 	 * @param model
 	 * @param request
+	 * @param prestatus 之前的状态，用于区别保存状态草稿0保存完还是草稿状态，未发布2保存完还是未发布状态
+	 * 未发布和草稿发布后都为发布状态（1）
+	 * 草稿状态只能变为发布状态，并且有草稿状态变为发布状态需要处理文章属性如分类标签等
+	 * =====
+	 * 0-1需要处理分类和标签，其他状态变更不需要处理
 	 * @return
 	 */
 	@RequestMapping("/blog/modify")
-	public String editblog(Model model, HttpServletRequest request,Blog blog) {
+	public String editblog(Model model, HttpServletRequest request,Blog blog,String prestatus) {
 		Blog b = blogService.getBlogById(blog.getId());
 		b.setContent(blog.getContent());
 		b.setTitle(blog.getTitle());
 		b.setSummary(blog.getSummary());
 		b.setStatus(blog.getStatus());
+		//由0到1需要设置文章meta
+		if("1".equals(blog.getStatus())) {
+			if(StringUtils.hasText(blog.getCateId())) {
+				Category cate=new Category();
+				cate.setId(blog.getCateId());
+				b.setCategory(cate);
+			}else {
+				b.setCategory(null);
+			}
+		}
+		if("0".equals(prestatus)&&"1".equals(blog.getStatus())) {
+			if(StringUtils.hasText(blog.getTags())) {
+				String[] tags=blog.getTags().split(",");
+				for(String s:tags) {
+					Tag tag=tagService.getTagByName(s);
+					if(tag==null || !StringUtils.hasText(tag.getId())) {//已经存在跳过
+						tag=new Tag();
+						tag.setName(s);
+						tagService.save(tag);
+					}
+					TagBlog tagBlog=new TagBlog();
+					tagBlog.setBlog(blog);
+					tagBlog.setTag(tag);
+					tagService.save(tagBlog);
+				}
+			}
+		}
 		blogService.update(b);
 		return "redirect:/blog/myblogs";
 	}

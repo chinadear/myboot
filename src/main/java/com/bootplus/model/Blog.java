@@ -5,6 +5,9 @@ import com.bootplus.core.base.BaseModel;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 @Entity
 @Table(name = "bolg")
 public class Blog extends BaseModel implements java.io.Serializable{
@@ -22,12 +25,31 @@ public class Blog extends BaseModel implements java.io.Serializable{
     @Lob  // 大对象，映射 MySQL 的 Long Text 类型
     @Column(name="HTML_CONTENT") 
     private String htmlContent; // 将 md 转为 html
-    //0草稿，1发布，2封禁
+    //0草稿，1发布，2未发布，3禁用
     @Column(name="STATUS") 
     private String status;
     @ManyToOne()
 	@JoinColumn(name = "USER_ID", nullable=true)
-    public User user;
+    private User user;
+    @ManyToOne()
+	@JoinColumn(name = "CATEGORY", nullable=true)
+    @NotFound(action=NotFoundAction.IGNORE)
+    private Category category;
+    @ManyToOne()
+	@JoinColumn(name = "POSTER", nullable=true)
+    @NotFound(action=NotFoundAction.IGNORE)
+	private UFile poster;
+    //是否开启评论，0关闭，1开启
+    @Column(name="DISCUSS") 
+    private String discuss;
+    @Transient
+    private String tags;
+    /**
+     * 分类ID用于前后台传参
+     */
+    @Transient
+    private String cateId;
+    
     public String getTitle() {
         return title;
     }
@@ -74,5 +96,37 @@ public class Blog extends BaseModel implements java.io.Serializable{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public UFile getPoster() {
+		return poster;
+	}
+
+	public void setPoster(UFile poster) {
+		this.poster = poster;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	public String getCateId() {
+		return cateId;
+	}
+
+	public void setCateId(String cateId) {
+		this.cateId = cateId;
 	}
 }

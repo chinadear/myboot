@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.bootplus.core.filter.WebSiteMeshFilter;
 /**
  * sitemesh的配置类
+ * 注册sitemesh的过滤器的处理类
  * @author liulu
  *
  */

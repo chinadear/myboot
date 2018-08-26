@@ -29,6 +29,8 @@ public class WebVisitorConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub	
 		registry.addInterceptor(visitorInterceptor).addPathPatterns("/**")
-		.excludePathPatterns("/webjars/**", "/css/**", "/lib/**", "/img/**", "/js/**","/error","/security/**","/main","/decorators/main");
+		.excludePathPatterns("/webjars/**", "/css/**",
+				"/lib/**", "/img/**","/liulu/**", "/js/**","/error","/security/**",
+				"/main","/decorators/main");
 	}
 }

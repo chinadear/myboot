@@ -2,7 +2,7 @@
 # Date: 2018-05-03 10:55:55
 # Generator: MySQL-Front 6.0  (Build 2.20)
 
-CREATE TABLE `resource` (
+CREATE TABLE `RESOURCE` (
    `ID` VARCHAR(32) COLLATE utf8_unicode_ci NOT NULL,
    `PARENT_ID` VARCHAR(32) COLLATE utf8_unicode_ci DEFAULT NULL,
    `NAME` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `resource` (
    PRIMARY KEY (`ID`)
  ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `userlogin` (
+CREATE TABLE `USERLOGIN` (
    `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
    `USERNAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
    `PASSWORD` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `userlogin` (
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `user` (
+CREATE TABLE `USER` (
 		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
 		   `NAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '昵称，名字',
 		   `REALNAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '真实姓名',
@@ -47,7 +47,7 @@ CREATE TABLE `user` (
 		   `UPDATE_TIME` datetime DEFAULT NULL,
 		   PRIMARY KEY (`ID`)
 		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-CREATE TABLE `sysconfig` (
+CREATE TABLE `SYSCONFIG` (
 		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
 		   `CONFIG_KEY` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
 		   `CONFIG_VALUE` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `sysconfig` (
 		   `UPDATE_TIME` datetime DEFAULT NULL,
 		   PRIMARY KEY (`ID`)
 		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-CREATE TABLE `role` (
+CREATE TABLE `ROLE` (
 		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
 		   `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '角色名称',
 		   `TYPE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型',
@@ -68,7 +68,7 @@ CREATE TABLE `role` (
 		   `CREATE_TIME` datetime DEFAULT NULL,
 		   PRIMARY KEY (`ID`)
 		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-CREATE TABLE `file` (
+CREATE TABLE `FILE` (
 		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
 		   `SHOWNAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文件展示名称，上传时文件的名称',
 		   `SUFFIX` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '后缀',
@@ -96,15 +96,44 @@ CREATE TABLE `USER_ROLE` (
    `UPDATE_TIME` datetime DEFAULT NULL,
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
- CREATE TABLE `bolg` (
-		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-		   `CONTENT` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '内容源码',
-		   `HTML_CONTENT` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '转为HTML的内容',
-		   `SUMMARY` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '摘要',
-		   `TITLE` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题',
-		   `USER_ID` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '博客拥有者',
-		   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
-		   `CREATE_TIME` datetime DEFAULT NULL,
-		   `UPDATE_TIME` datetime DEFAULT NULL,
-		   PRIMARY KEY (`id`)
-		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `BOLG` (
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `CONTENT` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '内容源码',
+   `HTML_CONTENT` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '转为HTML的内容',
+   `SUMMARY` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '摘要',
+   `TITLE` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题',
+   `CATEGORY` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类别',
+   `POSTER` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '海报',
+   `USER_ID` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '博客拥有者',
+   `DISCUSS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否开启评论',
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `CATEGORY` (
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '分类名称',
+   `CODE` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '编码',
+   `TYPE` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型',
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
+   `COMMENTS` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+ CREATE TABLE `TAG` (
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+ CREATE TABLE `TAGBLOG` (
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `TAG` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `BLOG` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
