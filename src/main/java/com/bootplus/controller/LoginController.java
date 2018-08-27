@@ -68,13 +68,14 @@ public class LoginController extends BaseController{
 			User user=new User();
 			user.setBirthday(DateUtil.getDate(new Date()));
 			user.setName("系统管理员");
-			user.setStatus("1");
+			user.setStatus(com.bootplus.Util.Constants.SYSTEM_DIC_NORMAL_STATUS);
 			user.setUserType("0");
 			loginService.save(user);
 			UserLogin u=new UserLogin();
 			u.setUsername("admin");
 			u.setPassword(passwordEncoder.encode("12345678"));
 			u.setUserId(user);
+			u.setStatus(com.bootplus.Util.Constants.SYSTEM_DIC_NORMAL_STATUS);
 			loginService.save(u);
 		}
 		return "redirect:/auth/login";

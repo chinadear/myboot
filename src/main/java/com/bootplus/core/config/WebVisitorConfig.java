@@ -31,6 +31,6 @@ public class WebVisitorConfig implements WebMvcConfigurer{
 		registry.addInterceptor(visitorInterceptor).addPathPatterns("/**")
 		.excludePathPatterns("/webjars/**", "/css/**",
 				"/lib/**", "/img/**","/liulu/**", "/js/**","/error","/security/**",
-				"/main","/decorators/main");
+				"/main","/decorators/main","/registerAdmin");
 	}
 }

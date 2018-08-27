@@ -22,6 +22,7 @@ CREATE TABLE `USERLOGIN` (
    `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
    `USERNAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
    `PASSWORD` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
    `USER_ID` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
    `CREATE_TIME` datetime DEFAULT NULL,
    `UPDATE_TIME` datetime DEFAULT NULL,
@@ -29,57 +30,57 @@ CREATE TABLE `USERLOGIN` (
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `USER` (
-		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-		   `NAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '昵称，名字',
-		   `REALNAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '真实姓名',
-		   `IDCARD` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `PHONE` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '手机号',
-		   `QQ` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `EMAIL` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `OPENID` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '微信的OPENID',
-		   `BIRTHDAY` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `ADDRESS` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `USERTYPE` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '0超级管理员',
-		   `HEADERIMG` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '用户头像',
-		   `LASTLOGINTIME` datetime DEFAULT NULL COMMENT '上次登录日期',
-		   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '0删除，1正常',
-		   `CREATE_TIME` datetime DEFAULT NULL,
-		   `UPDATE_TIME` datetime DEFAULT NULL,
-		   PRIMARY KEY (`ID`)
-		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `NAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '昵称，名字',
+   `REALNAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '真实姓名',
+   `IDCARD` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `PHONE` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '手机号',
+   `QQ` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `EMAIL` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `OPENID` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '微信的OPENID',
+   `BIRTHDAY` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `ADDRESS` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `USERTYPE` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '0超级管理员',
+   `HEADERIMG` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '用户头像',
+   `LASTLOGINTIME` datetime DEFAULT NULL COMMENT '上次登录日期',
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '0删除，1正常',
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 CREATE TABLE `SYSCONFIG` (
-		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-		   `CONFIG_KEY` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `CONFIG_VALUE` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `COMMENTS` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `CREATE_TIME` datetime DEFAULT NULL,
-		   `UPDATE_TIME` datetime DEFAULT NULL,
-		   PRIMARY KEY (`ID`)
-		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `CONFIG_KEY` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `CONFIG_VALUE` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `COMMENTS` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 CREATE TABLE `ROLE` (
-		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-		   `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '角色名称',
-		   `TYPE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型',
-		   `CODE` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '编码',
-		   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
-		   `COMMENTS` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-		   `UPDATE_TIME` datetime DEFAULT NULL,
-		   `CREATE_TIME` datetime DEFAULT NULL,
-		   PRIMARY KEY (`ID`)
-		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '角色名称',
+   `TYPE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型',
+   `CODE` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '编码',
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
+   `COMMENTS` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   `CREATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 CREATE TABLE `FILE` (
-		   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-		   `SHOWNAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文件展示名称，上传时文件的名称',
-		   `SUFFIX` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '后缀',
-		   `FILENAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文件名称，改名后存储的文件名称',
-		   `PATH` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文件路径，根据年月日来分目录',
-		   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
-		   `TYPE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型',
-		   `CREATE_TIME` datetime DEFAULT NULL,
-		   `UPDATE_TIME` datetime DEFAULT NULL,
-		   PRIMARY KEY (`ID`)
-		 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `SHOWNAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文件展示名称，上传时文件的名称',
+   `SUFFIX` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '后缀',
+   `FILENAME` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文件名称，改名后存储的文件名称',
+   `PATH` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文件路径，根据年月日来分目录',
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
+   `TYPE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型',
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 CREATE TABLE `USER_ROLE` (
    `ID` VARCHAR(32) COLLATE utf8_unicode_ci NOT NULL,
    `USER_ID` VARCHAR(32) COLLATE utf8_unicode_ci DEFAULT NULL,

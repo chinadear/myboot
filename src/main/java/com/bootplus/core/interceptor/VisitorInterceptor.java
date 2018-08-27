@@ -30,6 +30,9 @@ public class VisitorInterceptor implements HandlerInterceptor {
 		if (userSession == null) {
 			return true;
 		} else {
+			if(userSession.isAdmin()) {
+				return true;
+			}
 			Map<String,Boolean> m=userSession.getOwnMenuMap();
 			/*int start=requestUri.indexOf("/",1);//去掉项目名/myboot/system/config/edit;只要system
 			int end=requestUri.indexOf("/",start+1);

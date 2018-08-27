@@ -31,6 +31,8 @@ public class UserSession implements Serializable {
 	private String sidebarStatus;
 	//拥有的菜单权限，map
 	private Map<String,Boolean> ownMenuMap;
+	//是否超级管理员
+	private boolean isAdmin;
 	
 	public String getUserId() {
 		return userId;
@@ -91,6 +93,12 @@ public class UserSession implements Serializable {
 	}
 	public void setOwnMenuMap(Map<String, Boolean> ownMenuMap) {
 		this.ownMenuMap = ownMenuMap;
+	}
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 }

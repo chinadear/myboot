@@ -15,6 +15,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.bootplus.Util.Constants;
 import com.bootplus.controller.LoginController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.model.User;
@@ -57,6 +58,7 @@ public class AuthenticationSuccess implements AuthenticationSuccessHandler {
 		userSession.setUserId(ul.getUserId().getId());
 		userSession.setResource(resourceService.getSidebarMenu(ul.getUserId().getId()));
 		userSession.setOwnMenuMap(resourceService.getOwnMenusMap(ul.getUserId().getId()));
+		userSession.setAdmin(Constants.SYSTEM_DIC_USERTYPE_ADMIN.equals(ul.getUserId().getUserType())?true:false);
 		request.getSession().setAttribute(userSession.SESSION_USER_KEY, userSession);
 		User user=ul.getUserId();
 		userSession.setLastLoginDate(user.getLastLoginTime());

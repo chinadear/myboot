@@ -305,7 +305,7 @@ public class AccountController extends BaseController {
 	}
 	/**
 	 * 删除账户及关联的用户信息
-	 * 账户物理删除，用户信息逻辑删除
+	 * 账户，用户信息逻辑删除
 	 * @param model
 	 * @param id
 	 * @return
