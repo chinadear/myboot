@@ -43,6 +43,7 @@
 		window.location.href="${rc.contextPath}/blog/editblog/"+id;
 	}
 	function delblog(id){
+		var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
 		var r=confirm("确定要删除该文章吗？");
 		if(r){
 			$.ajax({
@@ -57,7 +58,7 @@
 					return;
 				},
 				success:function(data){ //请求成功后处理函数。  
-					$("#blogtable").load("${rc.contextPath}/blog/noSitemesh/loadblogstable",{pageNo:'1'},function(){
+					$("#blogtable").load("${rc.contextPath}/blog/noSitemesh/loadblogstable",{pageNo:page},function(){
 						comp.message("删除成功！");
 					});
 				}
@@ -65,6 +66,7 @@
 		}
 	}
 	function publish(id){
+		var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
 		$.ajax({
 			async :false,
 			cache :false,
@@ -77,26 +79,27 @@
 				return;
 			},
 			success:function(data){ //请求成功后处理函数。  
-				$("#blogtable").load("${rc.contextPath}/blog/noSitemesh/loadblogstable",{pageNo:'1'},function(){
+				$("#blogtable").load("${rc.contextPath}/blog/noSitemesh/loadblogstable",{pageNo:page},function(){
 					comp.message("发布成功！");
 				});
 			}
 		});
 	}
 	function unpublish(id){
+		var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
 		$.ajax({
 			async :false,
 			cache :false,
 			timeout: 100000,
 			type:"POST",
 			url: "${rc.contextPath}/blog/updateStatus",
-			data:{id:id,status:'0'},
+			data:{id:id,status:'2'},
 			error: function () {//请求失败处理函数
 				comp.message("请求失败，请稍后再试","error");
 				return;
 			},
 			success:function(data){ //请求成功后处理函数。  
-				$("#blogtable").load("${rc.contextPath}/blog/noSitemesh/loadblogstable",{pageNo:'1'},function(){
+				$("#blogtable").load("${rc.contextPath}/blog/noSitemesh/loadblogstable",{pageNo:page},function(){
 					comp.message("已取消发布！");
 				});
 			}

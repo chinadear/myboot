@@ -12,16 +12,19 @@
 	    	</div>
 	    	<div class="col-sm-2">
 	    		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="goback();">返回</button>
-				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('1');">发布</button>
-	    		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('0');">保存</button>
+				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="articalMetaSet();">发布</button>
+	    		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="saveblog();">保存</button>
 			</div>
 		</form>
 	</div>
 	<div class="container-fluid innerScroll">
 		<form id="blogform" action="${rc.contextPath}/blog/modify" method="post" >
 			<input type="hidden" name="title" id="title" value=""/>
-			<input type="hidden" name="status" id="status" value=""/>
+			<input type="hidden" name="prestatus" id="prestatus" value="${blog.status!}"/><!-- 进到编辑页面的状态只可能是0草稿,2未发布,此状态为记录编辑前的状态用于分辨是否草稿状态 -->
 			<input type="hidden" name="id" id="id" value="${blog.id!}"/>
+			<input type="hidden" name="cateId" id="categoryid" value=""/>
+			<input type="hidden" name="tags" id="tags" value=""/>
+			<input type="hidden" name="status" id="status" value=""/>
 			<div class="editormd" id="test-editormd"><!-- test-editormd-markdown-doc -->
 			    <textarea class="editormd-markdown-textarea" name="content" id="content">${blog.content!}</textarea>
 			    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
@@ -45,8 +48,52 @@
 			</div><!-- /.modal -->
 		</form>
 	</div>
-<!-- 测试如何显示博客内容 ：需要初始化的js，绑定id=com-->
-<!-- <div id="com"><textarea style="display: none;" id="ccc"></textarea></div> -->
+<!-- 发布设置文章属性-->
+<div class="modal fade in" id="publishModal" tabindex="-1" role="dialog" aria-hidden="true">  
+	<div class="modal-dialog">  
+		<div class="modal-content">  
+			<div class="modal-header">  
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  
+		        <h4 class="modal-title">文章设置</h4>  
+	        </div>  
+			<div class="modal-body"> 
+				<form class="form-horizontal">
+				 	<div class="form-group">
+					    <label class="col-sm-2 control-label">分类</label>
+					    <div class="col-sm-9">
+					    <select name="cate" id="cate" class="form-control">
+					    	<option value="">其他分类</option>
+					    	<#if clist??>
+					    		<#list clist as cl>
+					    			<#if blog??&&blog.category??>
+					    				<#if blog.category.id==cl.id>
+					    					<option value="${cl.id}" selected>${(cl.name!)?html}</option>
+					    				<#else>
+					    					<option value="${cl.id}">${(cl.name!)?html}</option>
+					    				</#if>
+					    			<#else>
+					    				<option value="${cl.id}">${(cl.name!)?html}</option>
+					    			</#if>
+					    		</#list>
+					    	</#if>
+					    </select>
+					    </div>
+				 	</div>
+					 <div class="form-group">
+					    <label class="col-sm-2 control-label">标签</label>
+					    <div class="col-sm-9">
+					      <input type="text" class="form-control" maxlength="50" id="tagstr" name="tagstr" value="${(blog.tags!)?html}" placeholder="各个标签通过逗号分隔">
+					    </div>
+				 	</div>
+				 </form>
+		    </div>  
+			<div class="modal-footer">  
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="sure()">确定</button>  
+			</div>  
+		</div><!-- /.modal-content -->  
+	</div><!-- /.modal-dialog -->  
+</div><!-- /.modal -->
 <script type="text/javascript">
 window.onload = function(){
        editormd("test-editormd", {
@@ -72,19 +119,47 @@ window.onload = function(){
                //this.unwatch();
                //this.watch().fullscreen();
                this.width("100%");
-               this.height(450);//480
+               this.height(pingHeight-173);//480
                //this.resize("100%", 640);
            }
        });
    }
-       function submitblog(status) {
-	       	$("#title").val($("#title_").val());
-	       	$("#status").val(status);
-	       	$("#blogform").submit();
-       }
-       function goback(){
-			window.location.href="${rc.contextPath}/blog/myblogs";
+   //发布处理，只有从草稿状态发布时需要设置分类与标签
+	function articalMetaSet(){
+		var status=$("#prestatus").val();
+		if(status=='0'){
+			comp.showModal("publishModal");//分类标签设置窗口
+		}else{
+			$("#tagstr").attr("disabled","disabled");
+			comp.showModal("publishModal");//分类标签设置窗口
 		}
+	}
+	function sure(){
+		var status=$("#prestatus").val();
+		$("#categoryid").val($("#cate").val());
+		if(status=='0'){
+			var str=$("#tagstr").val();
+			str=str.replace(/，/g,",").replace(/\s/g,'');
+			$("#tags").val(str);
+		}
+		publishblog();
+	}
+	//发布博客，状态变为1
+    function publishblog() {
+      	$("#title").val($("#title_").val());
+      	$("#status").val("1");
+      	$("#blogform").submit();
+    }
+    //保存博客状态不变，保存分两种状态草稿保存还为草稿状态，未发布状态保存还为未发布状态
+    function saveblog() {
+    	var status=$("#prestatus").val();//获取原始状态
+      	$("#title").val($("#title_").val());
+      	$("#status").val(status);//
+      	$("#blogform").submit();
+    }
+    function goback(){
+		window.location.href="${rc.contextPath}/blog/myblogs";
+	}
 
 </script>
 

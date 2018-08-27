@@ -18,4 +18,8 @@ public class DecoratorController {
     public String defaultDecorator() {
         return "/decorators/main";
     }
+/*	@RequestMapping("blog/website")
+    public String defaultWebDecorator() {
+        return "/decorators/blog/website";
+    }*/
 }

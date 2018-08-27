@@ -14,7 +14,7 @@
 <div class="message warning">
 <div class="inset">
 	<div class="login-head">
-		<h1>系统登录</h1>
+		<h1>登陆Bootplus</h1>
 	</div>
 	<form class="form-horizontal" form action="${rc.contextPath}/login" method="post">
 		<div style="text-align: center;"><font color="red" id="tipfont">${meg!}</font></div>
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<div class="form-group" >
-			<a href="##" >注册账号</a>
+			<a href="${rc.contextPath}/registerAdmin" >注册账号</a>
 			<button type="submit" class="button" id="submit" >登录</button>
 		</div>
 	</form>

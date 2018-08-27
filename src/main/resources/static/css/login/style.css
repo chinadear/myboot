@@ -84,6 +84,15 @@ button[type="submit"]:hover {
 	color:#fff
 }
 /*-----start-responsive-design------*/
+@media (max-width:1920px){
+.message.warning {
+		margin: 11% auto 0;
+		width: 25%;
+	}
+	.footer {
+	left: 44%;
+	}
+}
 @media (max-width:1440px){
 .message.warning {
 		margin: 11% auto 0;
