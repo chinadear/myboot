@@ -13,8 +13,7 @@
 	    	<div class="col-sm-2">
 	    		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="goback();">返回</button>
 				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="articalMetaSet();">发布</button>
-				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('0');">保存草稿</button>
-				
+				<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="submitblog('0');">保存</button>
 			</div>
 		</form>
 	</div>
@@ -78,15 +77,27 @@
 					      <input type="text" class="form-control" maxlength="50" id="tagstr" name="tagstr" placeholder="各个标签通过逗号分隔">
 					    </div>
 				 	</div>
+				 	<div class="form-group">
+				 		<label class="col-sm-2 control-label">评论开关</label>
+				 		<div class="col-sm-9 switch">
+						    <input name="discuss" type="checkbox" checked value="1"/>
+					    </div>
+					</div>
+					<div class="form-group">
+				 		<div class="col-sm-9 switch">
+						    <button type="button" class="btn btn-primary" onclick="t()">确定</button>  
+					    </div>
+					</div>
 			 	</form>
 		    </div>  
 			<div class="modal-footer">  
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="sure()">确定</button>  
+				<button type="button" class="btn btn-primary" onclick="sure()">确定</button>  
 			</div>  
 		</div><!-- /.modal-content -->  
 	</div><!-- /.modal-dialog -->  
 </div><!-- /.modal -->
+
 <script type="text/javascript">
 window.onload = function(){
 		pingHeight=document.documentElement.clientHeight;
@@ -94,6 +105,7 @@ window.onload = function(){
             width   : "100%",
             height  : pingHeight-173,
             syncScrolling : "single",
+            fontSize: "18px",
            // emoji : true,
             //你的lib目录的路径，我这边用JSP做测试的
             tocm : true, // Using [TOCM]
@@ -118,40 +130,70 @@ window.onload = function(){
             }
         });
     }
-    	function articalMetaSet(){
-    		comp.showModal('publishModal');
-    	}
-    	function sure(){
-    		$("#categoryid").val($("#cate").val());
-    		var str=$("#tagstr").val();
-    		str=str.replace(/，/g,",").replace(/\s/g,'');
-    		$("#tags").val(str);
-    		submitblog('1');
-    	}
-		//提交博客内容
-        function submitblog(status) {
-			var content = $("#htmlContent").val();
-			var title = $("#title_").val();
-			if(content=="" && title==""){
-				comp.message("请填写内容和标题","error");
-				return;
-			}else if(title==""){
-				comp.message("请填写标题","error");
-				return;
-			}else if(content==""){
-				comp.message("请填写内容","error");
-				return;
+    function t(){
+    	$("[name='discuss']").bootstrapSwitch('toggleState');
+    }
+    function tt(){
+    	$("[name='discuss']").bootstrapSwitch({
+			state:false,
+			onText:"开",
+			offText:"关", 
+			onColor:"success",
+			offColor:"danger",
+			onSwitchChange:function(event,state){
+				if(state==true){
+					$(this).val("1");
+				}else{
+					$(this).val("2");
+				}
 			}
-			
-        	$("#title").val($("#title_").val());
-        	$("#status").val(status);
-        	$("#blogform").submit();
-        }
-		//返回博客列表
-		function goback(){
-			window.location.href="${rc.contextPath}/blog/myblogs";
+		});
+    }
+   	function articalMetaSet(){
+   		tt();
+   		var content = $("#htmlContent").val();
+		var title = $("#title_").val();
+		if(content=="" && title==""){
+			comp.message("请填写内容和标题","error");
+			return false;
+		}else if(title==""){
+			comp.message("请填写标题","error");
+			return false;
+		}else if(content==""){
+			comp.message("请填写内容","error");
+			return false;
 		}
-
+  			comp.showModal('publishModal');
+   	}
+   	function sure(){
+   		$("#categoryid").val($("#cate").val());
+   		var str=$("#tagstr").val();
+   		str=str.replace(/，/g,",").replace(/\s/g,'');
+   		$("#tags").val(str);
+   		submitblog('1'); 
+   	}
+	//提交博客内容
+	function submitblog(status) {
+	var content = $("#htmlContent").val();
+	var title = $("#title_").val();
+	if(content=="" && title==""){
+		comp.message("请填写内容和标题","error");
+		return false;
+	}else if(title==""){
+		comp.message("请填写标题","error");
+		return false;
+	}else if(content==""){
+		comp.message("请填写内容","error");
+		return false;
+	}
+      	$("#title").val($("#title_").val());
+      	$("#status").val(status);
+      	$("#blogform").submit();
+	}
+	//返回博客列表
+	function goback(){
+		window.location.href="${rc.contextPath}/blog/myblogs";
+	}
 </script>
 
 </body>

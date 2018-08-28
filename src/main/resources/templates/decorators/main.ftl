@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="${rc.contextPath}/lib/ztree/css/bootstrapStyle/bootstrapStyle.css"/>
   <link rel="stylesheet" href="${rc.contextPath}/lib/sticky/sticky.css" />
   <link rel="stylesheet" href="${rc.contextPath}/lib/editormd/css/editormd.css"/>
+  <link rel="stylesheet" href="${rc.contextPath}/lib/switch/bootstrap-switch.css"/>
   <link rel="shortcut icon" href="" type="image/x-icon"/>
   <!--[if lt IE 9]>
   <script src="${rc.contextPath}/lib/dist/js/html5shiv.min.js"></script>
@@ -51,5 +52,6 @@
 <script src="${rc.contextPath}/js/myjs_message_cn.js"></script>
 <script src="${rc.contextPath}/lib/turnPage/extendPagination.js"></script>
 <script type="text/javascript" src="${rc.contextPath}/lib/editormd/js/editormd.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/lib/switch/bootstrap-switch.js"></script>
 </body>
 </html>

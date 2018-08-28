@@ -151,7 +151,7 @@
                                             <div class="single-comment justify-content-between d-flex">
                                                 <div class="user justify-content-between d-flex">
                                                     <div class="thumb">
-                                                        <img src="img/asset/c1.jpg" alt="">
+                                                        <img src="" alt="">
                                                     </div>
                                                     <div class="desc">
                                                         <h5><a href="#">Emilly Blunt</a></h5>
@@ -170,7 +170,7 @@
                                             <div class="single-comment justify-content-between d-flex">
                                                 <div class="user justify-content-between d-flex">
                                                     <div class="thumb">
-                                                        <img src="img/asset/c2.jpg" alt="">
+                                                        <img src="" alt="">
                                                     </div>
                                                     <div class="desc">
                                                         <h5><a href="#">Emilly Blunt</a></h5>
@@ -189,7 +189,7 @@
                                             <div class="single-comment justify-content-between d-flex">
                                                 <div class="user justify-content-between d-flex">
                                                     <div class="thumb">
-                                                        <img src="img/asset/c3.jpg" alt="">
+                                                        <img src="" alt="">
                                                     </div>
                                                     <div class="desc">
                                                         <h5><a href="#">Emilly Blunt</a></h5>
@@ -208,7 +208,7 @@
                                             <div class="single-comment justify-content-between d-flex">
                                                 <div class="user justify-content-between d-flex">
                                                     <div class="thumb">
-                                                        <img src="img/asset/c4.jpg" alt="">
+                                                        <img src="" alt="">
                                                     </div>
                                                     <div class="desc">
                                                         <h5><a href="#">Emilly Blunt</a></h5>
@@ -227,7 +227,7 @@
                                             <div class="single-comment justify-content-between d-flex">
                                                 <div class="user justify-content-between d-flex">
                                                     <div class="thumb">
-                                                        <img src="img/asset/c5.jpg" alt="">
+                                                        <img src="" alt="">
                                                     </div>
                                                     <div class="desc">
                                                         <h5><a href="#">Emilly Blunt</a></h5>

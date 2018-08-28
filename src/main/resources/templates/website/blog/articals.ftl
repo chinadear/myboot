@@ -103,7 +103,7 @@
 		                                <div class="detail">
 			                                <div class="row">
 				                                <div class="thumb col-sm-4">
-				                                    <img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" style="width:170px;height:160px;" alt="">
+				                                    <img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" class="img-responsive" style="width:170px;height:160px;" alt="">
 				                                </div>
 				                                <div class="col-sm-8">
 				                                    <a href="#"><h4 class="pb-10">${(r.title!)?html}</h4></a>
