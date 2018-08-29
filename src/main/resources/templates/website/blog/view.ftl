@@ -92,7 +92,7 @@
                             </div>
                             <div class="row artical-meta" >
                                   <i style="margin-top:1px;">发布时间：${artical.createTime?datetime}</i>
-                                  <i style="margin-top:1px;">分类：${artical.category.name}</i>
+                                  <i style="margin-top:1px;">分类：<#if artical.category??>${artical.category.name}<#else>其他</#if></i>
                                   <i class="fa fa-eye" aria-hidden="true" title="阅读量">&nbsp;1322</i>    
                                   <i class="ml-10 fa fa-comment-o" aria-hidden="true" title="评论">&nbsp;29</i>
                             </div>

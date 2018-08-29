@@ -69,7 +69,7 @@ label.error{color:red;}
     border-bottom: 1px solid #eee;}
 .paging-component{position:fixed;bottom:25px;right:15px;}
 /*开关效果*/
-.switch {
+.myswitch {
     width: 57px;
     height: 28px;
     position: relative;
@@ -80,10 +80,12 @@ label.error{color:red;}
     background-clip: content-box;
     display: inline-block;
     -webkit-appearance: none;
+    -moz-appearance:none;
+    appearance :normal;
     user-select: none;
     outline: none;
 }
-.switch:before {
+.myswitch:before {
     content: '';
     width: 26px;
     height: 26px;
@@ -94,25 +96,25 @@ label.error{color:red;}
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
-.switch:checked {
+.myswitch:checked {
     border-color: #64bd63;
     box-shadow: #64bd63 0 0 0 16px inset;
     background-color: #64bd63;
 }
-.switch:checked:before {
+.myswitch:checked:before {
     left: 30px;
 }
-.switch.switch-anim {
+.myswitch.switch-anim {
     transition: border cubic-bezier(0, 0, 0, 1) 0.4s, box-shadow cubic-bezier(0, 0, 0, 1) 0.4s;
 }
-.switch.switch-anim:before {
+.myswitch.switch-anim:before {
     transition: left 0.3s;
 }
-.switch.switch-anim:checked {
+.myswitch.switch-anim:checked {
     box-shadow: #64bd63 0 0 0 16px inset;
     background-color: #64bd63;
     transition: border ease 0.4s, box-shadow ease 0.4s, background-color ease 1.2s;
 }
-.switch.switch-anim:checked:before {
+.myswitch.switch-anim:checked:before {
     transition: left 0.3s;
 }
