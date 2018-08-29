@@ -10,6 +10,8 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 @MappedSuperclass
 public class BaseModel implements Serializable {
 
@@ -21,6 +23,7 @@ public class BaseModel implements Serializable {
 	private String id;
 	//创建时间
 	@Column(name = "CREATE_TIME")
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	//更新时间
 	@Column(name = "UPDATE_TIME")

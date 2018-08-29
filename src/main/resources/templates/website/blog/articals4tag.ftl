@@ -89,10 +89,10 @@
 								<#if true><!-- 图文结合的列表还没有调好，暂时不支持 -->
 		                            <div class="single-list flex-row d-flex">
 		                                <div class="detail">
-		                                    <a href="${rc.contextPath}/articals/${r.id!}"  target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
-		                                    <p>${(r.summary!)?html}</p>
+		                                    <a href="${rc.contextPath}/articals/${r.id!}"  target="_blank"><h4 class="pb-10">${(r.blog.title!)?html}</h4></a>
+		                                    <p>${(r.blog.summary!)?html}</p>
 		                                    <p class="footer">
-			                                    <i>${r.createTime!} 发布</i>
+			                                    <i>${r.blog.createTime!} 发布</i>
 			                                    <i class="fa fa-eye" aria-hidden="true" title="阅读量"></i><a href="#">06</a>     
 			                                    <i class="ml-10 fa fa-comment-o" aria-hidden="true" title="评论"></i><a href="#">02</a>
 		                                    </p>
@@ -106,10 +106,10 @@
 				                                    <img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" class="img-responsive" style="width:170px;height:160px;" alt="">
 				                                </div>
 				                                <div class="col-sm-8">
-				                                    <a href="#"><h4 class="pb-10">${(r.title!)?html}</h4></a>
-				                                    <p>${(r.summary!)?html}</p>
+				                                    <a href="#"><h4 class="pb-10">${(r.blog.title!)?html}</h4></a>
+				                                    <p>${(r.blog.summary!)?html}</p>
 				                                    <p class="footer">
-					                                    <i>${r.createTime?date} 发布</i>
+					                                    <i>${r.blog.createTime?date} 发布</i>
 					                                    <i class="fa fa-eye" aria-hidden="true" title="阅读量"></i><a href="#">06</a>     
 					                                    <i class="ml-10 fa fa-comment-o" aria-hidden="true" title="评论"></i><a href="#">02</a>
 				                                    </p>
@@ -120,10 +120,10 @@
                             	</#if>
                            	</#list>
                         </#if>
+                            <div class="justify-content-center d-flex">
+                                <a class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" id="loadmore" href="#">加载更多...</a>
+                            </div>                                                                     
                         </div>                          
-                        <div class="justify-content-center d-flex">
-                            <a class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" id="loadmore" onclick="loadmore()" href="##">加载更多...</a>
-                        </div>                                                                     
                     </div>
 <!-- 右侧 start -->
                     <div class="col-lg-4 sidebar-area pt-20">
@@ -274,8 +274,10 @@
         <script src="${rc.contextPath}/lib/blog/js/main.js"></script>
         <script src="${rc.contextPath}/js/myblog.js"></script>  
         <script type="text/javascript">
-       		var pageNum=2;//页号，初始第一页
-       		var pageSize=2;//每页文章数量
+        	$(function(){
+        		var pageNum=1;//页号，初始第一页
+        		var pageSize=10;//每页文章数量
+        	});
         	function loadmore(){
         		var appendstr="";
         		$.ajax({
@@ -284,23 +286,19 @@
 					dataType :"json",
 					type:"POST",
 					timeout: 100000,
-					url: "${rc.contextPath}/articals/more?pageNum="+pageNum+"&pageSize="+pageSize,
+					url: "${rc.contextPath}/resource/deleteMenu?id="+node.id,
 					error: function () {//请求失败处理函数
 						alert("请求失败！");
 						return;
 					},
 					success:function(data){ //请求成功后处理函数。  
-						if(data==""){
-							$("#loadmore").html("没有更多文章喽~").css("cursor", "default");
-							return;
-						}
 						for(var i=0;i<data.length;i++){
 							appendstr+= articalTemplet(data[i]);
 						}
 						$(".search-list").append(appendstr);
 						pageNum++;
-						if(data.length<2){
-							$("#loadmore").html("没有更多文章喽~").css("cursor", "default");
+						if(data.length<10){
+							$("#loadmore").html("没有更多文章喽~").addClass("disabled");
 						}
 					}
 				});

@@ -68,6 +68,7 @@ label.error{color:red;}
     border: 0;
     border-bottom: 1px solid #eee;}
 .paging-component{position:fixed;bottom:25px;right:15px;}
+/*开关效果*/
 .switch {
     width: 57px;
     height: 28px;

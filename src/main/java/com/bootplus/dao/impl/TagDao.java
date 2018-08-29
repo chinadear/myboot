@@ -36,9 +36,12 @@ public class TagDao extends BaseDaoImpl implements ITagDao {
 			sb.append(" and blog.id=:blogid");
 			paramMap.put("blogid", tagBlog.getBlog().getId());
 		}
+		if(tagBlog.getBlog()!=null && StringUtils.hasText(tagBlog.getBlog().getStatus())) {
+			sb.append(" and blog.status=:status");
+			paramMap.put("status", tagBlog.getBlog().getStatus());
+		}
 		if(tagBlog.getTag()!=null && StringUtils.hasText(tagBlog.getTag().getId())) {
 			sb.append(" and tag.id=:tagid");
-			sb.append("and blog.status='1'");
 			paramMap.put("tagid", tagBlog.getTag().getId());
 		}
 		sb.append(" order by createTime");
@@ -54,9 +57,12 @@ public class TagDao extends BaseDaoImpl implements ITagDao {
 			sb.append(" and blog.id=:blogid");
 			paramMap.put("blogid", tagBlog.getBlog().getId());
 		}
+		if(tagBlog.getBlog()!=null && StringUtils.hasText(tagBlog.getBlog().getStatus())) {
+			sb.append(" and blog.status=:status");
+			paramMap.put("status", tagBlog.getBlog().getStatus());
+		}
 		if(tagBlog.getTag()!=null && StringUtils.hasText(tagBlog.getTag().getId())) {
 			sb.append(" and tag.id=:tagid");
-			sb.append("and blog.status='1'");
 			paramMap.put("tagid", tagBlog.getTag().getId());
 		}
 		sb.append(" order by createTime");

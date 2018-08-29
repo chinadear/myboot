@@ -24,6 +24,7 @@
 			<input type="hidden" name="status" id="status" value=""/>
 			<input type="hidden" name="cateId" id="categoryid" value=""/>
 			<input type="hidden" name="tags" id="tags" value=""/>
+			<input type="hidden" id="discuss" name="discuss" value="0">
 			<div class="editormd" id="test-editormd"><!-- test-editormd-markdown-doc -->
 			    <textarea class="editormd-markdown-textarea" name="content" id="content"></textarea>
 			    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
@@ -80,7 +81,7 @@
 				 	<div class="form-group">
 				 		<label class="col-sm-2 control-label">评论开关</label>
 				 		<div class="col-sm-9">
-						    <input class="switch switch-anim" type="checkbox" onchange="t()" checked>
+						    <input class="switch switch-anim" type="checkbox" onchange="t()">
 					    </div>
 					</div>
 			 	</form>
@@ -126,28 +127,11 @@ window.onload = function(){
         });
     }
     function t(){
-    	//$("[name='discuss']").bootstrapSwitch('toggleState');
-            if($('.switch-anim').prop('checked')){
-                console.log("选中");
+            if($(".switch-anim").prop("checked")){
+                $("#discuss").val("1");
             }else{
-                console.log("没选中");
+            	$("#discuss").val("0");
             }
-    }
-    function tt(){
-    	$("[name='discuss']").bootstrapSwitch({
-			state:false,
-			onText:"开",
-			offText:"关", 
-			onColor:"success",
-			offColor:"danger",
-			onSwitchChange:function(event,state){
-				if(state==true){
-					$(this).val("1");
-				}else{
-					$(this).val("2");
-				}
-			}
-		});
     }
    	function articalMetaSet(){
    		var content = $("#htmlContent").val();
@@ -169,7 +153,7 @@ window.onload = function(){
    		var str=$("#tagstr").val();
    		str=str.replace(/，/g,",").replace(/\s/g,'');
    		$("#tags").val(str);
-   		submitblog('1'); 
+   		submitblog('1');
    	}
 	//提交博客内容
 	function submitblog(status) {

@@ -180,6 +180,7 @@ public class BlogController extends BaseController {
 		b.setTitle(blog.getTitle());
 		b.setSummary(blog.getSummary());
 		b.setStatus(blog.getStatus());
+		b.setDiscuss(blog.getDiscuss());
 		//由0到1需要设置文章meta
 		if("1".equals(blog.getStatus())) {
 			if(StringUtils.hasText(blog.getCateId())) {

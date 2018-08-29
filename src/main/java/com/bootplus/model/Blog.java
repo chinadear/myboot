@@ -129,4 +129,12 @@ public class Blog extends BaseModel implements java.io.Serializable{
 	public void setCateId(String cateId) {
 		this.cateId = cateId;
 	}
+
+	public String getDiscuss() {
+		return discuss;
+	}
+
+	public void setDiscuss(String discuss) {
+		this.discuss = discuss;
+	}
 }

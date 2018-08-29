@@ -23,7 +23,7 @@
 		<link rel="stylesheet" href="${rc.contextPath}/lib/blog/css/main.css">
 	</head>
 <body>
-     <!-- Start Header Area -->
+   <!-- Start Header Area -->
 	<header class="default-header">
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
@@ -37,7 +37,7 @@
 				</button>
 				<div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
 					<ul class="navbar-nav scrollable-menu">
-						<li><a href="#home">首页</a></li>
+						<li><a href="${rc.contextPath}/">首页</a></li>
 						<li><a href="#news">新闻</a></li>
 						<li><a href="#travel">springboot</a></li>
 						<li><a href="#fashion">java工具类</a></li>
@@ -63,17 +63,27 @@
 	</header>
      <!-- End Header Area -->
      
-     <!-- Start top-section Area -->
-     <section class="banner-area relative section-gap" id="home" data-parallax="scroll" data-image-src="${rc.contextPath}/lib/blog/img/header-bg.jpg">
-         <div class="container">
-             <div class="row justify-content-start align-items-center d-flex">
-                 <div class="col-lg-8 top-left">
-                     <h1 class="text-white mb-20">阿里雲</h1>
-                 </div>
-             </div>
-         </div>  
-     </section>
-     <!-- End top-section Area -->
+            <!-- Start top-section Area -->
+            <section class="top-section-area section-gap">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center d-flex">
+                        <div class="col-lg-8">
+                            <div id="imaginary_container"> 
+                                <div class="input-group stylish-input-group">
+                                    <input type="text" class="form-control"  placeholder="Addictionwhen gambling" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Addictionwhen gambling '" required="">
+                                    <span class="input-group-addon">
+                                        <button type="submit">
+                                            <span class="lnr lnr-magnifier"></span>
+                                        </button>  
+                                    </span>
+                                </div>
+                            </div> 
+                            <p class="mt-20 text-center text-white">169 results found for “Addictionwhen gambling”</p>
+                        </div>
+                    </div>
+                </div>  
+            </section>
+            <!-- End top-section Area -->
     
     <!-- Start post Area -->
     <div class="post-wrapper pt-20">
@@ -92,7 +102,7 @@
 		                                    <a href="${rc.contextPath}/articals/${r.id!}"  target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
 		                                    <p>${(r.summary!)?html}</p>
 		                                    <p class="footer">
-			                                    <i>${r.createTime!} 发布</i>
+			                                    <i>${r.createTime?date} 发布</i>
 			                                    <i class="fa fa-eye" aria-hidden="true" title="阅读量"></i><a href="#">06</a>     
 			                                    <i class="ml-10 fa fa-comment-o" aria-hidden="true" title="评论"></i><a href="#">02</a>
 		                                    </p>
@@ -120,10 +130,10 @@
                             	</#if>
                            	</#list>
                         </#if>
+                            <div class="justify-content-center d-flex">
+                                <a class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" href="#"> Load More Post</a>
+                            </div>                                                                     
                         </div>                          
-                        <div class="justify-content-center d-flex">
-                            <a class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" id="loadmore" onclick="loadmore()" href="##">加载更多...</a>
-                        </div>                                                                     
                     </div>
 <!-- 右侧 start -->
                     <div class="col-lg-4 sidebar-area pt-20">
@@ -271,40 +281,6 @@
         <script src="${rc.contextPath}/lib/blog/js/owl.carousel.min.js"></script>      
         <script src="${rc.contextPath}/lib/blog/js/jquery.magnific-popup.min.js"></script>             
         <script src="${rc.contextPath}/lib/blog/js/jquery.sticky.js"></script>
-        <script src="${rc.contextPath}/lib/blog/js/main.js"></script>
-        <script src="${rc.contextPath}/js/myblog.js"></script>  
-        <script type="text/javascript">
-       		var pageNum=2;//页号，初始第一页
-       		var pageSize=2;//每页文章数量
-        	function loadmore(){
-        		var appendstr="";
-        		$.ajax({
-					async :false,
-					cache :false,
-					dataType :"json",
-					type:"POST",
-					timeout: 100000,
-					url: "${rc.contextPath}/articals/more?pageNum="+pageNum+"&pageSize="+pageSize,
-					error: function () {//请求失败处理函数
-						alert("请求失败！");
-						return;
-					},
-					success:function(data){ //请求成功后处理函数。  
-						if(data==""){
-							$("#loadmore").html("没有更多文章喽~").css("cursor", "default");
-							return;
-						}
-						for(var i=0;i<data.length;i++){
-							appendstr+= articalTemplet(data[i]);
-						}
-						$(".search-list").append(appendstr);
-						pageNum++;
-						if(data.length<2){
-							$("#loadmore").html("没有更多文章喽~").css("cursor", "default");
-						}
-					}
-				});
-        	}
-        </script>
+        <script src="${rc.contextPath}/lib/blog/js/main.js"></script>  
     </body>
 </html>

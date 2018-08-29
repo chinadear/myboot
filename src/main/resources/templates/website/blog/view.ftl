@@ -42,7 +42,7 @@
 						<li><a href="#news">新闻</a></li>
 						<li><a href="#travel">springboot</a></li>
 						<li><a href="##">java工具类</a></li>
-						<li><a href="${rc.contextPath}/liulu/blog">博客</a></li>
+						<li><a href="${rc.contextPath}/articals">博客</a></li>
 						<!-- Dropdown -->
 					    <li class="dropdown">
 							<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -100,7 +100,7 @@
                                 <ul>
                                 	<#if tags??>
                                 		<#list tags as t>
-                                    		<li><a href="#">${(t.tag.name!)?html}</a></li>
+                                    		<li><a href="${rc.contextPath}/articals/tags/${t.tag.id!}">${(t.tag.name!)?html}</a></li>
                                     	</#list>
                                     </#if>
                                 </ul>
@@ -130,8 +130,13 @@
                                 <div class="container">
                                     <div class="row justify-content-between">
                                         <div class="col-sm-12 nav-left justify-content-start d-flex">
-                                             <textarea class="form-control" rows="1" placeholder="说点什么吧"></textarea>            
-	                                        <button type="button" class="btn btn-primary btn-sm optionbtn">发表评论</button>
+                                        	<#if artical.discuss=='0'>
+                                        		<textarea class="form-control" rows="1" disabled="disabled"  placeholder="评论已关闭"></textarea>            
+	                                        	<button type="button" class="btn btn-primary btn-sm optionbtn" disabled="disabled">发表评论</button>
+                                        	<#else>
+	                                            <textarea class="form-control" rows="1" placeholder="说点什么吧"></textarea>            
+	                                        	<button type="button" class="btn btn-primary btn-sm optionbtn">发表评论</button>
+                                        	</#if>
                                         </div>
                                     </div>
                                   <!--   <div class="row justify-content-between">

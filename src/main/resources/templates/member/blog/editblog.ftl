@@ -25,6 +25,7 @@
 			<input type="hidden" name="cateId" id="categoryid" value=""/>
 			<input type="hidden" name="tags" id="tags" value=""/>
 			<input type="hidden" name="status" id="status" value=""/>
+			<input type="hidden" id="discuss" name="discuss" value="${blog.discuss!'0'}">
 			<div class="editormd" id="test-editormd"><!-- test-editormd-markdown-doc -->
 			    <textarea class="editormd-markdown-textarea" name="content" id="content">${blog.content!}</textarea>
 			    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
@@ -85,6 +86,16 @@
 					      <input type="text" class="form-control" maxlength="50" id="tagstr" name="tagstr" value="${(blog.tags!)?html}" placeholder="各个标签通过逗号分隔">
 					    </div>
 				 	</div>
+				 	<div class="form-group">
+				 		<label class="col-sm-2 control-label">评论开关</label>
+				 		<div class="col-sm-9">
+				 		<#if blog.discuss?? && blog.discuss=='1'>
+						    <input class="switch switch-anim" type="checkbox" onchange="t()" checked>
+					    <#else>
+					    	<input class="switch switch-anim" type="checkbox" onchange="t()">
+					    </#if>
+					    </div>
+					</div>
 				 </form>
 		    </div>  
 			<div class="modal-footer">  
@@ -124,6 +135,13 @@ window.onload = function(){
            }
        });
    }
+	function t(){
+	    if($(".switch-anim").prop("checked")){
+	        $("#discuss").val("1");
+	    }else{
+	    	$("#discuss").val("0");
+	    }
+	}
    //发布处理，只有从草稿状态发布时需要设置分类与标签
 	function articalMetaSet(){
 		var status=$("#prestatus").val();

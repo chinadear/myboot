@@ -53,10 +53,9 @@ public class loginSecurityConfig extends WebSecurityConfigurerAdapter {
 		 http.addFilterBefore(new KaptchaAuthenticationFilter("/login","/auth/login?meg='验证码错误'"), UsernamePasswordAuthenticationFilter.class)
 //		http.headers()
         .authorizeRequests()//and()是链接符，and之间的内容有相同的作用域，比如A().B().permitAll();表示A,B都面对全部用户
-        .antMatchers("/registerAdmin").permitAll()
-        .antMatchers("/login").permitAll()
-        .antMatchers("/**/noSecurity/**").permitAll()
-        .antMatchers("/liulu/**").permitAll()//antMatchers无需权限 即可访问，permitAll全部用户
+        //antMatchers无需权限 即可访问，permitAll全部用户
+        .antMatchers("/registerAdmin","/login","/**/noSecurity/**","/articals/**","/").permitAll()
+        //除了antmatchers中的例外，其他任何请求都需要权限认证
         .anyRequest().authenticated()
         .and().formLogin().loginPage("/auth/login")//formlogin登录配置
         .successHandler(authenticationSuccess)//登陆成功处理
