@@ -79,13 +79,8 @@
 				 	</div>
 				 	<div class="form-group">
 				 		<label class="col-sm-2 control-label">评论开关</label>
-				 		<div class="col-sm-9 switch">
-						    <input name="discuss" type="checkbox" checked value="1"/>
-					    </div>
-					</div>
-					<div class="form-group">
-				 		<div class="col-sm-9 switch">
-						    <button type="button" class="btn btn-primary" onclick="t()">确定</button>  
+				 		<div class="col-sm-9">
+						    <input class="switch switch-anim" type="checkbox" onchange="t()" checked>
 					    </div>
 					</div>
 			 	</form>
@@ -131,7 +126,12 @@ window.onload = function(){
         });
     }
     function t(){
-    	$("[name='discuss']").bootstrapSwitch('toggleState');
+    	//$("[name='discuss']").bootstrapSwitch('toggleState');
+            if($('.switch-anim').prop('checked')){
+                console.log("选中");
+            }else{
+                console.log("没选中");
+            }
     }
     function tt(){
     	$("[name='discuss']").bootstrapSwitch({
@@ -150,7 +150,6 @@ window.onload = function(){
 		});
     }
    	function articalMetaSet(){
-   		tt();
    		var content = $("#htmlContent").val();
 		var title = $("#title_").val();
 		if(content=="" && title==""){
