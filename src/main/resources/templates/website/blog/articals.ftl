@@ -122,7 +122,7 @@
                         </#if>
                         </div>                          
                         <div class="justify-content-center d-flex">
-                            <a class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" id="loadmore" onclick="loadmore()" href="##">加载更多...</a>
+                            <button class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" id="loadmore" onclick="loadmore()" >加载更多...</button>
                         </div>                                                                     
                     </div>
 <!-- 右侧 start -->
@@ -291,7 +291,7 @@
 					},
 					success:function(data){ //请求成功后处理函数。  
 						if(data==""){
-							$("#loadmore").html("没有更多文章喽~").css("cursor", "default");
+							$("#loadmore").html("没有更多文章喽~").attr("disabled", "true");
 							return;
 						}
 						for(var i=0;i<data.length;i++){
@@ -300,7 +300,7 @@
 						$(".search-list").append(appendstr);
 						pageNum++;
 						if(data.length<2){
-							$("#loadmore").html("没有更多文章喽~").css("cursor", "default");
+							$("#loadmore").html("没有更多文章喽~").attr("disabled", "true");
 						}
 					}
 				});

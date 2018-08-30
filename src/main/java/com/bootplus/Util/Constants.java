@@ -30,12 +30,20 @@ public class Constants {
 	 */
 	public static final String SYSTEM_DIC_USERTYPE_MEMBER= "2";
 	/**
-	 * 默认密码的key值
+	 * 用户session的key
 	 */
-	public static final String SYSTEM_DIC_SYSTEMCONFIG_DEFAULT_PASSWORD_KEY= "DEFAULT_PASSWORD";
+	public static final String SESSION_USER_KEY="sessionUser";
+	//=====以下是系统配置用的key
 	/**
 	 * 系统配置中设置的附件上传目录
 	 */
 	public static final String SYSTEM_DIC_SYSTEMCONFIG_UPLOADPATH_KEY= "UPLOADPATH";
-	public static final String SESSION_USER_KEY="sessionUser";
+	/**
+	 * 默认密码的key值
+	 */
+	public static final String SYSTEM_DIC_SYSTEMCONFIG_DEFAULT_PASSWORD_KEY= "DEFAULT_PASSWORD";
+	/**
+	 * 文章评论的开关，此处控制是否开启评论功能，0关闭，1开启；关闭评论功能意味着网站中将看不到评论模块
+	 */
+	public static final String SYSTEM_DIC_SYSTEMCONFIG_SWITCH_COMMENT="COMMENT_SWITCH";
 }

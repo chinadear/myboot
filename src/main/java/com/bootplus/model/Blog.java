@@ -44,6 +44,12 @@ public class Blog extends BaseModel implements java.io.Serializable{
     private String discuss;
     @Transient
     private String tags;
+    //总的评论数
+    @Transient
+    private long commentNum;
+    //是否包含未发布的评论，0不包含，1包含
+    @Transient
+    private String isNnPub;
     /**
      * 分类ID用于前后台传参
      */
@@ -136,5 +142,21 @@ public class Blog extends BaseModel implements java.io.Serializable{
 
 	public void setDiscuss(String discuss) {
 		this.discuss = discuss;
+	}
+
+	public long getCommentNum() {
+		return commentNum;
+	}
+
+	public void setCommentNum(long commentNum) {
+		this.commentNum = commentNum;
+	}
+
+	public String getIsNnPub() {
+		return isNnPub;
+	}
+
+	public void setIsNnPub(String isNnPub) {
+		this.isNnPub = isNnPub;
 	}
 }

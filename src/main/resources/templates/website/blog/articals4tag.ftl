@@ -14,7 +14,7 @@
 		<!-- Site Title -->
 		<title>boot+</title>
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="${rc.contextPath}/lib/blog/img/fav.png">
+		<!-- <link rel="shortcut icon" href="${rc.contextPath}/lib/blog/img/fav.png"> -->
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 		<link rel="stylesheet" href="${rc.contextPath}/lib/blog/css/linearicons.css">
 		<link rel="stylesheet" href="${rc.contextPath}/lib/blog/css/font-awesome.min.css">
@@ -121,9 +121,9 @@
                            	</#list>
                         </#if>
                         </div>                          
-                            <div class="justify-content-center d-flex">
-                                <a class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" id="loadmore" onclick="loadmore()" href="##">加载更多...</a>
-                            </div>                                                                     
+                        <div class="justify-content-center d-flex">
+                            <button class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" id="loadmore" onclick="loadmore()" >加载更多...</button>
+                        </div>                                                                     
                     </div>
 <!-- 右侧 start -->
                     <div class="col-lg-4 sidebar-area pt-20">
@@ -284,14 +284,14 @@
 				dataType :"json",
 				type:"POST",
 				timeout: 100000,
-				url: "${rc.contextPath}/articals/more?pageNum="+pageNum+"&pageSize="+pageSize,
+				url: "${rc.contextPath}/articals/more?pageNum="+pageNum+"&pageSize="+pageSize+"&tagid=${tagid}",
 				error: function () {//请求失败处理函数
 					alert("请求失败！");
 					return;
 				},
 				success:function(data){ //请求成功后处理函数。  
 					if(data==""){
-						$("#loadmore").html("没有更多文章喽~").css("cursor", "default");
+						$("#loadmore").html("没有更多文章喽~").attr("disabled", "true");
 						return;
 					}
 					for(var i=0;i<data.length;i++){
@@ -300,7 +300,7 @@
 					$(".search-list").append(appendstr);
 					pageNum++;
 					if(data.length<2){
-						$("#loadmore").html("没有更多文章喽~").css("cursor", "default");
+						$("#loadmore").html("没有更多文章喽~").attr("disabled", "true");
 					}
 				}
 			});
