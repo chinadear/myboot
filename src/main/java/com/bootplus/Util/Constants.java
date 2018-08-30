@@ -46,4 +46,9 @@ public class Constants {
 	 * 文章评论的开关，此处控制是否开启评论功能，0关闭，1开启；关闭评论功能意味着网站中将看不到评论模块
 	 */
 	public static final String SYSTEM_DIC_SYSTEMCONFIG_SWITCH_COMMENT="COMMENT_SWITCH";
+	/**
+	 * 是否开启评论审核，开启审核后评论内容不能直接在网站刷新，需要后台审核发布后才能显示到网站上0关闭，1开启
+	 */
+	public static final String SYSTEM_DIC_SYSTEMCONFIG_CHECK_COMMENT="COMMENT_CHECK";
+ 	
 }

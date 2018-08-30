@@ -25,6 +25,8 @@ public interface ISysManageService {
 	public List<SysConfig> querySysConfigList();
 	
 	public List<SysConfig> querySysConfigListByKey(String key);
+	
+	public SysConfig querySysConfigByKey(String key);
 	/**
 	 * 上传附件，返回附件ID
 	 * @param file

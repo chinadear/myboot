@@ -137,6 +137,11 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
 		// TODO Auto-generated method stub
 		return (UFile)sysManageDao.get(UFile.class, id);
 	}
+	@Override
+	public SysConfig querySysConfigByKey(String key) {
+		// TODO Auto-generated method stub
+		return sysManageDao.querySysConfigByKey(key);
+	}
 
 
 }

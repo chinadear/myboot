@@ -22,4 +22,10 @@ public class SysManageDao extends BaseDaoImpl implements ISysManageDao {
 		return (List<SysConfig>)this.query("from SysConfig where status='1' and key=? order by key",key);
 	}
 
+	@Override
+	public SysConfig querySysConfigByKey(String key) {
+		// TODO Auto-generated method stub
+		return (SysConfig)this.queryUnique("from SysConfig where status='1' and key=? ", key);
+	}
+
 }

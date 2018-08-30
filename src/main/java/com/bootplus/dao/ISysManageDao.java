@@ -8,4 +8,5 @@ import com.bootplus.model.SysConfig;
 public interface ISysManageDao extends IBaseDao{
 	public List<SysConfig> querySysConfigList();
 	public List<SysConfig> querySysConfigListByKey(String key);
+	public SysConfig querySysConfigByKey(String key);
 }

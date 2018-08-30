@@ -14,12 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bootplus.Util.CompUtil;
+import com.bootplus.Util.Constants;
+import com.bootplus.Util.GetRemoteIP;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
+import com.bootplus.model.Comment;
+import com.bootplus.model.SysConfig;
 import com.bootplus.model.Tag;
 import com.bootplus.model.TagBlog;
 import com.bootplus.service.IBlogService;
+import com.bootplus.service.ICommentService;
 import com.bootplus.service.ISysManageService;
 import com.bootplus.service.ITagService;
 
@@ -32,12 +37,24 @@ public class WebSiteController extends BaseController {
 	private ITagService tagService;
 	@Autowired
 	private ISysManageService sysManageService;
-	
+	@Autowired
+	private ICommentService commentService;
+	/**
+	 * 首页-待开发
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/")
 	public String index(Model model, HttpServletRequest request) {
 		return RESOURCE_MENU_PREFIX+"/search";
 	}
-	//博文列表
+	/**
+	 * 博文列表
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/articals")
 	public String articials(Model model, HttpServletRequest request) {
 		Blog blog=new Blog();
@@ -46,7 +63,13 @@ public class WebSiteController extends BaseController {
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/articals";
 	}
-	//浏览博文
+	/**
+	 * 浏览博文
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/articals/{id}")
 	public String view(Model model, HttpServletRequest request,@PathVariable String id) {
 		Blog blog=blogService.getBlogById(id);
@@ -61,10 +84,44 @@ public class WebSiteController extends BaseController {
 			blog.setTags(s.toString().substring(1,s.toString().length()-1));
 			model.addAttribute("tags", tblist);
 		}
+		SysConfig sc=sysManageService.querySysConfigByKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_SWITCH_COMMENT);
+		Comment com=new Comment();
+		com.setArtical(blog);
+		com.setStatus("1");
+		Page page=commentService.queryCommentPage(com, 1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("artical", blog);
+		model.addAttribute("comment_switch", sc.getValue());
+		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/view";
 	}
-	//指定tag下的博文列表
+	/**
+	 * 添加评论
+	 * @param comment
+	 * @param articalId
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/articals/comment/add",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String addComment(String comment,String articalId,HttpServletRequest request) {
+		SysConfig sc=sysManageService.querySysConfigByKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_CHECK_COMMENT);
+		Blog blog=new Blog();
+		blog.setId(articalId);
+		Comment com=new Comment();
+		com.setComment(comment);
+		com.setArtical(blog);
+		com.setScreenname(GetRemoteIP.vague(request));
+		com.setStatus("0".equals(sc.getValue())?"1":"0");
+		commentService.save(com);
+		return "t";
+	}
+	/**
+	 * 指定tag下的博文列表
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/articals/tags/{id}")
 	public String articialsBytag(Model model, HttpServletRequest request,@PathVariable String id) {
 		Tag tag = new Tag();

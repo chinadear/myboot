@@ -17,19 +17,29 @@ public class CommentDao extends BaseDaoImpl implements ICommentDao {
 	@Override
 	public Page queryCommentPage(Comment com, int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
-		return this.pagedQuery("from Comment where artical.id=? order by createTime", pageNo, pageSize,com.getArtical().getId());
+		StringBuffer sb=new StringBuffer("from Comment where 1=1 ");
+		Map paramMap = new HashMap();
+		if(com.getArtical()!=null && StringUtils.hasText(com.getArtical().getId())) {
+			sb.append(" and artical.id=:blogid");
+			paramMap.put("blogid", com.getArtical().getId());
+		}
+		if(com.getStatus()!=null && StringUtils.hasText(com.getStatus())) {
+			sb.append(" and status=:status");
+			paramMap.put("status", com.getStatus());
+		}
+		return this.pagedQuery(sb.toString(),paramMap, pageNo, pageSize);
 	}
 
 	@Override
 	public long queryCommentCountByArtical(String blogId) {
 		// TODO Auto-generated method stub
-		return this.queryCount("from Comment where artical.id=? ", blogId);
+		return this.queryCount("select count(*) from Comment where artical.id=? ", blogId);
 	}
 
 	@Override
 	public long queryCommentCountByArticalPub(String blogId) {
 		// TODO Auto-generated method stub
-		return this.queryCount("from Comment where status='1' and artical.id=? ", blogId);
+		return this.queryCount("select count(*) from Comment where status='1' and artical.id=? ", blogId);
 	}
 
 }

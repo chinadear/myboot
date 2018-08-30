@@ -284,7 +284,8 @@
 				dataType :"json",
 				type:"POST",
 				timeout: 100000,
-				url: "${rc.contextPath}/articals/more?pageNum="+pageNum+"&pageSize="+pageSize+"&tagid=${tagid}",
+				url: "${rc.contextPath}/articals/more",
+				data:{pageNum:pageNum,pageSize:pageSize,tagid:'${tagid}'},
 				error: function () {//请求失败处理函数
 					alert("请求失败！");
 					return;

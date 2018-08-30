@@ -109,7 +109,8 @@
                             <div class="single-post-content">
                             	<div id="com"><textarea style="display: none;">${artical.htmlContent!}</textarea></div>
                             </div>
-<!-- 博文显示区end -->							
+<!-- 博文显示区end -->		
+							<!-- 分享 -->				
                             <div class="bottom-wrapper">
                                 <div class="row">
                                     <div class="col-lg-8 single-b-wrap col-md-12">
@@ -124,132 +125,80 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Start 留言 Area -->
-                            <section class="nav-area pb-15">
-                                <div class="container">
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-12 nav-left justify-content-start d-flex">
-                                        	<#if artical.discuss=='0'>
-                                        		<textarea class="form-control" rows="1" disabled="disabled"  placeholder="评论已关闭"></textarea>            
-	                                        	<button type="button" class="btn btn-primary btn-sm optionbtn" disabled="disabled">发表评论</button>
-                                        	<#else>
-	                                            <textarea class="form-control" rows="1" placeholder="说点什么吧"></textarea>            
-	                                        	<button type="button" class="btn btn-primary btn-sm optionbtn">发表评论</button>
-                                        	</#if>
-                                        </div>
-                                    </div>
-                                  <!--   <div class="row justify-content-between">
-                                    	<div class="col-sm-12" style="text-align: right;">
-                                    	<button type="button" class="btn btn-primary btn-sm optionbtn">发表评论</button>
-                                   		</div>
-                                    </div> -->
-                                </div>    
-                            </section>
-                            <!-- End 留言 Area -->
+							<input type="hidden" id="articalId" value="${artical.id!}">
+                            <#if comment_switch=='1'>
+	                            <!-- Start 留言 Area -->
+	                            <section class="nav-area pb-15">
+	                                <div class="container">
+	                                    <div class="row justify-content-between">
+	                                        <div class="col-sm-12 nav-left justify-content-start d-flex">
+	                                        	<#if artical.discuss=='0'>
+	                                        		<textarea class="form-control" rows="1" disabled="disabled"  placeholder="评论已关闭"></textarea>            
+		                                        	<button type="button" class="btn btn-primary btn-sm optionbtn" disabled="disabled">发表评论</button>
+	                                        	<#else>
+		                                            <textarea class="form-control" rows="1" id="comment" placeholder="说点什么吧"></textarea>            
+		                                        	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addComment()">发表评论</button>
+	                                        	</#if>
+	                                        </div>
+	                                    </div>
+	                                </div>    
+	                            </section>
+	                            <!-- End 留言 Area -->
                             
-                            <!-- Start 评论 Area -->
-                            <section class="comment-sec-area pt-20 pb-20">
-                                <div class="container">
-                                    <div class="row flex-column">
-                                        <div class="comment-list">
-                                            <div class="single-comment justify-content-between d-flex">
-                                                <div class="user justify-content-between d-flex">
-                                                    <div class="thumb">
-                                                        <img src="" alt="">
-                                                    </div>
-                                                    <div class="desc">
-                                                        <h5><a href="#">Emilly Blunt</a></h5>
-                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                        <p class="comment">
-                                                            Never say goodbye till the end comes!
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="reply-btn">
-                                                       <a href="" class="btn-reply text-uppercase">回复</a> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="comment-list left-padding">
-                                            <div class="single-comment justify-content-between d-flex">
-                                                <div class="user justify-content-between d-flex">
-                                                    <div class="thumb">
-                                                        <img src="" alt="">
-                                                    </div>
-                                                    <div class="desc">
-                                                        <h5><a href="#">Emilly Blunt</a></h5>
-                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                        <p class="comment">
-                                                            Never say goodbye till the end comes!
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="reply-btn">
-                                                       <a href="" class="btn-reply text-uppercase">回复</a> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="comment-list left-padding">
-                                            <div class="single-comment justify-content-between d-flex">
-                                                <div class="user justify-content-between d-flex">
-                                                    <div class="thumb">
-                                                        <img src="" alt="">
-                                                    </div>
-                                                    <div class="desc">
-                                                        <h5><a href="#">Emilly Blunt</a></h5>
-                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                        <p class="comment">
-                                                            Never say goodbye till the end comes!
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="reply-btn">
-                                                       <a href="" class="btn-reply text-uppercase">回复</a> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="comment-list">
-                                            <div class="single-comment justify-content-between d-flex">
-                                                <div class="user justify-content-between d-flex">
-                                                    <div class="thumb">
-                                                        <img src="" alt="">
-                                                    </div>
-                                                    <div class="desc">
-                                                        <h5><a href="#">Emilly Blunt</a></h5>
-                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                        <p class="comment">
-                                                            Never say goodbye till the end comes!
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="reply-btn">
-                                                       <a href="" class="btn-reply text-uppercase">回复</a> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="comment-list">
-                                            <div class="single-comment justify-content-between d-flex">
-                                                <div class="user justify-content-between d-flex">
-                                                    <div class="thumb">
-                                                        <img src="" alt="">
-                                                    </div>
-                                                    <div class="desc">
-                                                        <h5><a href="#">Emilly Blunt</a></h5>
-                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                        <p class="comment">
-                                                            Never say goodbye till the end comes!
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="reply-btn">
-                                                       <a href="" class="btn-reply text-uppercase">回复</a> 
-                                                </div>
-                                            </div>
-                                        </div>                                                                                                                                                                
-                                    </div>
-                                </div>    
-                            </section>
+	                            <!-- Start 评论 Area -->
+	                            <section class="comment-sec-area pt-20 pb-20">
+	                                <div class="container">
+	                                    <div class="row flex-column">
+	                                    <#if page??>
+											<#list page.result as r>
+		                                        <div class="comment-list">
+		                                            <div class="single-comment justify-content-between d-flex">
+		                                                <div class="user justify-content-between d-flex">
+		                                                   <!--  头像，暂时不要
+		                                                   <div class="thumb">
+		                                                        <img src="" alt="">
+		                                                    </div> -->
+		                                                    <div class="desc">
+		                                                        <h5><a href="#">${(r.screenname!)?html}</a></h5>
+		                                                        <p class="date">留言时间：${r.createTime!}</p>
+		                                                        <p class="comment">
+		                                                            ${(r.comment!)?html}
+		                                                        </p>
+		                                                    </div>
+		                                                </div>
+		                                                <!-- 回复按钮暂时不要
+		                                                <div class="reply-btn">
+		                                                       <a href="" class="btn-reply text-uppercase">回复</a> 
+		                                                </div> -->
+		                                          	</div>
+		                                        </div>
+	                                       	</#list>
+	                                   </#if>
+	                                        <!-- 回复区域暂时不要
+	                                        <div class="comment-list left-padding">
+	                                            <div class="single-comment justify-content-between d-flex">
+	                                                <div class="user justify-content-between d-flex">
+	                                                    <div class="thumb">
+	                                                        <img src="" alt="">
+	                                                    </div>
+	                                                    <div class="desc">
+	                                                        <h5><a href="#">2Emilly Blunt</a></h5>
+	                                                        <p class="date">December 4, 2017 at 3:12 pm </p>
+	                                                        <p class="comment">
+	                                                            Never say goodbye till the end comes!
+	                                                        </p>
+	                                                    </div>
+	                                                </div>
+	                                                <div class="reply-btn">
+	                                                       <a href="" class="btn-reply text-uppercase">回复</a> 
+	                                                </div>
+	                                            </div>
+	                                        </div> -->
+	                                        
+	                                    </div>
+	                                </div>    
+	                            </section>
+                           </#if>
                             <!-- End 评论 Area -->
                         </div>
                     </div>
@@ -420,6 +369,31 @@
 			        codeFold : true
 			    }); 
 	    	})
+    	function addComment(){
+	    	var articalId=$("#articalId").val();
+	    	var comment=$("#comment").val();
+	    	if(comment==null || comment==""){
+	    		alert("请填写评论内容");
+	    		return;
+	    	}
+	    	$.ajax({
+				async :false,
+				cache :false,
+				dataType :"text",
+				type:"POST",
+				timeout: 100000,
+				url: "${rc.contextPath}/articals/comment/add",
+				data:{articalId:articalId,comment:comment},
+				error: function () {//请求失败处理函数
+					alert("请求失败！");
+					return;
+				},
+				success:function(data){ //请求成功后处理函数。  
+					$("#comment").val("");
+					alert("评论成功！等待审核...");
+				}
+			});
+	    }
 	    </script>
     </body>
 </html>
