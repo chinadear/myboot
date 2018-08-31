@@ -6,7 +6,8 @@
 </head>
 <body>
 <div  class="inner-header">
-	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="">一键发布</button>
+	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="goback()">返回</button>
+	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="oneKeyPublishAll()">一键发布</button>
 </div>
 <div class="container-fluid innerScroll">
 	<div class="row ">
@@ -14,7 +15,7 @@
 			<#include "commentTable.ftl">
 		</div>
 	</div>
-	<input type="hidden" id="commentid" value="${id}">
+	<input type="hidden" id="blogid" value="${blogid!}">
 	<div class="row ">
 		<div class="paging-component"></div>
 	</div>
@@ -24,8 +25,8 @@
  		callBackPagination();
  	}
  	function blogtable(currPage) {
- 		var commentid=$("#commentid").val();
-		$("#blogtable").load("${rc.contextPath}/blog/noSitemesh/loadcommenttable",{pageNo:currPage,id:commentid},function(){});
+ 		var blogid=$("#blogid").val();
+		$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadcommenttable",{pageNo:currPage,id:blogid},function(){});
 	}
 	//翻页组件初始化，翻页组件暂时职能采用table的load来刷新翻页的列表
 	function callBackPagination() {
@@ -39,7 +40,7 @@
 	    });
 	}
 	function delcomment(id){
-		var commentid=$("#commentid").val();
+		var blogid=$("#blogid").val();
 		var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
 		var r=confirm("确定要删除该评论吗？");
 		if(r){
@@ -55,8 +56,32 @@
 					return;
 				},
 				success:function(data){ //请求成功后处理函数。  
-					$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadcommenttable",{pageNo:page,id:commentid},function(){
+					$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadcommenttable",{pageNo:page,id:blogid},function(){
 						comp.message("删除成功！");
+					});
+				}
+			});
+		}
+	}
+	//一键发布
+	function oneKeyPublishAll(){
+		var blogid=$("#blogid").val();
+		var r=confirm("确定要发布此文章的全部评论吗？");
+		if(r){
+			$.ajax({
+				async :false,
+				cache :false,
+				timeout: 100000,
+				type:"POST",
+				url: "${rc.contextPath}/comment/publishAll",
+				data:{id:blogid},
+				error: function () {//请求失败处理函数
+					comp.message("请求失败，请稍后再试","error");
+					return;
+				},
+				success:function(data){ //请求成功后处理函数。  
+					$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadcommenttable",{pageNo:'1',id:blogid},function(){
+						comp.message("发布成功！");
 					});
 				}
 			});
@@ -76,7 +101,8 @@
 				return;
 			},
 			success:function(data){ //请求成功后处理函数。  
-				$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadcommenttable",{pageNo:page,id:commentid},function(){
+				var blogid=$("#blogid").val();
+				$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadcommenttable",{pageNo:page,id:blogid},function(){
 					comp.message("发布成功！");
 				});
 			}
@@ -95,12 +121,16 @@
 				comp.message("请求失败，请稍后再试","error");
 				return;
 			},
-			success:function(data){ //请求成功后处理函数。  
-				$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadcommenttable",{pageNo:page,id:commentid},function(){
+			success:function(data){ //请求成功后处理函数。
+				var blogid=$("#blogid").val();
+				$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadcommenttable",{pageNo:page,id:blogid},function(){
 					comp.message("已取消发布！");
 				});
 			}
 		});
+	}
+	function goback(){
+		window.location.href="${rc.contextPath}/comment/blogs";
 	}
 </script>
 </body>

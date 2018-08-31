@@ -6,7 +6,7 @@
 </head>
 <body>
 <div  class="inner-header">
-	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="">查看待审核评论</button>
+	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="oneKeyPublishAll()">一键发布</button>
 </div>
 <div class="container-fluid innerScroll">
 	<div class="row ">
@@ -38,6 +38,28 @@
 	}
 	function viewcomment(id){
 		window.location.href="${rc.contextPath}/comment/comments/"+id;
+	}
+	//一键发布
+	function oneKeyPublishAll(){
+		var r=confirm("确定要发布全部评论吗？");
+		if(r){
+			$.ajax({
+				async :false,
+				cache :false,
+				timeout: 100000,
+				type:"POST",
+				url: "${rc.contextPath}/comment/publishAll",
+				error: function () {//请求失败处理函数
+					comp.message("请求失败，请稍后再试","error");
+					return;
+				},
+				success:function(data){ //请求成功后处理函数。  
+					$("#blogtable").load("${rc.contextPath}/comment/noSitemesh/loadblogstable",{pageNo:1},function(){
+						comp.message("发布成功！");
+					});
+				}
+			});
+		}
 	}
 </script>
 </body>

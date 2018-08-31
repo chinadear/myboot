@@ -3,8 +3,8 @@
 		<tr>
 			<th width="5%">编号</th>
 			<th>评论内容</th>
-			<th>状态</th>
-			<th>创建日期</th>
+			<th width="10%">状态</th>
+			<th width="15%">创建日期</th>
 			<th width="8%">操作</th>
 		</tr>
 	</thead>

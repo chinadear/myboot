@@ -32,8 +32,8 @@
 				                <td class="autocut">${(cl.value!)?html}</td>
 				                <td class="autocut">${(cl.comments!)?html}</td>
 				                <td>
-				                	<a href="#" onclick="delSysConfig('${cl.id}','${cl.key}')" title="删除"><i class="glyphicon glyphicon-trash"></i></a>
 									<a href="#" onclick="editsysconfig('${cl.id}')" title="修改"><i class="glyphicon glyphicon-edit"></i></a>
+				                	<a href="#" onclick="delSysConfig('${cl.id}','${cl.key}')" title="删除"><i class="glyphicon glyphicon-trash"></i></a>
 				                </td>  
 		               		</tr>  
 						</#list>

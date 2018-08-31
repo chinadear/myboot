@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import com.bootplus.core.dao.impl.BaseDaoImpl;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.ICommentDao;
+import com.bootplus.model.Blog;
 import com.bootplus.model.Comment;
 
 @Repository
@@ -27,7 +28,7 @@ public class CommentDao extends BaseDaoImpl implements ICommentDao {
 			sb.append(" and status=:status");
 			paramMap.put("status", com.getStatus());
 		}
-		return this.pagedQuery(sb.toString(),paramMap, pageNo, pageSize);
+		return this.pagedQuery(sb.toString(),paramMap, pageSize, pageNo);
 	}
 
 	@Override
@@ -40,6 +41,18 @@ public class CommentDao extends BaseDaoImpl implements ICommentDao {
 	public long queryCommentCountByArticalPub(String blogId) {
 		// TODO Auto-generated method stub
 		return this.queryCount("select count(*) from Comment where status='1' and artical.id=? ", blogId);
+	}
+
+	@Override
+	public void publishAll(Blog blog) {
+		// TODO Auto-generated method stub
+		StringBuffer sb=new StringBuffer("update Comment set status='1' where 1=1 ");
+		Map paramMap = new HashMap();
+		if(StringUtils.hasText(blog.getId())) {
+			sb.append(" and artical.id=:articalId");
+			paramMap.put("articalId", blog.getId());
+		}
+		this.executeHql(sb.toString(), paramMap);
 	}
 
 }

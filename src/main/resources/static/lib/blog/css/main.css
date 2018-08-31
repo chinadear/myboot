@@ -1564,7 +1564,8 @@ body {
 	color:#222
 }
 .section-gap {
-	padding:60px 0
+	/* padding:60px 0 */
+	padding:20px 0
 }
 .section-title {
 	padding-bottom:30px
@@ -1694,7 +1695,7 @@ body {
 }
 }@media (min-width: 768px) {
 	.dropdown .dropdown-menu {
-	display:block;
+	/* display:block; */
 	opacity:0;
 	-webkit-transition:all 200ms ease-in;
 	-moz-transition:all 200ms ease-in;
@@ -2080,7 +2081,7 @@ body {
 	display:inline-flex
 }
 .footer-area {
-	padding-top:10px;
+	/* padding-top:10px; */
 	background-color:#222222
 }
 .footer-area .footer-nav li {
@@ -2216,7 +2217,7 @@ h6 {
 	margin-bottom:30px
 }
 }.footer-bottom {
-	padding-top:80px
+	padding-top:20px/*80px*/
 }
 .footer-text a,.footer-text i {
 	color:#69B4FD

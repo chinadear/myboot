@@ -18,4 +18,12 @@ public interface IBlogService {
 	public void delete(Blog blog);
 	public void update(Blog blog);
 	public Blog getBlogById(String id);
+	/**
+	 * 禁止全部评论，此处紧控制的是不能增加新的评论，历史评论可以看
+	 */
+	public void disabledAllDiscuss();
+	/**
+	 * 启用全部评论
+	 */
+	public void enabledAllDiscuss();
 }

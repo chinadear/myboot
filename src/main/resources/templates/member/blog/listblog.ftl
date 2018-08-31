@@ -6,6 +6,8 @@
 </head>
 <body>
 <div  class="inner-header">
+	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="togglediscuss('0')">关闭全部评论</button>
+	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="togglediscuss('1')">开启全部评论</button>
 	<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="writeblog()">写博客</button>
 </div>
 <div class="container-fluid innerScroll">
@@ -104,6 +106,28 @@
 				});
 			}
 		});
+	}
+	function togglediscuss(status){
+		var r=confirm(status=='1'?"确定要启用全部评论吗？":"确定要禁止全部评论吗？");
+		if(r){
+			$.ajax({
+				async :false,
+				cache :false,
+				timeout: 100000,
+				type:"POST",
+				url: "${rc.contextPath}/blog/togglediscuss",
+				data:{status:status},
+				error: function () {//请求失败处理函数
+					comp.message("请求失败，请稍后再试","error");
+					return;
+				},
+				success:function(data){ //请求成功后处理函数。  
+					$("#blogtable").load("${rc.contextPath}/blog/noSitemesh/loadblogstable",{},function(){
+						comp.message(status=='1'?"成功启用全部文章的评论":"成功禁止全部文章的评论");
+					});
+				}
+			});
+		}
 	}
 </script>
 </body>

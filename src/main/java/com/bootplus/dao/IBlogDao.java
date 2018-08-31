@@ -12,4 +12,12 @@ public interface IBlogDao<T> extends IBaseDao{
 
 	public List<Blog> getBlogList(Blog blog);
 	public Page getBlogPage(Blog blog,int pageNo, int pageSize);
+	/**
+	 * 禁止全部评论，此处紧控制的是不能增加新的评论，历史评论可以看
+	 */
+	public void disabledAllDiscuss();
+	/**
+	 * 启用全部评论
+	 */
+	public void enabledAllDiscuss();
 }

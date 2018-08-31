@@ -91,9 +91,10 @@
                         </div>                          
                     </div>
 <!-- 右侧 start -->
-                    <div class="col-lg-4 sidebar-area">
+                    <div class="col-lg-4 sidebar-area pt-20">
                         <!-- 广告 -->
                         <div class="single_widget recent_widget">
+                            <h4 class="text-uppercase pb-20">广告</h4>
                             <div class="active-recent-carusel">
                                 <div class="item">
                                     <a href="##"><img src="${rc.contextPath}/lib/blog/img/asset/slider.jpg" alt=""></a>
@@ -190,7 +191,38 @@
         <!-- End post Area -->  
     </div>
     <!-- End post Area -->
-    <#include "../pubarea/footer.ftl">      
-	<#include "../pubarea/scripts.ftl">
+    
+<!-- start footer Area -->      
+        <footer class="footer-area section-gap">
+            <div class="container">
+                <div class="row">
+                </div>
+
+                <div class="row footer-bottom d-flex justify-content-between">
+
+                    
+                    <p class="col-lg-8 col-sm-12 footer-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | made with Colorlib -  More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+                    
+
+                    <div class="col-lg-4 col-sm-12 footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-dribbble"></i></a>
+                        <a href="#"><i class="fa fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End footer Area -->        
+
+        <script src="${rc.contextPath}/lib/blog/js/vendor/jquery-2.2.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        <script src="${rc.contextPath}/lib/blog/js/vendor/bootstrap.min.js"></script>
+        <script src="${rc.contextPath}/lib/blog/js/jquery.ajaxchimp.min.js"></script>
+        <script src="${rc.contextPath}/lib/blog/js/parallax.min.js"></script>          
+        <script src="${rc.contextPath}/lib/blog/js/owl.carousel.min.js"></script>      
+        <script src="${rc.contextPath}/lib/blog/js/jquery.magnific-popup.min.js"></script>             
+        <script src="${rc.contextPath}/lib/blog/js/jquery.sticky.js"></script>
+        <script src="${rc.contextPath}/lib/blog/js/main.js"></script>  
     </body>
 </html>

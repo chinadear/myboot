@@ -53,4 +53,16 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 		return this.pagedQuery(sb.toString(), paramMap, pageSize, pageNo);
 	}
 
+	@Override
+	public void disabledAllDiscuss() {
+		// TODO Auto-generated method stub
+		this.executeHql("update Blog set discuss='0'");
+	}
+
+	@Override
+	public void enabledAllDiscuss() {
+		// TODO Auto-generated method stub
+		this.executeHql("update Blog set discuss='1'");
+	}
+
 }

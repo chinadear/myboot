@@ -239,6 +239,21 @@ public class BlogController extends BaseController {
 		return "t";
 	}
 	/**
+	 * 一键启用/禁止评论
+	 * @param status 0关闭，1开启
+	 * @return
+	 */
+	@RequestMapping(value="/blog/togglediscuss",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String publishAll(String status) {
+		if("1".equals(status)) {
+			blogService.enabledAllDiscuss();
+		}else {
+			blogService.disabledAllDiscuss();
+		}
+		return "t";
+	}
+	/**
 	 * 翻页刷新列表
 	 * @param model
 	 * @param request

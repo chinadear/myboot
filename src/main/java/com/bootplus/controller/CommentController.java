@@ -142,7 +142,7 @@ public class CommentController extends BaseController {
 		comment.setArtical(blog);
 		Page page=commentService.queryCommentPage(comment, 1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("page", page);
-		model.addAttribute("commentid", id);
+		model.addAttribute("blogid", id);
 		return RESOURCE_MENU_PREFIX+"/listcomment"; 
 		
 	}
@@ -175,6 +175,21 @@ public class CommentController extends BaseController {
 		Comment com=commentService.getCommentById(id);
 		com.setStatus(status);
 		commentService.update(com);
+		return "t";
+	}
+	/**
+	 * 一键发布
+	 * @param id 文章ID
+	 * @return
+	 */
+	@RequestMapping(value="/comment/publishAll",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String publishAll(String id) {
+		Blog blog=new Blog();
+		if(StringUtils.hasText(id)) {
+			blog.setId(id);
+		}
+		commentService.publishAll(blog);
 		return "t";
 	}
 	/**

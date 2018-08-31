@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
 import com.bootplus.Util.GetRemoteIP;
+import com.bootplus.Util.GetRemoteIP;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
@@ -50,6 +51,16 @@ public class WebSiteController extends BaseController {
 		return RESOURCE_MENU_PREFIX+"/search";
 	}
 	/**
+	 * 站内检索
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/articals/search")
+	public String searcg(Model model, HttpServletRequest request) {
+		return RESOURCE_MENU_PREFIX+"/search";
+	}
+	/**
 	 * 博文列表
 	 * @param model
 	 * @param request
@@ -59,7 +70,7 @@ public class WebSiteController extends BaseController {
 	public String articials(Model model, HttpServletRequest request) {
 		Blog blog=new Blog();
 		blog.setStatus("1");
-		Page page=blogService.getBlogPage(blog, 1, 2);//Page.DEFAULT_PAGE_SIZE
+		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/articals";
 	}

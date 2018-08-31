@@ -58,4 +58,16 @@ public class BlogService extends BaseServiceImpl implements IBlogService {
 		// TODO Auto-generated method stub
 		return (Blog)blogDao.get(Blog.class, id);
 	}
+
+	@Override
+	public void disabledAllDiscuss() {
+		// TODO Auto-generated method stub
+		blogDao.disabledAllDiscuss();
+	}
+
+	@Override
+	public void enabledAllDiscuss() {
+		// TODO Auto-generated method stub
+		blogDao.enabledAllDiscuss();
+	}
 }

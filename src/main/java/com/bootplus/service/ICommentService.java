@@ -1,6 +1,7 @@
 package com.bootplus.service;
 
 import com.bootplus.core.dao.page.Page;
+import com.bootplus.model.Blog;
 import com.bootplus.model.Comment;
 
 public interface ICommentService {
@@ -22,4 +23,9 @@ public interface ICommentService {
 	 * @return
 	 */
 	public long queryCommentCountByArticalPub(String blogId);
+	/**
+	 * 一键发布
+	 * @param comment
+	 */
+	public void publishAll(Blog blog);
 }

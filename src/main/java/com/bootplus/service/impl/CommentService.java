@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bootplus.core.base.BaseServiceImpl;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.ICommentDao;
+import com.bootplus.model.Blog;
 import com.bootplus.model.Comment;
 import com.bootplus.service.ICommentService;
 
@@ -56,6 +57,12 @@ public class CommentService extends BaseServiceImpl implements ICommentService {
 	public long queryCommentCountByArticalPub(String blogId) {
 		// TODO Auto-generated method stub
 		return commentDao.queryCommentCountByArticalPub(blogId);
+	}
+
+	@Override
+	public void publishAll(Blog blog) {
+		// TODO Auto-generated method stub
+		commentDao.publishAll(blog);
 	}
 	
 }
