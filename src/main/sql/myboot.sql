@@ -29,7 +29,7 @@ CREATE TABLE `USERLOGIN` (
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `user` (
+CREATE TABLE `USER` (
    `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
    `NAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '昵称，名字',
    `REALNAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '真实姓名',
@@ -111,6 +111,7 @@ CREATE TABLE `BOLG` (
    `SUMMARY` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '摘要',
    `TITLE` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题',
    `CATEGORY` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类别',
+   `VIEW_NUM` int(11) DEFAULT '0' COMMENT '浏览量',
    `POSTER` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '海报',
    `USER_ID` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '博客拥有者',
    `DISCUSS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否开启评论',

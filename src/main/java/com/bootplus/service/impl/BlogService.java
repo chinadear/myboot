@@ -70,4 +70,10 @@ public class BlogService extends BaseServiceImpl implements IBlogService {
 		// TODO Auto-generated method stub
 		blogDao.enabledAllDiscuss();
 	}
+
+	@Override
+	public void updateViewNum(String articalId) {
+		// TODO Auto-generated method stub
+		blogDao.updateViewNum(articalId);
+	}
 }

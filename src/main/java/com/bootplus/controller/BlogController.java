@@ -281,7 +281,7 @@ public class BlogController extends BaseController {
     public Map<String,Object> uploadimg(@RequestParam(value = "editormd-image-file", required = false) MultipartFile file, HttpServletRequest request) {
         Map<String,Object> resultMap = new HashMap<String,Object>();
 //        response.setHeader("X-Frame-Options", "SAMEORIGIN");
-        UFile uf=sysManageService.uploadFile(file,"2",request);
+        UFile uf=sysManageService.uploadFile(file,"0",0,0,request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
         resultMap.put("success", 1);
         resultMap.put("message", "上传成功！");
         resultMap.put("url",request.getContextPath()+"/blog/noSecurity/img/"+uf.getId());

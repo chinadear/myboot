@@ -65,4 +65,9 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 		this.executeHql("update Blog set discuss='1'");
 	}
 
+	@Override
+	public void updateViewNum(String articalId) {
+		// TODO Auto-generated method stub
+		this.executeHql("update Blog set viewNum=viewNum+1 where id=?",articalId);
+	}
 }

@@ -2,6 +2,7 @@ package com.bootplus.service.impl;
 
 import java.io.File;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
 import com.bootplus.Util.IdUtil;
+import com.bootplus.Util.ImageProcessingComp;
 import com.bootplus.core.base.BaseServiceImpl;
 import com.bootplus.dao.ISysManageDao;
 import com.bootplus.model.SysConfig;
@@ -84,10 +86,11 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
 		return (SysConfig)sysManageDao.get(SysConfig.class, id);
 	}
 	@Override
-	public UFile uploadFile(MultipartFile file,String type,HttpServletRequest request) {
+	public UFile uploadFile(MultipartFile file,String type,int width,int height,HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		String defaultPath=null;
 		List<SysConfig> sclist=this.querySysConfigListByKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_UPLOADPATH_KEY);
+		//======start判断系统附件存储路径是否配置，已配置则读取，未配置的使用默认路径，然后将默认路径写入配置
 		if(sclist.size()>0&&StringUtils.hasText(sclist.get(0).getValue())) {
 			defaultPath=sclist.get(0).getValue()+File.separator+CompUtil.getCurDateDir();
 		}else {
@@ -105,6 +108,7 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
 			}
 			
 		}
+		//==========end系统附件路径处理结束
 		File f=new File(defaultPath);
 		if(!f.exists()) {
 			f.mkdirs();
@@ -117,10 +121,34 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
         String newFileName = IdUtil.getUUIDHEXStr()+suffixName;
         //创建文件
         File dest = new File(defaultPath + newFileName);
-        System.out.println(dest.getAbsolutePath());
+        //创建一个附件存储的持久化类
         UFile uf=new UFile();
         try {
-            file.transferTo(dest);
+        	ImageProcessingComp img=new ImageProcessingComp(file, defaultPath + newFileName);
+        	if("0".equals(type)) {//博客图片，图片尺寸不便，压缩画质减少存储占用的空间
+        		long kb=file.getSize()/1024;
+        		if(kb>1024*2) {
+        			img.compressByQality("0.1");
+        		}else if(kb>1024) {
+        			img.compressByQality("0.2");
+        		}else if(kb>200) {
+        			img.compressByQality("0.3");
+        		}else if(kb>50){
+        			img.compressByQality("0.5");
+        		}else {
+        			file.transferTo(dest);
+        		}
+        	}else if("1".equals(type)) {
+        		img.compress(width,height);
+        	}else if("2".equals(type)){
+        		if(width>0) {
+        			img.compressByWidth(width);
+        		}else {
+        			img.compressByHeight(height);
+        		}
+        	}else {
+        		file.transferTo(dest);
+        	}
             uf.setShowName(fileName.substring(fileName.lastIndexOf(File.separator)+1,fileName.lastIndexOf(".")));
             uf.setFileName(newFileName);
             uf.setSuffix(suffixName);

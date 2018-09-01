@@ -7,9 +7,8 @@ function articalTemplet(data){
 	       "<a href='/articals/"+data.id+"'  target='_blank'><h4 class='pb-10'>"+data.title+"</h4></a>"+
 	        "<p>"+data.summary+"</p>"+
 	        "<p class='footer'>"+
-	            "<i>"+data.createTime+" 发布</i>"+
-	            "<i class='fa fa-eye' aria-hidden='true' title='阅读量'></i><a href='#'>06</a>"+   
-	            "<i class='ml-10 fa fa-comment-o' aria-hidden='true' title='评论'></i><a href='#'>02</a>"+
+	            "<i class='vd-right'>发布时间："+data.createTime+" </i>"+
+	            "<i>阅读数：32<i class='fa fa-eye' title='阅读数'></i></i>"+
 	        "</p></div></div>";
 	return artical;
 }

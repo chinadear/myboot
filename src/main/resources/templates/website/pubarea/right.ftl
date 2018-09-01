@@ -35,7 +35,7 @@
     </div> 
 <!-- 分类 -->
     <div class="single_widget cat_widget">
-        <h4 class="text-uppercase pb-20">类别</h4>
+        <h4 class="text-uppercase pb-20">分类</h4>
         <ul>
             <li>
                 <a href="#">Technology <span>37</span></a>
@@ -62,7 +62,7 @@
     </div>
  	<!-- 今日推荐 -->
     <div class="single_widget cat_widget">
-        <h4 class="text-uppercase pb-20">今日推荐</h4>
+        <h4 class="text-uppercase pb-20">最新文章</h4>
         <ul>
             <li>
                 <a href="#">Dec'17 <span>37</span></a>

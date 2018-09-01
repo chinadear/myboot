@@ -35,10 +35,9 @@
                                 </div>
                             </div>
                             <div class="row artical-meta" >
-                                  <i style="margin-top:1px;">发布时间：${artical.createTime?datetime}</i>
-                                  <i style="margin-top:1px;">分类：<#if artical.category??>${artical.category.name}<#else>其他</#if></i>
-                                  <i class="fa fa-eye" aria-hidden="true" title="阅读量">&nbsp;1322</i>    
-                                  <i class="ml-10 fa fa-comment-o" aria-hidden="true" title="评论">&nbsp;29</i>
+                                  <i style="margin-top:1px;" class="vd-right">发布时间：${artical.createTime?datetime}</i>
+                                  <i style="margin-top:1px;" class="vd-right">分类：<#if artical.category??>${artical.category.name}<#else>其他</#if></i>
+                                  <i style="margin-top:1px;">阅读量：${artical.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>   
                             </div>
                             <div class="tags">
                                 <ul>
@@ -57,14 +56,20 @@
 							<!-- 分享 -->				
                             <div class="bottom-wrapper">
                                 <div class="row">
-                                    <div class="col-lg-8 single-b-wrap col-md-12">
+                                    <div class="col-lg-7 single-b-wrap col-md-12">
                                     </div>
-                                    <div class="col-lg-4 single-b-wrap col-md-12">
+                                    <div class="col-lg-5 single-b-wrap col-md-12">
                                         <ul class="social-icons">
-                                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                                            <li >
+	                                            <a href="##" class="btn share-iconbtn share-iconbtn-red"  onclick="toSinawebo('abcdfef','http://www.baidu.com','')">
+			                        				<img src="http://www.njkhcct.com/upload/52059cddd029c.jpg" style="width:20px;height:20px;float:left;margin-left:-29px;">分享到新浪微博
+			                        			</a>
+		                        			</li>
+		                        			<li >
+	                                            <a href="##" class="btn share-iconbtn share-iconbtn-blue"  onclick="toQQSpace('abcdfef','http://www.baidu.com','')">
+			                        				<img src="http://www.likeyunba.com/pan/res/1496843201.jpg" style="width:20px;height:20px;float:left;margin-left:-29px;">分享到QQ空间
+			                        			</a>
+		                        			</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -201,6 +206,16 @@
 				}
 			});
 	    }
+	    //分享到新浪微博  
+	    function toSinawebo(title,url,picurl){  
+		    var sharesinastring='http://v.t.sina.com.cn/share/share.php?title='+title+'&url='+url+'&content=utf-8&sourceUrl='+url+'&pic='+picurl;  
+		    window.open(sharesinastring,'newwindow','height=400,width=400,top=100,left=100');  
+	    }  
+	    //分享到QQ空间  
+	    function toQQSpace(title,url,picurl){  
+		    var shareqqzonestring='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?summary='+title+'&url='+url+'&pics='+picurl;  
+		    window.open(shareqqzonestring,'newwindow','height=400,width=400,top=100,left=100');  
+	    } 
 	    </script>
     </body>
 </html>

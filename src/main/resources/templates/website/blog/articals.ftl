@@ -35,9 +35,8 @@
 		                                    <a href="${rc.contextPath}/articals/${r.id!}"  target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
 		                                    <p>${(r.summary!)?html}</p>
 		                                    <p class="footer">
-			                                    <i>${r.createTime!} 发布</i>
-			                                    <i class="fa fa-eye" aria-hidden="true" title="阅读量"></i><a href="#">06</a>     
-			                                    <i class="ml-10 fa fa-comment-o" aria-hidden="true" title="评论"></i><a href="#">02</a>
+		                                    	<i class="vd-right"> 发布时间：${r.createTime!}</i>
+			                                    <i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
 		                                    </p>
 		                                </div>
 		                            </div>
@@ -52,9 +51,8 @@
 				                                    <a href="#"><h4 class="pb-10">${(r.title!)?html}</h4></a>
 				                                    <p>${(r.summary!)?html}</p>
 				                                    <p class="footer">
-					                                    <i>${r.createTime?date} 发布</i>
-					                                    <i class="fa fa-eye" aria-hidden="true" title="阅读量"></i><a href="#">06</a>     
-					                                    <i class="ml-10 fa fa-comment-o" aria-hidden="true" title="评论"></i><a href="#">02</a>
+				                                    	<i class="vd-right"> 发布时间：${r.createTime!}</i>
+			                                    		<i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
 				                                    </p>
 			                                    </div>
 			                                </div>

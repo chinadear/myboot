@@ -9,6 +9,8 @@ import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
+
+import org.springframework.web.multipart.MultipartFile;
 /**
  * 图片压缩处理类
  * @author ll
@@ -32,6 +34,26 @@ public class ImageProcessingComp {
 	public ImageProcessingComp(String fileName,String destFileName) throws IOException {
 		File file = new File(fileName);// 读入文件
 		img = ImageIO.read(file);      // 构造Image对象
+		width = img.getWidth(null);    // 得到源图宽
+		height = img.getHeight(null);  // 得到源图长
+		this.destFileName=destFileName;
+	}
+	public ImageProcessingComp(File file,String destFileName) throws IOException {
+		img = ImageIO.read(file);      // 构造Image对象
+		width = img.getWidth(null);    // 得到源图宽
+		height = img.getHeight(null);  // 得到源图长
+		this.destFileName=destFileName;
+	}
+	public ImageProcessingComp(MultipartFile file,String destFileName) throws IOException {
+		File f = null;
+		try {
+		    f=File.createTempFile("tmp", null);
+		    file.transferTo(f);
+		}catch (IOException e) {
+		    e.printStackTrace();
+		}
+		img = ImageIO.read(f);      // 构造Image对象
+		f.deleteOnExit();        
 		width = img.getWidth(null);    // 得到源图宽
 		height = img.getHeight(null);  // 得到源图长
 		this.destFileName=destFileName;
@@ -69,7 +91,7 @@ public class ImageProcessingComp {
 	 * @param w int 新宽度
 	 * @param h int 新高度
 	 */
-	private void compress(int w, int h) throws IOException {
+	public void compress(int w, int h) throws IOException {
 		// SCALE_SMOOTH 的缩略算法 生成缩略图片的平滑度的 优先级比速度高 生成的图片质量比较好 但速度慢
 		BufferedImage image = new BufferedImage(w, h,BufferedImage.TYPE_INT_RGB ); 
 		image.getGraphics().drawImage(img, 0, 0, w, h, null); // 绘制缩小后的图
@@ -104,7 +126,7 @@ public class ImageProcessingComp {
         ColorModel colorModel = ColorModel.getRGBdefault();
         // 指定压缩时使用的色彩模式
         imgWriteParams.setDestinationType(new javax.imageio.ImageTypeSpecifier(colorModel, colorModel
-                .createCompatibleSampleModel(16, 16)));
+                .createCompatibleSampleModel(32, 32)));
         try
         {
             out = new FileOutputStream(destFileName);

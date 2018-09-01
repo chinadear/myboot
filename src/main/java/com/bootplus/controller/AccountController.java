@@ -245,7 +245,7 @@ public class AccountController extends BaseController {
 		UserSession us=(UserSession)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		User user=loginService.findUserById(us.getUserId());
 		if(!file.isEmpty()) {
-			UFile uf=sysManageService.uploadFile(file,"1",request);//type=1系统附件，=0博客图片
+			UFile uf=sysManageService.uploadFile(file,"0",190,190,request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
 			if(StringUtils.hasText(uf.getId())) {
 				user.setHeaderImg(uf);
 				loginService.update(user);
