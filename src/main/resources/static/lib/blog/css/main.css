@@ -2865,6 +2865,10 @@ blockquote cite:before {
 	padding-right: 15px;
 	border-right: 1px groove #0000004d;
 }
+.vd-left{
+	padding-left: 2px;
+	border-left: 1px groove #0000004d;
+}
 /*分享按钮样式*/
 .share-iconbtn{
 	color: #fff;
@@ -2874,9 +2878,9 @@ blockquote cite:before {
 	transform: translateZ(0px);
 	transition: all 0.5s ease 0s;
 	padding: 1px 5px;
-	padding-left: 30px;
+	padding-left: 24px;
 	font-size: 12px;
-	line-height: 1.5;
+	line-height: 1.7;
 	border-radius: 3px;
 }
 .share-iconbtn-red{

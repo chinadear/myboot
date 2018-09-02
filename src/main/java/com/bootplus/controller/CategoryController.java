@@ -52,7 +52,7 @@ public class CategoryController extends BaseController {
 	@Autowired
 	private ICategoryService categoryService;
 	/**
-	 * 角色管理
+	 * 分类管理
 	 * @param model
 	 * @param request
 	 * @return

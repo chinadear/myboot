@@ -8,7 +8,7 @@ function articalTemplet(data){
 	        "<p>"+data.summary+"</p>"+
 	        "<p class='footer'>"+
 	            "<i class='vd-right'>发布时间："+data.createTime+" </i>"+
-	            "<i>阅读数：32<i class='fa fa-eye' title='阅读数'></i></i>"+
+	            "<i>阅读数："+data.viewNum+"<i class='fa fa-eye' title='阅读数'></i></i>"+
 	        "</p></div></div>";
 	return artical;
 }

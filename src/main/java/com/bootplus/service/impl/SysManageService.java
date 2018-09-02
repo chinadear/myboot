@@ -86,7 +86,7 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
 		return (SysConfig)sysManageDao.get(SysConfig.class, id);
 	}
 	@Override
-	public UFile uploadFile(MultipartFile file,String type,int width,int height,HttpServletRequest request) {
+	public UFile uploadFile(MultipartFile file,String type,String param,HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		String defaultPath=null;
 		List<SysConfig> sclist=this.querySysConfigListByKey(Constants.SYSTEM_DIC_SYSTEMCONFIG_UPLOADPATH_KEY);
@@ -125,7 +125,7 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
         UFile uf=new UFile();
         try {
         	ImageProcessingComp img=new ImageProcessingComp(file, defaultPath + newFileName);
-        	if("0".equals(type)) {//博客图片，图片尺寸不便，压缩画质减少存储占用的空间
+        	if("1".equals(type)) {//自动调节
         		long kb=file.getSize()/1024;
         		if(kb>1024*2) {
         			img.compressByQality("0.1");
@@ -138,15 +138,16 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
         		}else {
         			file.transferTo(dest);
         		}
-        	}else if("1".equals(type)) {
-        		img.compress(width,height);
-        	}else if("2".equals(type)){
-        		if(width>0) {
-        			img.compressByWidth(width);
-        		}else {
-        			img.compressByHeight(height);
-        		}
-        	}else {
+        	}else if("2".equals(type)) {//指定画质
+        		img.compressByQality(param);	
+        	}else if("3".equals(type)){//指定宽高width:height
+        		String[] reg=param.split(":");
+        		img.compress(Integer.valueOf(reg[0]),Integer.valueOf(reg[1]));
+        	}else if("4".equals(type)){//指定宽
+        		img.compressByWidth(Integer.valueOf(param));
+        	}else if("5".equals(type)){//指定高
+        		img.compressByHeight(Integer.valueOf(param));
+        	}else {//0:附件
         		file.transferTo(dest);
         	}
             uf.setShowName(fileName.substring(fileName.lastIndexOf(File.separator)+1,fileName.lastIndexOf(".")));

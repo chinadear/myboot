@@ -16,6 +16,15 @@
     <!-- 广告 -->
     <div class="single_widget recent_widget">
         <div class="active-recent-carusel">
+        <#if structModel?? &&structModel.rightdrum?? && structModel.rightdrum?size gt 0>
+        	<#list structModel.rightdrum as d>
+        		<div class="item">
+	                <a href="${(d.url!)?html}" target="_blank"><#if d.file??><img src="${rc.contextPath}/blog/noSecurity/img/${d.file.id!}" class="img-responsive" alt=""><#else><img src="${rc.contextPath}/lib/blog/img/asset/slider.jpg" alt=""></#if></a>
+	                <p class="mt-20 title text-uppercase">${(d.title!)?html} </p>
+	                <p>${(d.summary!)?html}</p>    
+	            </div> 
+        	</#list>
+        <#else>
             <div class="item">
                 <a href="##"><img src="${rc.contextPath}/lib/blog/img/asset/slider.jpg" alt=""></a>
                 <p class="mt-20 title text-uppercase">阿里云 </p>
@@ -31,76 +40,65 @@
                 <p class="mt-20 title text-uppercase">百度云 </p>
                 <p>baidu</p>
             </div>                                                                                            
+        </#if>
         </div>
     </div> 
+<!-- 热门 -->
+    <div class="single_widget cat_widget">
+        <h4 class="text-uppercase">热门文章</h4>
+        <ul>
+        <#if structModel??&&structModel.hot??&&structModel.hot?size gt 0>
+            <#list structModel.hot as h>
+	            <li>
+	                <a href="${rc.contextPath}/articals/${h.id!}"  target="_blank" title="${(h.title!)?html}">    
+	                <#if h.title?length gt 15>
+				    	${h.title?substring(0,15)}...
+				    <#else>
+				    	${(h.title!)?html}
+				    </#if>
+				    <span>${h.viewNum!'0'}<i class="fa fa-eye" style="margin-left:5px;color: #a4a4a6;" title="阅读量"></i></span>
+	    			</a>
+	            </li>
+            </#list>
+        </#if>
+        </ul>
+    </div>  
 <!-- 分类 -->
     <div class="single_widget cat_widget">
-        <h4 class="text-uppercase pb-20">分类</h4>
+        <h4 class="text-uppercase">分类</h4>
         <ul>
-            <li>
-                <a href="#">Technology <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Lifestyle <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Fashion <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Art <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Food <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Architecture <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Adventure <span>37</span></a>
-            </li>                                
+       	<#if structModel??&&structModel.cate??&&structModel.cate?size gt 0>
+            <#list structModel.cate as h>
+	            <li>
+	                <a href="##"  target="_blank" title="${(h.name!)?html}">    
+	                <#if h.name?length gt 15>
+				    	${h.name?substring(0,15)}...
+				    <#else>
+				    	${(h.name!)?html}
+				    </#if>
+	    			</a>
+	            </li>
+            </#list>
+        </#if>
         </ul>
+        <a href="##" class="genric-btn link circle" style="text-decoration:none;">更多...</a>
     </div>
- 	<!-- 今日推荐 -->
-    <div class="single_widget cat_widget">
-        <h4 class="text-uppercase pb-20">最新文章</h4>
-        <ul>
-            <li>
-                <a href="#">Dec'17 <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Nov'17 <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Oct'17 <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Sept'17 <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Aug'17 <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Jul'17 <span>37</span></a>
-            </li>
-            <li>
-                <a href="#">Jun'17 <span>37</span></a>
-            </li>                                
-        </ul>
-    </div> 
+ 	
     <!-- tag -->
     <div class="single_widget tag_widget">
         <h4 class="text-uppercase pb-20">标签</h4>
         <ul>
-            <li><a href="#">Lifestyle</a></li>
-            <li><a href="#">Art</a></li>
-            <li><a href="#">Adventure</a></li>
-            <li><a href="#">Food</a></li>
-            <li><a href="#">Technology</a></li>
-            <li><a href="#">Fashion</a></li>
-            <li><a href="#">Adventure</a></li>
-            <li><a href="#">Food</a></li>
-            <li><a href="#">Technology</a></li>
+        <#if structModel??&&structModel.tag??&&structModel.tag?size gt 0>
+            <#list structModel.tag as h>
+	            <li>
+	                <a href="${rc.contextPath}/articals/tags/${h.id!}"  target="_blank">
+	                	${(h.name!)?html}  
+	    			</a>
+	            </li>
+            </#list>
+        </#if>
         </ul>
+        <a href="##" class="genric-btn link circle" style="text-decoration:none;">更多...</a>
     </div>                                                 
 
 </div>

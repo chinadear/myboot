@@ -7,10 +7,10 @@ public class Test {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		ImageProcessingComp img=new ImageProcessingComp("D:\\log\\4.jpg", "D:\\log\\4-5.jpg");
-		img.compressByQality("0.5");
+		ImageProcessingComp img=new ImageProcessingComp("D:\\log\\1.png", "D:\\log\\1-2.png");
+//		img.compressByQality("0.5");
 //		img.compressByHeight(0);
-//		img.compressByWidth(670);
+		img.compressByWidth(60);
 //		System.out.println(q("0.99"));
 	}
 	

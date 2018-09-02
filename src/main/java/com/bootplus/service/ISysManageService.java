@@ -30,16 +30,17 @@ public interface ISysManageService {
 	/**
 	 * 上传附件，返回附件ID
 	 * @param file
-	 * @param type type=0图片降低画质（画质由系统配置中设置）
-	 * 		       type=1图片缩放（宽高自定义)
-	 * 			   type=2等比缩小，宽高取一个进行等比缩放
-	 * 			   type=3附件
-	 * @param width：按照宽度等比缩放，前提type=2,传入width，高度传入0
-	 * @param height:按高度等比缩放，前提type=2，传入height,宽度传入0
+	 * @param type type=0附件
+	 * 			   type=1自动-图片降低画质（画质由系统配置中设置）param=null
+	 * 			   type=2自定义画质-（0-1）param=0-1
+	 * 		       type=3自定义宽高-图片缩放（宽高自定义)param="width:height"
+	 * 			   type=4以宽度为基准-等比缩小param=widht
+	 * 			   type=5以高度为基准-等比缩小param=height
+	 * @param param：
 	 * @param request
 	 * @return
 	 */
-	public UFile uploadFile(MultipartFile file,String type,int width,int height,HttpServletRequest request);
+	public UFile uploadFile(MultipartFile file,String type,String param,HttpServletRequest request);
 	
 	public UFile getUploadFileById(String id);
 }
