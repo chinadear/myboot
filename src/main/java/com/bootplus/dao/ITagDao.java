@@ -12,4 +12,6 @@ public interface ITagDao<T> extends IBaseDao{
 	public Tag getTagByName(String name);
 	public List<TagBlog> queryTagBlogList(TagBlog tagBlog);
 	public Page queryTagBlogPage(TagBlog tagBlog, int pageNo, int pageSize);
+	public Page queryTagPage(Tag tag, int pageNo, int pageSize);
+	public List<Tag> queryTagList(Tag tag);
 }

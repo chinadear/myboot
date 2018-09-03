@@ -49,7 +49,11 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 			sb.append(" and status=:status");
 			paramMap.put("status", blog.getStatus());
 		}
-		sb.append(" order by createTime");
+		if(blog.getViewNum()>0) {
+			sb.append(" order by viewNum DESC");
+		}else {
+			sb.append(" order by createTime DESC");
+		}
 		return this.pagedQuery(sb.toString(), paramMap, pageSize, pageNo);
 	}
 
@@ -65,4 +69,9 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 		this.executeHql("update Blog set discuss='1'");
 	}
 
+	@Override
+	public void updateViewNum(String articalId) {
+		// TODO Auto-generated method stub
+		this.executeHql("update Blog set viewNum=viewNum+1 where id=?",articalId);
+	}
 }

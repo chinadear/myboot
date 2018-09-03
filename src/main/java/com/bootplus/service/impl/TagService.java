@@ -64,4 +64,16 @@ public class TagService extends BaseServiceImpl implements ITagService {
 		// TODO Auto-generated method stub
 		tagDao.update(tabglog);
 	}
+
+	@Override
+	public Page queryTagPage(Tag tag, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return tagDao.queryTagPage(tag, pageNo, pageSize);
+	}
+
+	@Override
+	public List<Tag> queryTagList(Tag tag) {
+		// TODO Auto-generated method stub
+		return tagDao.queryTagList(tag);
+	}
 }

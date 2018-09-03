@@ -29,7 +29,7 @@ CREATE TABLE `USERLOGIN` (
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `user` (
+CREATE TABLE `USER` (
    `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
    `NAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '昵称，名字',
    `REALNAME` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '真实姓名',
@@ -111,6 +111,7 @@ CREATE TABLE `BOLG` (
    `SUMMARY` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '摘要',
    `TITLE` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题',
    `CATEGORY` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类别',
+   `VIEW_NUM` int(11) DEFAULT '0' COMMENT '浏览量',
    `POSTER` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '海报',
    `USER_ID` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '博客拥有者',
    `DISCUSS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否开启评论',
@@ -158,6 +159,20 @@ CREATE TABLE `CATEGORY` (
    `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
    `UPDATE_TIME` datetime DEFAULT NULL,
    `CREATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+ 
+CREATE TABLE `DRUMBEATING` (
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `FILE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '图片文件',
+   `TITLE` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '标题',
+   `SUMMARY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '摘要',
+   `URL` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '链接',
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态，停用启用等',
+   `CLOSINGDATE` datetime DEFAULT NULL COMMENT '截止日期，下架日期',
+   `TYPE` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型，哪个版块的',
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
  

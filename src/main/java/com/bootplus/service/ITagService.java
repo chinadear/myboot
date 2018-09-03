@@ -14,4 +14,6 @@ public interface ITagService {
 	public void save(TagBlog tabBlog);
 	public void update(Tag tag);
 	public void update(TagBlog tagglog);
+	public Page queryTagPage(Tag tag, int pageNo, int pageSize);
+	public List<Tag> queryTagList(Tag tag);
 }

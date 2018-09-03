@@ -28,7 +28,7 @@ public class TagDao extends BaseDaoImpl implements ITagDao {
 	}
 
 	@Override
-	public List queryTagBlogList(TagBlog tagBlog) {
+	public List<Blog> queryTagBlogList(TagBlog tagBlog) {
 		// TODO Auto-generated method stub
 		StringBuffer sb=new StringBuffer("from TagBlog where 1=1 ");
 		Map paramMap = new HashMap();
@@ -67,6 +67,18 @@ public class TagDao extends BaseDaoImpl implements ITagDao {
 		}
 		sb.append(" order by createTime");
 		return this.pagedQuery(sb.toString(), paramMap, pageSize, pageNo);
+	}
+
+	@Override
+	public Page queryTagPage(Tag tag, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return this.pagedQuery("from Tag", 1, 10);
+	}
+
+	@Override
+	public List<Tag> queryTagList(Tag tag) {
+		// TODO Auto-generated method stub
+		return (List<Tag>)this.query("from Tag");
 	}
 
 }

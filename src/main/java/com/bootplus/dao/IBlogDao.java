@@ -20,4 +20,9 @@ public interface IBlogDao<T> extends IBaseDao{
 	 * 启用全部评论
 	 */
 	public void enabledAllDiscuss();
+	/**
+	 * 更新浏览量
+	 * @param articalId
+	 */
+	public void updateViewNum(String articalId);
 }

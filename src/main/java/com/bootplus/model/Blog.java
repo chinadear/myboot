@@ -28,6 +28,8 @@ public class Blog extends BaseModel implements java.io.Serializable{
     //0草稿，1发布，2未发布，3禁用
     @Column(name="STATUS") 
     private String status;
+    @Column(name="VIEW_NUM") 
+    private int viewNum;
     @ManyToOne()
 	@JoinColumn(name = "USER_ID", nullable=true)
     private User user;
@@ -159,4 +161,13 @@ public class Blog extends BaseModel implements java.io.Serializable{
 	public void setIsNnPub(String isNnPub) {
 		this.isNnPub = isNnPub;
 	}
+
+	public int getViewNum() {
+		return viewNum;
+	}
+
+	public void setViewNum(int viewNum) {
+		this.viewNum = viewNum;
+	}
+
 }

@@ -261,7 +261,7 @@ public class BlogController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/blog/noSitemesh/loadblogstable")
-	public String loadmembertable(Model model, HttpServletRequest request,String pageNo) {
+	public String loadblogstable(Model model, HttpServletRequest request,String pageNo) {
 		UserSession us=(UserSession)request.getSession().getAttribute(UserSession.SESSION_USER_KEY);
 		User user=loginService.findUserById(us.getUserId());
 		Blog blog=new Blog();
@@ -281,7 +281,7 @@ public class BlogController extends BaseController {
     public Map<String,Object> uploadimg(@RequestParam(value = "editormd-image-file", required = false) MultipartFile file, HttpServletRequest request) {
         Map<String,Object> resultMap = new HashMap<String,Object>();
 //        response.setHeader("X-Frame-Options", "SAMEORIGIN");
-        UFile uf=sysManageService.uploadFile(file,"2",request);
+        UFile uf=sysManageService.uploadFile(file,"1",null,request);//type=1自动
         resultMap.put("success", 1);
         resultMap.put("message", "上传成功！");
         resultMap.put("url",request.getContextPath()+"/blog/noSecurity/img/"+uf.getId());
