@@ -176,6 +176,30 @@ CREATE TABLE `DRUMBEATING` (
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
  
+CREATE TABLE `DIC` (
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `CODE` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `COMMENTS` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `CREATE_TIME` datetime DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `DIC_ITEM` (
+   `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+   `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `CODE` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `DIC` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `SORT` int(11) DEFAULT NULL,
+   `COMMENTS` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+   `UPDATE_TIME` datetime DEFAULT NULL,
+   `CREATE_TIME` datetime DEFAULT NULL,
+   PRIMARY KEY (`ID`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;	 
+		 
 insert into `SYSCONFIG` (`ID`, `CONFIG_KEY`, `CONFIG_VALUE`, `COMMENTS`, `STATUS`, `CREATE_TIME`, `UPDATE_TIME`) values('4028935d654090c2016540983a280000','UPLOADPATH','d:\\boot\\upload','d:\\boot\\upload','1','2018-08-16 10:37:22','2018-08-16 14:57:07');
 insert into `SYSCONFIG` (`ID`, `CONFIG_KEY`, `CONFIG_VALUE`, `COMMENTS`, `STATUS`, `CREATE_TIME`, `UPDATE_TIME`) values('402893766536fd6201653700e13d0002','DEFAULT_PASSWORD','12345678','默认密码','1','2018-08-14 13:55:29','2018-08-18 12:39:27');
 insert into `SYSCONFIG` (`ID`, `CONFIG_KEY`, `CONFIG_VALUE`, `COMMENTS`, `STATUS`, `CREATE_TIME`, `UPDATE_TIME`) values('4028a881658b11d301658b1522030000','COMMENT_SWITCH','1','是否开启评论，0关闭，1开启，关闭评论后评论内容不可见','1','2018-08-30 21:45:42','2018-08-30 21:48:20');
