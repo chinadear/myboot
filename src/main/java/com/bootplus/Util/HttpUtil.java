@@ -10,38 +10,22 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.springframework.util.StringUtils;
-
-public class Sechdule {
-
-	public static void main(String[] args) throws InterruptedException {
-		int i = 0; 
-		while(true){
-			if(i>500) { 
-				break; 
-			}
-			String r=get();
-			if(StringUtils.hasText(r)) {
-				Document document = Jsoup.parse(r, "UTF-8");
-				Elements elements = document.getElementsByClass("read-count");
-				String[] s=elements.html().split("：");
-				if(s.length>1) {
-					r=s[1];
-				}
-			}
-		    Thread.sleep(300001); 
-			i++; 
-		}
-	}
-
-	public static String get() {
-		String re=null;
+/**
+ * 获取网页内容
+ * 使用插件：httpclient,jsoup(java版本的jquery用户分析html元素)
+ * @author liulu
+ *
+ */
+public class HttpUtil {
+	/**
+	 * 返回请求的html
+	 * @return
+	 */
+	public static String get(String url) {
+		String html=null;
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try { // 创建httpget.
-			HttpGet httpget = new HttpGet("https://blog.csdn.net/kimheesunliulu/article/details/81909162");
+			HttpGet httpget = new HttpGet(url);
 			// 执行get请求.
 			CloseableHttpResponse response = httpclient.execute(httpget);
 			try {
@@ -53,7 +37,7 @@ public class Sechdule {
 					// 打印响应内容长度
 					// System.out.println("Response content length: " + entity.getContentLength());
 					// 打印响应内容
-					re=EntityUtils.toString(entity);
+					html=EntityUtils.toString(entity);
 				}
 			} finally {
 				response.close();
@@ -71,6 +55,6 @@ public class Sechdule {
 				e.printStackTrace();
 			}
 		}
-		return re;
+		return html;
 	}
 }

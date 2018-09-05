@@ -31,14 +31,13 @@ public class EmailUtils {
     /**
      * 一个简单的邮件发送
      */
-    public void sendSimpleMail1(){
+    public void sendSimpleMail(){
         SimpleMailMessage message = new SimpleMailMessage();
            // 设定邮件参数
            message.setFrom(username); //发送者
            message.setTo("61106163@qq.com"); //接受者
            message.setSubject("主题:邮件"); //主题
            message.setText("邮件内容"); //邮件内容
- 
            // 发送邮件
            javaMailSender.send(message);
     }
