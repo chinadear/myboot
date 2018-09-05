@@ -20,8 +20,8 @@ public interface IDicService {
 	public void save(DicItem di);
 	public void update(Dic dic);
 	public void update(DicItem di);
-	public void getDicById(String id);
-	public void getDicItemById(String id);
+	public Dic getDicById(String id);
+	public DicItem getDicItemById(String id);
 	public void deleteDic(Dic dic);
 	public void deleteDicItem(DicItem di);
 	public Dic getDicByCode(Dic dic);

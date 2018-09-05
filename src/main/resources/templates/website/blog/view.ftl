@@ -56,19 +56,23 @@
 							<!-- 分享 -->				
                             <div class="bottom-wrapper">
                                 <div class="row">
-                                    <div class="col-lg-6 single-b-wrap col-md-12">
+                                    <div class="col-lg-8 single-b-wrap col-md-12">
                                     </div>
-                                    <div class="col-lg-6 single-b-wrap col-md-12">
+                                    <div class="col-lg-4 single-b-wrap col-md-12">
                                         <ul class="social-icons">
-                                            <li >
-	                                            <a href="##" class="btn share-iconbtn share-iconbtn-red"  onclick="toSinawebo('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')">
-			                        				<img src="${rc.contextPath}/lib/blog/img/1.png" style="width:20px;height:20px;float:left;margin-left:-23px;background-color:#fff""><span class="vd-left">分享到新浪微博</span>
-			                        			</a>
+                                            <li style="margin-right: 0;">
+			                        			<span class="vd-right"></span>
+		                        				<a href="##" onclick="toSinawebo('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')" title="分享到新浪微博"><img src="${rc.contextPath}/lib/blog/img/1.png" style="width:22px;height:22px;float:right;margin-left:10px;background-color:#fff""></a>
+	                                           <!--  <a href="##" class="btn share-iconbtn share-iconbtn-red"  onclick="toSinawebo('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')">
+	                                           <span class="vd-left">分享到新浪微博</span>
+			                        			</a> -->
 		                        			</li>
-		                        			<li >
-	                                            <a href="##" class="btn share-iconbtn share-iconbtn-blue"  onclick="toQQSpace('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')">
-			                        				<img src="${rc.contextPath}/lib/blog/img/2.png" style="width:20px;height:20px;float:left;margin-left:-23px;background-color:#fff"><span class="vd-left">分享到QQ空间</span>
-			                        			</a>
+		                        			<li>
+		                        				<span class="vd-right"></span>
+			                        			<a href="##" onclick="toQQSpace('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')" title="分享到QQ空间"><img src="${rc.contextPath}/lib/blog/img/2.png" style="width:22px;height:22px;float:right;margin-left:10px;background-color:#fff"></a>
+	                                           <!--  <a href="##" class="btn share-iconbtn share-iconbtn-blue"  onclick="toQQSpace('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')">
+	                                           <span class="vd-left">分享到QQ空间</span>
+			                        			</a> -->
 		                        			</li>
                                         </ul>
                                     </div>

@@ -9,6 +9,7 @@
 <form class="form-inline">
 		<div class="form-group" style="margin-top: 5px;margin-left:5px;">
     		<label for="roleId">字典：</label>
+    		<select class="selectpicker" data-style="btn-default" data-live-search="true">
     			<option value="">请选择...</option>
     			<#if list??&&list?size gt 0>
 	    			<#list list as l>
@@ -39,7 +40,7 @@
 		        <h4 class="modal-title">新增字典</h4>  
 	        </div>  
 			<div class="modal-body">
-				<#include "tableDic.ftl">
+				<#include "addDic.ftl">
 		    </div>  
 			<div class="modal-footer">  
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
@@ -68,6 +69,8 @@
 </div><!-- /.modal -->
  <script type="text/javascript">
  	window.onload = function(){
+ 		comp.validate.addRemote("dicNameIsExsit","${rc.contextPath}/dic/isExsit/name",{name:function(){return $("#name").val();}},"字典名称有重复");
+		comp.validate.addRemote("dicCodeIsExsit","${rc.contextPath}/dic/isExsit/code",{code:function(){return $("#code").val();}},"字典编码有重复");
  		callBackPagination();
  		initAddValidate();
  	}
@@ -118,10 +121,11 @@
  		}
  	}
  	function add_submit(){
- 		$(".addDrumForm").submit();
+ 		alert(1);
+ 		$(".addDicForm").submit();
  	}
  	function edit_submit(){
- 		$(".editDrumForm").submit();
+ 		$(".editDicForm").submit();
  	}
  	function updateStatus(id,status){
  		var type=$("#queryType").val();
@@ -169,8 +173,8 @@
  	function initAddValidate(){
 		$(".addDicForm").compValidate({
 			rules:{
-				name:{required: true,dicNameIsExsit_:true},
-				code:{required: true,dicCodeIsExsit_:true}
+				name:{required: true,dicNameIsExsit:true},
+				code:{required: true,dicCodeIsExsit:true}
 					},
 			messages:{
 				name:{required:"请填写字典名称"},

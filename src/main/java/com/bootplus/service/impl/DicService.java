@@ -67,15 +67,15 @@ public class DicService extends BaseServiceImpl implements IDicService {
 	}
 
 	@Override
-	public void getDicById(String id) {
+	public Dic getDicById(String id) {
 		// TODO Auto-generated method stub
-		dicDao.get(Dic.class, id);
+		return (Dic)dicDao.get(Dic.class, id);
 	}
 
 	@Override
-	public void getDicItemById(String id) {
+	public DicItem getDicItemById(String id) {
 		// TODO Auto-generated method stub
-		dicDao.get(DicItem.class, id);
+		return (DicItem)dicDao.get(DicItem.class, id);
 	}
 
 	@Override

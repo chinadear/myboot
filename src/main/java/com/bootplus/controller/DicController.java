@@ -7,9 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Dic;
+import com.bootplus.model.Role;
 import com.bootplus.service.IDicService;
 /**
  * 字典管理
@@ -54,6 +58,22 @@ public class DicController extends BaseController {
 		return RESOURCE_MENU_PREFIX+"/tableDic";
 	}
 	/**
+	 * 提交新增
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/dic/add")
+	public String add(Model model, Dic dic) {
+		Dic d=new Dic();
+		d.setCode(dic.getCode());
+		d.setName(dic.getName());
+		d.setStatus(dic.getStatus());
+		d.setComments(dic.getComments());
+		dicService.save(dic);
+		return "redirect:/dic/list";
+	}
+	/**
 	 * 删除菜单（包括子菜单）
 	 * @param model
 	 * @param request
@@ -82,43 +102,72 @@ public class DicController extends BaseController {
 		return "T";
 	}
 	*//**
-	 * 菜单同级名称重复校验
+	 * 字典名称重复校验
 	 * @param name
 	 * @param parent
 	 * @param id
 	 * @return
-	 *//*
-	@RequestMapping(value="/resource/judgyName",produces="text/plain;charset=UTF-8")
+	 */
+	@RequestMapping(value="/dic/isExsit/name",produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String isExistMenuName(String name,String parent,String id){
+	public String isExistMenuName(String name,String id){
 		String flag="true";
-		if(!"".equals(name)){
-			Resource res = new Resource();
-			res.setId(parent);
-			if(resourceService.isExistByParentAndName(res, name, id)){
+		Dic dic = new Dic();
+		if(!StringUtils.hasText(id)){//新增
+			dic.setName(name);
+			List<Dic> dlist=dicService.queryDicList(dic);
+			if(dlist.size()>0) {
+				flag="false";
+			}
+		}else {//编辑
+			dic.setName(name);
+			List<Dic> dlist=dicService.queryDicList(dic);
+			if(dlist.size()<2) {
+				if(dlist.size()==1) {
+					if(dlist.get(0).getId()==id) {
+						flag="true";
+					}else {
+						flag="false";
+					}
+				}
+			}else {
 				flag="false";
 			}
 		}
 		return flag;
 	}
-	*//**
-	 * 菜单code是否重复
+	/**
+	 * 字典code是否重复
 	 * @param code
 	 * @param id
 	 * @return
-	 *//*
-	@RequestMapping(value="/resource/judgyCode",produces="text/plain;charset=UTF-8")
+	 */
+	@RequestMapping(value="/dic/isExsit/code",produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String isExistMenuCode(String code,String id){
+	public String isExistDicCode(String code,String id){
 		String flag="true";
-		if(!"".equals(code)){
-			Resource res = new Resource();
-			res.setId(id);
-			res.setCode(code);
-			if(resourceService.isExistMenuByCode(code, id)){
+		Dic dic = new Dic();
+		if(!StringUtils.hasText(id)){//新增
+			dic.setName(code);
+			List<Dic> dlist=dicService.queryDicList(dic);
+			if(dlist.size()>0) {
+				flag="false";
+			}
+		}else {//编辑
+			dic.setName(code);
+			List<Dic> dlist=dicService.queryDicList(dic);
+			if(dlist.size()<2) {
+				if(dlist.size()==1) {
+					if(dlist.get(0).getId()==id) {
+						flag="true";
+					}else {
+						flag="false";
+					}
+				}
+			}else {
 				flag="false";
 			}
 		}
 		return flag;
-	}*/
+	}
 }

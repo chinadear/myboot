@@ -15,6 +15,7 @@
 	    <label class="col-sm-2 control-label">是否发布</label>
  		<div class="col-sm-9">
 		    <input class="myswitch switch-anim" type="checkbox" maxlength="150" onchange="addt()" value="0">
+		    <input type="hidden" name="status" id="status" value="0">
 	    </div>
  	</div>
  	<div class="form-group" id="menuIconDiv">
