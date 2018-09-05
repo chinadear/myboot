@@ -1,30 +1,19 @@
 package com.bootplus.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.bootplus.Util.CompUtil;
-import com.bootplus.Util.Constants;
-import com.bootplus.Util.TreeBean;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Dic;
-import com.bootplus.model.Resource;
-import com.bootplus.model.Role;
 import com.bootplus.service.IDicService;
-import com.bootplus.service.IResourceService;
 /**
  * 字典管理
+ * 物理删除，仅用于选择不用于代码植入，选择进引用其code的编码，不与字典对象关联
  * @author liulu
  *
  */
@@ -53,16 +42,18 @@ public class DicController extends BaseController {
 	 * @param model
 	 * @param request
 	 * @return
-	 *//*
-	@RequestMapping("/dic/noSitemesh/load")
+	 */
+	@RequestMapping("/dic/noSitemesh/loadDictable")
 	public String load(Model model, HttpServletRequest request,String pageNo,String name) {
 		Dic dic=new Dic();
-		dic.setName(name);
+		if(StringUtils.hasText(name)) {
+			dic.setName(name);
+		}
 		Page page=dicService.queryDicPage(dic,StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/tableDic";
 	}
-	*//**
+	/**
 	 * 删除菜单（包括子菜单）
 	 * @param model
 	 * @param request

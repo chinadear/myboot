@@ -17,7 +17,7 @@
 				</#if>
 			</select>
 		</div>
-		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addDrum()">增加字典</button>
+		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addDic()">增加字典</button>
 	</form>
 </div>
 <div class="container-fluid innerScroll">
@@ -36,9 +36,10 @@
 		<div class="modal-content">  
 			<div class="modal-header">  
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  
-		        <h4 class="modal-title">新增推广条目</h4>  
+		        <h4 class="modal-title">新增字典</h4>  
 	        </div>  
 			<div class="modal-body">
+				<#include "tableDic.ftl">
 		    </div>  
 			<div class="modal-footer">  
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
@@ -53,7 +54,7 @@
 		<div class="modal-content">  
 			<div class="modal-header">  
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  
-		        <h4 class="modal-title">编辑推广条目</h4>  
+		        <h4 class="modal-title">编辑字典</h4>  
 	        </div>  
 			<div class="modal-body">  
 		    	<p id="edittemp"></p>
@@ -67,18 +68,33 @@
 </div><!-- /.modal -->
  <script type="text/javascript">
  	window.onload = function(){
+ 		callBackPagination();
+ 		initAddValidate();
  	}
- 	function editDrum(id){
-	 	$("#edittemp").load("${rc.contextPath}/drumbeating/noSitemesh/editDrum",{"id":id},function(){
+ 	function dicTable(currPage) {
+		$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{pageNo:currPage},function(){});
+	}
+	//翻页组件初始化，翻页组件暂时职能采用table的load来刷新翻页的列表
+	function callBackPagination() {
+	    $('.paging-component').extendPagination({
+	        totalCount:${page.totalCount},//总记录数
+	        showPage:5,//分页栏显示页数，其他页数...代替
+	        limit:10,//每页显示记录数
+	        callback: function (curr, limit, totalCount) {//curr当前页数
+	        	dicTable(curr);
+	        }
+	    });
+	}
+ 	function editDic(id){
+	 	$("#edittemp").load("${rc.contextPath}/dic/noSitemesh/editDic",{"id":id},function(){
 			comp.showModal('editModal');
 	 	});
 	 }
- 	function addDrum(){
-		$(".addDrumForm").compReset();
+ 	function addDic(){
+		$(".addDicForm").compReset();
 		comp.showModal('addModal');
 	}
- 	function delDrum(id,name){
- 		var type=$("#queryType").val();
+ 	function delDic(id,name){
  		var r=confirm("确定要删除“"+name+"”这条推广信息吗？");
  		if(r){
  			$.ajax({
@@ -87,13 +103,14 @@
 				dataType :"text",
 				type:"POST",
 				timeout: 100000,
-				url: "${rc.contextPath}/drumbeating/delete/?id="+id,
+				url: "${rc.contextPath}/dic/delete/?id="+id,
 				error: function () {//请求失败处理函数
 					comp.message("请求失败，请稍后再试","error");
 					return;
 				},
 				success:function(data){ //请求成功后处理函数。  
-					$("#flushtable").load("${rc.contextPath}/drumbeating/noSitemesh/loadDurmbeatingtable",{type:type},function(){
+					var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
+					$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{pageNo:page},function(){
 						comp.message("删除成功！");
 					});
 				}
@@ -113,14 +130,14 @@
 			cache :false,
 			timeout: 100000,
 			type:"POST",
-			url: "${rc.contextPath}/drumbeating/updateStatus",
+			url: "${rc.contextPath}/dic/updateStatus",
 			data:{id:id,status:status},
 			error: function () {//请求失败处理函数
 				comp.message("请求失败，请稍后再试","error");
 				return;
 			},
 			success:function(data){ //请求成功后处理函数。  
-				$("#flushtable").load("${rc.contextPath}/drumbeating/noSitemesh/loadDurmbeatingtable",{type:type},function(){
+				$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{type:type},function(){
 					if(status=="1"){
 						comp.message("已成功发布！");
 					}else{
@@ -130,9 +147,9 @@
 			}
 		});
  	}
- 	//检索版块
+ 	//select框检索字典
  	function flushList(obj){
- 		$("#flushtable").load("${rc.contextPath}/drumbeating/noSitemesh/loadDurmbeatingtable",{"type":obj.value},function(){});
+ 		$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{"id":obj.value},function(){});
  	}
  	function addt(){
         if($(".switch-anim").prop("checked")){
@@ -148,7 +165,19 @@
         	$("#editstatus").val("0");
         }
 	}
- 	
+ 	//新增校验
+ 	function initAddValidate(){
+		$(".addDicForm").compValidate({
+			rules:{
+				name:{required: true,dicNameIsExsit_:true},
+				code:{required: true,dicCodeIsExsit_:true}
+					},
+			messages:{
+				name:{required:"请填写字典名称"},
+				code:{required:"请填写字典编码"}
+				}
+		});
+	}
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.hibernate.view.controller;
+package com.bootplus.Util;
 
 import java.io.IOException;
 
