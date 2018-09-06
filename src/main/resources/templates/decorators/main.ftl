@@ -53,5 +53,6 @@
 <script src="${rc.contextPath}/lib/turnPage/extendPagination.js"></script>
 <script type="text/javascript" src="${rc.contextPath}/lib/editormd/js/editormd.js"></script>
 <script type="text/javascript" src="${rc.contextPath}/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/lib/echarts/echarts.min.js"></script>
 </body>
 </html>

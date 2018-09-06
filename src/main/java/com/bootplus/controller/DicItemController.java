@@ -13,49 +13,58 @@ import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Dic;
+import com.bootplus.model.DicItem;
 import com.bootplus.model.Role;
 import com.bootplus.service.IDicService;
 /**
- * 字典管理
+ * 字典项管理
  * 物理删除，仅用于选择不用于代码植入，选择进引用其code的编码，不与字典对象关联
  * @author liulu
  *
  */
 @Controller
-public class DicController extends BaseController {
+public class DicItemController extends BaseController {
 	@Autowired 
 	private IDicService dicService;
 	//页面目录根地址
-	private static final String RESOURCE_MENU_PREFIX="/member/dic";
+	private static final String RESOURCE_MENU_PREFIX="/member/dic/item";
 	/**
-	 * 字典管理页面
+	 * 字典项管理页面
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/dic/list")
-	public String dicList(Model model, HttpServletRequest request) {
-		List<Dic> list=dicService.queryDicList(new Dic());
-		Page page=dicService.queryDicPage(new Dic(), 1, Page.DEFAULT_PAGE_SIZE);
+	@RequestMapping("/dicitem/list")
+	public String dicList(Model model, HttpServletRequest request,String id) {
+		Dic dic=dicService.getDicById(id);
+		DicItem di=new DicItem();
+		di.setDic(dic);
+		List<DicItem> list=dicService.queryDicItemListInDic(di);
+		Page page=dicService.queryDicitemPage(di, 1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);
-		return RESOURCE_MENU_PREFIX+"/listDic";
+		model.addAttribute("dic",dic);
+		return RESOURCE_MENU_PREFIX+"/listDicitem";
 	}
 	/**
 	 * 翻页加载
 	 * @param model
 	 * @param request
+	 * dicId
 	 * @return
 	 */
-	@RequestMapping("/dic/noSitemesh/loadDictable")
-	public String load(Model model, HttpServletRequest request,String pageNo,String name) {
+	@RequestMapping("/dicitem/noSitemesh/loadDictable")
+	public String load(Model model, HttpServletRequest request,String pageNo,String name,String dicId) {
 		Dic dic=new Dic();
+		dic.setId(dicId);
+		DicItem di=new DicItem();
+		di.setDic(dic);
 		if(StringUtils.hasText(name)) {
-			dic.setName(name);
+			di.setName(name);
 		}
-		Page page=dicService.queryDicPage(dic,StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		Page page=dicService.queryDicitemPage(di,StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("page", page);
-		return RESOURCE_MENU_PREFIX+"/tableDic";
+		return RESOURCE_MENU_PREFIX+"/tableDicitem";
 	}
 	/**
 	 * 提交新增
@@ -63,10 +72,10 @@ public class DicController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/dic/add")
-	public String add(Model model, Dic dic) {
-		dicService.save(dic);
-		return "redirect:/dic/list";
+	@RequestMapping("/dicitem/add")
+	public String add(Model model, DicItem di) {
+		dicService.save(di);
+		return "redirect:/dicitem/list?id="+di.getDic().getId();
 	}
 	/**
 	 * 进入编辑页面
@@ -74,11 +83,11 @@ public class DicController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/dic/noSitemesh/editDic")
+	@RequestMapping("/dicitem/noSitemesh/editDic")
 	public String editDic(Model model,String id) {
-		Dic d=dicService.getDicById(id);
-		model.addAttribute("dic",d);
-		return RESOURCE_MENU_PREFIX+"/editDic";
+		DicItem di=dicService.getDicItemById(id);
+		model.addAttribute("di",di);
+		return RESOURCE_MENU_PREFIX+"/editDicitem";
 	}
 	/**
 	 * 提交修改
@@ -86,10 +95,10 @@ public class DicController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/dic/edit",produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/dicitem/edit",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String edit(Model model,String id,String name,String code,String comments,String status) {
-		Dic d=dicService.getDicById(id);
+		DicItem d=dicService.getDicItemById(id);
 		d.setCode(code);
 		d.setName(name);
 		d.setStatus(status);
@@ -98,16 +107,16 @@ public class DicController extends BaseController {
 		return "t";
 	}
 	/**
-	 * 删除字典
+	 * 删除字典项
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/dic/delete",produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/dicitem/delete",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String deletedic(String id){
-		Dic d=dicService.getDicById(id);
-		dicService.deleteDic(d);
+		DicItem di=dicService.getDicItemById(id);
+		dicService.deleteDicItem(di);
 		return "T";
 	}
 	/**
@@ -116,35 +125,38 @@ public class DicController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/dic/updateStatus",produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/dicitem/updateStatus",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String updateStatus(String id,String status){
-		Dic d=dicService.getDicById(id);
-		d.setStatus(status);
-		dicService.update(d);
+		DicItem di=dicService.getDicItemById(id);
+		di.setStatus(status);
+		dicService.update(di);
 		return status;
 	}
 	/** 
-	 * 	字典名称重复校验
+	 * 	字典项名称重复校验
 	 * @param name
 	 * @param parent
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/dic/isExsit/name",produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/dicitem/isExsit/name",produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String isExistMenuName(String name,String id){
+	public String isExistMenuName(String name,String id,String dicId){
 		String flag="true";
-		Dic dic = new Dic();
+		Dic dic=new Dic();
+		dic.setId(dicId);		
+		DicItem di = new DicItem();
+		di.setDic(dic);
 		if(!StringUtils.hasText(id)){//新增
-			dic.setName(name);
-			List<Dic> dlist=dicService.queryDicList(dic);
+			di.setName(name);
+			List<DicItem> dlist=dicService.queryDicItemListInDic(di);
 			if(dlist.size()>0) {
 				flag="false";
 			}
 		}else {//编辑
-			dic.setName(name);
-			List<Dic> dlist=dicService.queryDicList(dic);
+			di.setName(name);
+			List<DicItem> dlist=dicService.queryDicItemListInDic(di);
 			if(dlist.size()<2) {
 				if(dlist.size()==1) {
 					if(dlist.get(0).getId().equals(id)) {
@@ -160,25 +172,28 @@ public class DicController extends BaseController {
 		return flag;
 	}
 	/**
-	 * 字典code是否重复
+	 * 字典项code是否重复
 	 * @param code
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/dic/isExsit/code",produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/dicitem/isExsit/code",produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String isExistDicCode(String code,String id){
+	public String isExistDicCode(String code,String id,String dicId){
 		String flag="true";
-		Dic dic = new Dic();
+		Dic dic=new Dic();
+		dic.setId(dicId);		
+		DicItem di = new DicItem();
+		di.setDic(dic);
 		if(!StringUtils.hasText(id)){//新增
-			dic.setCode(code);
-			List<Dic> dlist=dicService.queryDicList(dic);
+			di.setCode(code);
+			List<DicItem> dlist=dicService.queryDicItemListInDic(di);
 			if(dlist.size()>0) {
 				flag="false";
 			}
 		}else {//编辑
-			dic.setCode(code);
-			List<Dic> dlist=dicService.queryDicList(dic);
+			di.setCode(code);
+			List<DicItem> dlist=dicService.queryDicItemListInDic(di);
 			if(dlist.size()<2) {
 				if(dlist.size()==1) {
 					if(dlist.get(0).getId().equals(id)) {

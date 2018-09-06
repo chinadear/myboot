@@ -8,7 +8,7 @@
 <div  class="inner-header">
 <form class="form-inline">
 		<div class="form-group" style="margin-top: 5px;margin-left:5px;">
-    		<label for="roleId">字典：</label>
+    		<label for="roleId">${(dic.name!)?html}的字典项：</label>
     		<select class="selectpicker" data-style="btn-default" id="qname" data-live-search="true" onchange="flushList(this);">
     			<option value="">请选择...</option>
     			<#if list??&&list?size gt 0>
@@ -18,29 +18,31 @@
 				</#if>
 			</select>
 		</div>
-		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addDic()">增加字典</button>
+		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="goback()">返回</button>
+		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addDic()">增加字典项</button>
 	</form>
+	<input type="hidden" id="dicId" name="dicId" value="${dic.id!}">
 </div>
 <div class="container-fluid innerScroll">
 	<div class="row ">
 		<div class="col-md-12" id="flushtable">
-			<#include "tableDic.ftl">
+			<#include "tableDicitem.ftl">
 		</div>
 	</div>
 	<div class="row ">
 		<div class="paging-component"></div>
 	</div>
 </div>
-<!--增加字典页面-->
+<!--增加字典项页面-->
 <div class="modal fade in" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">  
 	<div class="modal-dialog">  
 		<div class="modal-content">  
 			<div class="modal-header">  
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  
-		        <h4 class="modal-title">新增字典</h4>  
+		        <h4 class="modal-title">新增字典项</h4>  
 	        </div>  
 			<div class="modal-body">
-				<#include "addDic.ftl">
+				<#include "addDicitem.ftl">
 		    </div>  
 			<div class="modal-footer">  
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
@@ -49,13 +51,13 @@
 		</div><!-- /.modal-content -->  
 	</div><!-- /.modal-dialog -->  
 </div><!-- /.modal -->  
-<!--修改字典页面-->
+<!--修改字典项页面-->
 <div class="modal fade in" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">  
 	<div class="modal-dialog">  
 		<div class="modal-content">  
 			<div class="modal-header">  
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  
-		        <h4 class="modal-title">编辑字典</h4>  
+		        <h4 class="modal-title">编辑字典项</h4>  
 	        </div>  
 			<div class="modal-body">  
 		    	<p id="edittemp"></p>
@@ -64,20 +66,20 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
 				<button type="button" class="btn btn-primary" id="sure" onclick="edit_submit()">确认</button>  
 			</div>  
-		</div><!-- /.modal-content -->  
+		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->  
 </div><!-- /.modal -->
  <script type="text/javascript">
  	window.onload = function(){
- 		comp.validate.addRemote("dicNameIsExsit","${rc.contextPath}/dic/isExsit/name",{name:function(){return $("#name").val();}},"字典名称有重复");
-		comp.validate.addRemote("dicCodeIsExsit","${rc.contextPath}/dic/isExsit/code",{code:function(){return $("#code").val();}},"字典编码有重复");
-		comp.validate.addRemote("dicNameIsExsit_","${rc.contextPath}/dic/isExsit/name",{name:function(){return $("#name_").val();},id:function(){return $("#id").val()}},"字典名称有重复");
-		comp.validate.addRemote("dicCodeIsExsit_","${rc.contextPath}/dic/isExsit/code",{code:function(){return $("#code_").val();},id:function(){return $("#id").val()}},"字典编码有重复");
+ 		comp.validate.addRemote("dicNameIsExsit","${rc.contextPath}/dicitem/isExsit/name",{name:function(){return $("#name").val();},dicId:function(){return $("#dicId").val();}},"字典项名称有重复");
+		comp.validate.addRemote("dicCodeIsExsit","${rc.contextPath}/dicitem/isExsit/code",{code:function(){return $("#code").val();},dicId:function(){return $("#dicId").val();}},"字典项编码有重复");
+		comp.validate.addRemote("dicNameIsExsit_","${rc.contextPath}/dicitem/isExsit/name",{name:function(){return $("#name_").val();},dicId:function(){return $("#dicId").val();},id:function(){return $("#id").val();}},"字典项名称有重复");
+		comp.validate.addRemote("dicCodeIsExsit_","${rc.contextPath}/dicitem/isExsit/code",{code:function(){return $("#code_").val();},dicId:function(){return $("#dicId").val();},id:function(){return $("#id").val();}},"字典项编码有重复");
  		callBackPagination();
  		initAddValidate();
  	}
  	function dicTable(currPage) {
-		$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{pageNo:currPage},function(){});
+		$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:currPage},function(){});
 	}
 	//翻页组件初始化，翻页组件暂时职能采用table的load来刷新翻页的列表
 	function callBackPagination() {
@@ -92,7 +94,7 @@
 	}
 	//进入编辑
  	function editDic(id){
-	 	$("#edittemp").load("${rc.contextPath}/dic/noSitemesh/editDic",{"id":id},function(){
+	 	$("#edittemp").load("${rc.contextPath}/dicitem/noSitemesh/editDic",{"id":id},function(){
 	 		initeditValidate();
 			comp.showModal('editModal');
 	 	});
@@ -105,7 +107,7 @@
  	//删除
  	function delDic(id,name){
  		var qname=$("#qname").val();
- 		var r=confirm("确定要删除“"+name+"”这条字典信息吗？");
+ 		var r=confirm("确定要删除“"+name+"”这条字典项信息吗？");
  		if(r){
  			$.ajax({
 				async :false,
@@ -113,14 +115,14 @@
 				dataType :"text",
 				type:"POST",
 				timeout: 100000,
-				url: "${rc.contextPath}/dic/delete?id="+id,
+				url: "${rc.contextPath}/dicitem/delete?id="+id,
 				error: function () {//请求失败处理函数
 					comp.message("请求失败，请稍后再试","error");
 					return;
 				},
 				success:function(data){ //请求成功后处理函数。  
 					var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
-					$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
+					$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
 						comp.message("删除成功！");
 					});
 				}
@@ -145,7 +147,7 @@
  				cache :false,
  				timeout: 100000,
  				type:"POST",
- 				url: "${rc.contextPath}/dic/edit",
+ 				url: "${rc.contextPath}/dicitem/edit",
  				data:{id:id,status:status,name:name,code:code,comments:comments},
  				error: function () {//请求失败处理函数
  					comp.message("请求失败，请稍后再试","error");
@@ -153,7 +155,7 @@
  				},
  				success:function(data){ //请求成功后处理函数。  
  					var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
-					$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
+					$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
 						comp.message("修改成功！");
 						comp.hideModal('editModal');
 					});
@@ -169,7 +171,7 @@
 			cache :false,
 			timeout: 100000,
 			type:"POST",
-			url: "${rc.contextPath}/dic/updateStatus",
+			url: "${rc.contextPath}/dicitem/updateStatus",
 			data:{id:id,status:status},
 			error: function () {//请求失败处理函数
 				comp.message("请求失败，请稍后再试","error");
@@ -177,7 +179,7 @@
 			},
 			success:function(data){ //请求成功后处理函数。  
 				var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
-				$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
+				$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
 					if(data=="1"){
 						comp.message("发布成功！");
 					}else{
@@ -189,7 +191,7 @@
  	}
  	//select框检索字典
  	function flushList(obj){
- 		$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{name:obj.value},function(){});
+ 		$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{name:obj.value},function(){});
  	}
  	//新增-发布开关切换
  	function addt(){
@@ -215,8 +217,8 @@
 				code:{required: true,dicCodeIsExsit:true}
 					},
 			messages:{
-				name:{required:"请填写字典名称"},
-				code:{required:"请填写字典编码"}
+				name:{required:"请填写字典项名称"},
+				code:{required:"请填写字典项编码"}
 				}
 		});
 	}
@@ -228,14 +230,14 @@
 				code_:{required: true,dicCodeIsExsit_:true}
 					},
 			messages:{
-				name_:{required:"请填写字典名称"},
-				code_:{required:"请填写字典编码"}
+				name_:{required:"请填写字典项名称"},
+				code_:{required:"请填写字典项编码"}
 				}
 		});
 	}
- 	//添加项
- 	function addDicItem(id){
- 			window.location.href="${rc.contextPath}/dicitem/list?id="+id;
+ 	//返回
+ 	function goback(){
+ 		window.location.href="${rc.contextPath}/dic/list";
  	}
 </script>
 </body>

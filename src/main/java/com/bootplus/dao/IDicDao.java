@@ -17,5 +17,6 @@ public interface IDicDao extends IBaseDao{
 	 * @return
 	 */
 	public List<DicItem> queryDicItemListInDic(DicItem di);
+	public Page queryDicitemPage(DicItem dicitem,int pageNo, int pageSize);
 	
 }

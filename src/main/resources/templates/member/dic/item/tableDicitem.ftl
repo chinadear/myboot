@@ -22,7 +22,6 @@
 	                	<#if r.status=='0'>
 							<a href="#" onclick="editDic('${r.id}')" title="修改"><i class="glyphicon glyphicon-edit"></i></a>
 	                		<a href="#" onclick="updateStatus('${r.id}','1')" title="发布"><i class="glyphicon glyphicon-ok-circle"></i></a>
-	                		<a href="#" onclick="addDicItem('${r.id}')" title="添加项"><i class="glyphicon glyphicon-th-large"></i></a>
 							<a href="#" onclick="delDic('${r.id}','${(r.name!)?html}')" title="删除"><i class="glyphicon glyphicon-trash"></i></a>
 	                	<#else>
 	                		<a href="#" onclick="updateStatus('${r.id}','0')" title="取消发布"><i class="glyphicon glyphicon-minus-sign"></i></a>

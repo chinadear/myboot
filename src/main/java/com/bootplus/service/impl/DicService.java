@@ -106,5 +106,11 @@ public class DicService extends BaseServiceImpl implements IDicService {
 		}
 		return l.size()>0?l.get(0):null;
 	}
+
+	@Override
+	public Page queryDicitemPage(DicItem dicitem, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return dicDao.queryDicitemPage(dicitem, pageNo, pageSize);
+	}
 	
 }

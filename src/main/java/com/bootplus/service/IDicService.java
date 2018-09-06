@@ -26,4 +26,5 @@ public interface IDicService {
 	public void deleteDicItem(DicItem di);
 	public Dic getDicByCode(Dic dic);
 	public DicItem getDicItemByCode(DicItem di);
+	public Page queryDicitemPage(DicItem dicitem,int pageNo, int pageSize);
 }
