@@ -61,15 +61,13 @@
                                     <div class="col-lg-4 single-b-wrap col-md-12">
                                         <ul class="social-icons">
                                             <li style="margin-right: 0;">
-			                        			<span class="vd-right"></span>
-		                        				<a href="##" onclick="toSinawebo('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')" title="分享到新浪微博"><img src="${rc.contextPath}/lib/blog/img/1.png" style="width:22px;height:22px;float:right;margin-left:10px;background-color:#fff""></a>
+		                        				<a href="##" onclick="toSinawebo('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')" title="分享到新浪微博"><img src="${rc.contextPath}/lib/blog/img/wb.png" style="width:30px;height:30px;float:right;margin-left:10px;background-color:#fff""></a>
 	                                           <!--  <a href="##" class="btn share-iconbtn share-iconbtn-red"  onclick="toSinawebo('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')">
 	                                           <span class="vd-left">分享到新浪微博</span>
 			                        			</a> -->
 		                        			</li>
 		                        			<li>
-		                        				<span class="vd-right"></span>
-			                        			<a href="##" onclick="toQQSpace('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')" title="分享到QQ空间"><img src="${rc.contextPath}/lib/blog/img/2.png" style="width:22px;height:22px;float:right;margin-left:10px;background-color:#fff"></a>
+			                        			<a href="##" onclick="toQQSpace('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')" title="分享到QQ空间"><img src="${rc.contextPath}/lib/blog/img/qq.png" style="width:30px;height:30px;float:right;margin-left:10px;background-color:#fff;margin-top: 2px;"></a>
 	                                           <!--  <a href="##" class="btn share-iconbtn share-iconbtn-blue"  onclick="toQQSpace('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')">
 	                                           <span class="vd-left">分享到QQ空间</span>
 			                        			</a> -->
