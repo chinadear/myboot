@@ -1,4 +1,4 @@
-package com.bootplus.Util;
+package com.bootplus.thread.task;
 
 import java.util.Iterator;
 /**
@@ -26,11 +26,25 @@ public class ThreadTaskManager {
     		tid=tt.getId();
 	 	}
     }
+    
+    public static void start(String name){
+    	if(ThreadTaskManager.getThreadByName(name)==null){
+    		ThreadTask tt=new ThreadTask(name);
+    		tt.start();
+    		tid=tt.getId();
+	 	}
+    }
    /**
     * 停止任务
     */
     public static void stop(){
     	ThreadTask tt = (ThreadTask)ThreadTaskManager.getThread(tid);
+    	if(tt!=null){
+    		tt.setStat(false);
+    	}
+    }
+    public static void stop(String name){
+    	ThreadTask tt = (ThreadTask)ThreadTaskManager.getThreadByName(name);
     	if(tt!=null){
     		tt.setStat(false);
     	}
@@ -44,12 +58,33 @@ public class ThreadTaskManager {
     		tt.interrupt();
     	}
     }
+    
+    public static void interrupt(String name){
+    	ThreadTask tt = (ThreadTask)ThreadTaskManager.getThreadByName(name);
+    	if(tt!=null){
+    		tt.interrupt();
+    	}
+    }
     /**
-     * 主线程中是否有打印任务线程在运行
+     * 主线程中是否有线程在运行
      * @return true:有，false:没有
      */
     public static boolean isRunning(){
     	ThreadTask tt = (ThreadTask)ThreadTaskManager.getThread(tid);
+    	if(tt==null){
+    		return false;
+    	}else{
+    		String state=tt.getState().toString();
+    		if("RUNNABLE".equals(state) || "TIMED_WAITING".equals(state)){
+    			return true;
+    		}else{
+    			return false;
+    		}
+    	}
+    }
+    
+    public static boolean isRunning(String name){
+    	ThreadTask tt = (ThreadTask)ThreadTaskManager.getThreadByName(name);
     	if(tt==null){
     		return false;
     	}else{
@@ -75,6 +110,21 @@ public class ThreadTaskManager {
 			Thread t = (Thread)iterator.next();
 			// 根据线程名取得自己想要的线程
 			if(t.getId()==threadId){
+				myThread = t ;
+				break;
+			}
+		}
+		return myThread ;
+	}
+	
+	public static Thread getThreadByName(String name){
+		Iterator iterator = Thread.getAllStackTraces().keySet().iterator();
+		// 在Thread对象中取得所有的线程所在的栈，然后取得Set对象，便利取得所有的线程
+		Thread myThread = null ;
+		while(iterator.hasNext()){
+			Thread t = (Thread)iterator.next();
+			// 根据线程名取得自己想要的线程
+			if(name.equals(t.getName())){
 				myThread = t ;
 				break;
 			}

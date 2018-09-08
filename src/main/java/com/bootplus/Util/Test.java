@@ -3,6 +3,8 @@ package com.bootplus.Util;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import com.bootplus.thread.task.ThreadTaskManager;
+
 public class Test {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
@@ -17,7 +19,36 @@ public class Test {
 		ThreadTaskManager.stop();
 		Thread.sleep(5000);
 		ThreadTaskManager.interrupt();*/
-		
+		ThreadTaskManager.start();
+		ThreadTaskManager.start("a1");
+		ThreadTaskManager.start("a2");
+		Thread.sleep(5000);
+		System.out.println("tid"+ThreadTaskManager.isRunning());
+		System.out.println("a1"+ThreadTaskManager.isRunning("a1"));
+		System.out.println("a2"+ThreadTaskManager.isRunning("a2"));
+		System.out.println("tid is stopped");
+		ThreadTaskManager.stop();
+		Thread.sleep(5000);
+		System.out.println("tid"+ThreadTaskManager.isRunning());
+		System.out.println("a1"+ThreadTaskManager.isRunning("a1"));
+		System.out.println("a2"+ThreadTaskManager.isRunning("a2"));
+		System.out.println("a2 is stopped");
+		ThreadTaskManager.stop("a2");
+		Thread.sleep(5000);
+		System.out.println("tid"+ThreadTaskManager.isRunning());
+		System.out.println("a1"+ThreadTaskManager.isRunning("a1"));
+		System.out.println("a2"+ThreadTaskManager.isRunning("a2"));
+		System.out.println("a1 is stopped");
+		ThreadTaskManager.stop("a1");
+		Thread.sleep(2000);
+		System.out.println("tid"+ThreadTaskManager.isRunning());
+		System.out.println("a1"+ThreadTaskManager.isRunning("a1"));
+		System.out.println("a2"+ThreadTaskManager.isRunning("a2"));
+		Thread.sleep(5000);
+		System.out.println("===============================");
+		System.out.println("tid"+ThreadTaskManager.isRunning());
+		System.out.println("a1"+ThreadTaskManager.isRunning("a1"));
+		System.out.println("a2"+ThreadTaskManager.isRunning("a2"));
 	}
 	
 	public static boolean q(String a) {

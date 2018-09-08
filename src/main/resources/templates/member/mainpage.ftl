@@ -6,10 +6,11 @@
 </head>
 <body>
 <div class="container-fluid innerScroll">
-	<div class="row ">
+	<div class="row hr-bottom">
 		<div class="col-md-12">
-			<p class="text-left">网站访问量：357009</p>
-			<p class="text-left">文章数量：112</p>
+			<p class="text-left">网站访问量：${viewCount!'0'}</p>
+			<p class="text-left">文章数量：${blogCount!'0'}</p>
+			<p class="text-right"><a class="btn btn-success text-right" href="/security/initsystem">初始化系统数据</a></p>
 		</div>
 	</div>
 	<div class="row ">

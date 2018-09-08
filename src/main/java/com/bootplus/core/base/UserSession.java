@@ -32,7 +32,10 @@ public class UserSession implements Serializable {
 	//拥有的菜单权限，map
 	private Map<String,Boolean> ownMenuMap;
 	//是否超级管理员
-	private boolean isAdmin;
+	private boolean isAdmin=false;
+	
+	//扩展属性
+	private boolean ext;
 	
 	public String getUserId() {
 		return userId;
@@ -99,6 +102,12 @@ public class UserSession implements Serializable {
 	}
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+	public boolean isExt() {
+		return ext;
+	}
+	public void setExt(boolean ext) {
+		this.ext = ext;
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.bootplus.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,10 +18,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bootplus.Util.CompUtil;
+import com.bootplus.Util.Constants;
+import com.bootplus.Util.DateUtil;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
+import com.bootplus.model.Blog;
 import com.bootplus.model.Resource;
+import com.bootplus.model.Views;
+import com.bootplus.service.IBlogService;
 import com.bootplus.service.IResourceService;
+import com.bootplus.service.ISysManageService;
 /**
  * 主页面
  * @author liulu
@@ -30,6 +37,10 @@ import com.bootplus.service.IResourceService;
 public class MainController extends BaseController {
 	@Autowired 
 	private IResourceService resourceService;
+	@Autowired
+	private ISysManageService sysManageService;
+	@Autowired
+	private IBlogService blogService;
 	/**
 	 *  主页
 	 * @param model
@@ -38,14 +49,40 @@ public class MainController extends BaseController {
 	 */
 	@RequestMapping("/main")
 	public String indexHome(Model model, HttpServletRequest request) {
-		List<Resource> list=resourceService.queryResourceList(new Resource());
-		if(list.size()==0) {
+		List<Resource> rlist=resourceService.queryResourceList(new Resource());
+		List<Blog> blist=blogService.getBlogList(new Blog());
+		model.addAttribute("viewCount",Constants.ai.get());
+		model.addAttribute("blogCount",blist.size());
+		if(rlist.size()==0) {
 			return "redirect:/resource/list";
 		}else {
 			return "/member/mainpage";
 		}
 		
 	}
+	/**
+	 * 初始化系统数据
+	 * @return
+	 */
+	@RequestMapping(value="/security/initsystem")
+	public String initSystem() {
+		Views vc=sysManageService.getViewCount("2018-09-08");
+		if(vc==null) {
+			vc=new Views();
+			vc.setDatetag("2018-09-08");//DateUtil.getDate(new Date())
+			sysManageService.saveViewCount(vc);
+		}
+		Constants.ai.set(vc.getViewnum());
+		return "redirect:/main";
+	}
+	/**
+	 * 菜单跳转
+	 * @param request
+	 * @param response
+	 * @param id
+	 * @param status
+	 * @return
+	 */
 	@RequestMapping(value="/security/dispatcher/{id}/{status}")
 	public String menuDispatch(HttpServletRequest request, HttpServletResponse response,@PathVariable String id,@PathVariable String status){
 		UserSession userSession=(UserSession)request.getSession().getAttribute(UserSession.SESSION_USER_KEY);

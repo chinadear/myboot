@@ -1,6 +1,7 @@
 package com.bootplus.service.impl;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,7 @@ import com.bootplus.core.base.BaseServiceImpl;
 import com.bootplus.dao.ISysManageDao;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.UFile;
+import com.bootplus.model.Views;
 import com.bootplus.service.ISysManageService;
 /**
  * 	@EnableCaching 启用缓存配置
@@ -171,6 +173,20 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
 		// TODO Auto-generated method stub
 		return sysManageDao.querySysConfigByKey(key);
 	}
-
+	@Override
+	public void updateViewCount(String date) {
+		// TODO Auto-generated method stub
+		sysManageDao.updateViewCount(date);
+	}
+	@Override
+	public void saveViewCount(Views vc) {
+		// TODO Auto-generated method stub
+		sysManageDao.save(vc);
+	}
+	@Override
+	public Views getViewCount(String date) {
+		// TODO Auto-generated method stub
+		return sysManageDao.getViewCount(date);
+	}
 
 }

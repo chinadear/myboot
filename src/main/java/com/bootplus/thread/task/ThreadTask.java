@@ -1,14 +1,22 @@
-package com.bootplus.Util;
+package com.bootplus.thread.task;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
 
+import com.bootplus.Util.HttpUtil;
+
 public class ThreadTask extends Thread {
 	private int num=0;
 	private boolean stat=true;//运行状态
 	private String newViewCount=null;
+	public ThreadTask(String name) {
+		super(name);
+	}
+	public ThreadTask() {
+		super();
+	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -30,7 +38,7 @@ public class ThreadTask extends Thread {
 				e.printStackTrace();
 				break;
 			} 
-			num++; 
+			num++;
 		}
 	}
 	public int getNum() {

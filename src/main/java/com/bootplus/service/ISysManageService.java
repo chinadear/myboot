@@ -1,5 +1,6 @@
 package com.bootplus.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bootplus.model.UFile;
+import com.bootplus.model.Views;
 import com.bootplus.model.SysConfig;
 
 public interface ISysManageService {
@@ -43,4 +45,8 @@ public interface ISysManageService {
 	public UFile uploadFile(MultipartFile file,String type,String param,HttpServletRequest request);
 	
 	public UFile getUploadFileById(String id);
+	
+	public void updateViewCount(String date);
+	public void saveViewCount(Views vc);
+	public Views getViewCount(String date);
 }
