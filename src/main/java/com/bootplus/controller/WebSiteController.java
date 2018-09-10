@@ -20,11 +20,13 @@ import com.bootplus.Util.GetRemoteIP;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
+import com.bootplus.model.Category;
 import com.bootplus.model.Comment;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.Tag;
 import com.bootplus.model.TagBlog;
 import com.bootplus.service.IBlogService;
+import com.bootplus.service.ICategoryService;
 import com.bootplus.service.ICommentService;
 import com.bootplus.service.ISysManageService;
 import com.bootplus.service.ITagService;
@@ -40,6 +42,8 @@ public class WebSiteController extends BaseController {
 	private ISysManageService sysManageService;
 	@Autowired
 	private ICommentService commentService;
+	@Autowired
+	private ICategoryService categoryService;
 	/**
 	 * 首页-待开发
 	 * @param model
@@ -59,6 +63,20 @@ public class WebSiteController extends BaseController {
 	@RequestMapping("/articals/search")
 	public String searcg(Model model, HttpServletRequest request) {
 		return RESOURCE_MENU_PREFIX+"/search";
+	}
+	/**
+	 * tag以及分类的更多
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/articals/tagAndcate/more")
+	public String tagAndcateMore(Model model, HttpServletRequest request) {
+		List<Category> clist=categoryService.queryCategoryList();
+		List<Tag> tlist=tagService.queryTagList(new Tag());
+		model.addAttribute("clist", clist);
+		model.addAttribute("tlist", tlist);
+		return RESOURCE_MENU_PREFIX+"/tagandcate";
 	}
 	/**
 	 * 博文列表
@@ -148,6 +166,23 @@ public class WebSiteController extends BaseController {
 		return RESOURCE_MENU_PREFIX+"/articals4tag";
 	}
 	/**
+	 * 指定cate下的博文列表
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/articals/cate/{id}")
+	public String articialsBycate(Model model, HttpServletRequest request,@PathVariable String id) {
+		Blog blog=new Blog();
+		blog.setStatus("1");
+		blog.setCateId(id);
+		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
+		model.addAttribute("cateid", id);
+		return RESOURCE_MENU_PREFIX+"/articals4cate";
+	}
+	/**
 	 * 文章加载更多
 	 * @param model
 	 * @param request
@@ -173,7 +208,9 @@ public class WebSiteController extends BaseController {
 				list.add(t.getBlog());
 			}
 		}else if(StringUtils.hasText(cateid)) {//分类检索文章---的---加载更多
-			
+			blog.setCateId(cateid);
+			Page page=blogService.getBlogPage(blog, pageNum, pageSize);
+			list=(List<Blog>)page.getResult();
 		}else {//文章的加载更多
 			Page page=blogService.getBlogPage(blog, pageNum, pageSize);
 			list=(List<Blog>)page.getResult();

@@ -12,7 +12,7 @@ import org.hibernate.annotations.NotFoundAction;
 @Table(name = "bolg")
 public class Blog extends BaseModel implements java.io.Serializable{
 	private static final long serialVersionUID = -5364474652996645555L;
-
+	
 	@Column(name="TITLE")
     private String title;
 
@@ -20,7 +20,7 @@ public class Blog extends BaseModel implements java.io.Serializable{
     private String summary;
 
     @Lob  // 大对象，映射 MySQL 的 Long Text 类型
-    @Column(name="CONTENT") 
+    @Column(name="CONTENT")
     private String content;
     @Lob  // 大对象，映射 MySQL 的 Long Text 类型
     @Column(name="HTML_CONTENT") 
@@ -44,6 +44,9 @@ public class Blog extends BaseModel implements java.io.Serializable{
     //是否开启评论，0关闭，1开启
     @Column(name="DISCUSS") 
     private String discuss;
+    //所属板块
+    @Column(name="PLATE") 
+    private String plate;
     @Transient
     private String tags;
     //总的评论数
@@ -170,4 +173,11 @@ public class Blog extends BaseModel implements java.io.Serializable{
 		this.viewNum = viewNum;
 	}
 
+	public String getPlate() {
+		return plate;
+	}
+
+	public void setPlate(String plate) {
+		this.plate = plate;
+	}
 }

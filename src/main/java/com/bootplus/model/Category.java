@@ -27,6 +27,9 @@ public class Category extends BaseModel implements Serializable {
 	//状态0，删除，1正常
 	@Column(name = "STATUS")
 	private String status;
+	//分类下的文章数
+	@Transient
+	private String articals;
 	public String getName() {
 		return name;
 	}
@@ -56,5 +59,11 @@ public class Category extends BaseModel implements Serializable {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getArticals() {
+		return articals;
+	}
+	public void setArticals(String articals) {
+		this.articals = articals;
 	}
 }

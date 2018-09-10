@@ -32,6 +32,10 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 			sb.append(" and status=:status");
 			paramMap.put("status", blog.getStatus());
 		}
+		if(StringUtils.hasText(blog.getCateId())) {
+			sb.append(" and category.id=:cateid");
+			paramMap.put("cateid", blog.getCateId());
+		}
 		sb.append(" order by createTime");
 		return (List<Blog>)this.query(sb.toString(), paramMap);
 	}
@@ -49,7 +53,11 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 			sb.append(" and status=:status");
 			paramMap.put("status", blog.getStatus());
 		}
-		if(blog.getViewNum()>0) {
+		if(StringUtils.hasText(blog.getCateId())) {
+			sb.append(" and category.id=:cateid");
+			paramMap.put("cateid", blog.getCateId());
+		}
+		if(blog.getViewNum()>0) {//如果传过来浏览量任意值，那么代表要使用浏览量进行排序
 			sb.append(" order by viewNum DESC");
 		}else {
 			sb.append(" order by createTime DESC");

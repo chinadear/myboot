@@ -37,6 +37,7 @@ import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
 import com.bootplus.model.Category;
 import com.bootplus.model.Comment;
+import com.bootplus.model.DicItem;
 import com.bootplus.model.Drumbeating;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.Tag;
@@ -46,6 +47,7 @@ import com.bootplus.model.User;
 import com.bootplus.service.IBlogService;
 import com.bootplus.service.ICategoryService;
 import com.bootplus.service.ICommentService;
+import com.bootplus.service.IDicService;
 import com.bootplus.service.IDrumbeatingService;
 import com.bootplus.service.ILoginService;
 import com.bootplus.service.ISysManageService;
@@ -65,6 +67,8 @@ public class DrumbeatingController extends BaseController {
 	private IDrumbeatingService drumbeatingService;
 	@Autowired
 	private ISysManageService sysManageService;
+	@Autowired 
+	private IDicService dicService;
 	/**
 	 * 进入我的博客管理页面
 	 * @param model
@@ -77,7 +81,9 @@ public class DrumbeatingController extends BaseController {
 		type=StringUtils.hasText(type)?type:"0";
 		db.setType(type);
 		List<Drumbeating> dblist = drumbeatingService.queryDrumbList(db);
+		List<DicItem> dlist=dicService.queryDicItemListByDicCode("POSITION");
 		model.addAttribute("dblist", dblist);
+		model.addAttribute("dlist", dlist);
 		model.addAttribute("type",type);
 		return RESOURCE_MENU_PREFIX+"/listDrumbeating";
 	}
@@ -125,6 +131,8 @@ public class DrumbeatingController extends BaseController {
 	@RequestMapping("/drumbeating/noSitemesh/editDrum")
 	public String edit(Model model, HttpServletRequest request,String id) {
 		Drumbeating drum=drumbeatingService.getDrumbeatingById(id);
+		List<DicItem> dlist=dicService.queryDicItemListByDicCode("POSITION");
+		model.addAttribute("dlist", dlist);
 		model.addAttribute("drum",drum);
 		return RESOURCE_MENU_PREFIX+"/editDrumbeating";
 	}

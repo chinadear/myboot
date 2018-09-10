@@ -50,7 +50,7 @@ public class StructModelAspect {
         StructModel sm=(StructModel)session.getAttribute("structModel");
         String bv=(String)session.getAttribute("bootplus_isviewed");
         if(!StringUtils.hasText(bv)) {
-        	Constants.ai.getAndIncrement();
+//        	Constants.ai.getAndIncrement();
         	sysManageService.updateViewCount("2018-09-08");
         	session.setAttribute("bootplus_isviewed", "yes_i_have_viewed");
         }

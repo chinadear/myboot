@@ -53,7 +53,9 @@ public class Constants {
 	 * 是否开启评论审核，开启审核后评论内容不能直接在网站刷新，需要后台审核发布后才能显示到网站上0关闭，1开启
 	 */
 	public static final String SYSTEM_DIC_SYSTEMCONFIG_CHECK_COMMENT="COMMENT_CHECK";
-	
-	public static AtomicLong ai=new AtomicLong(0);
+	/**
+	 * 全局变量，线程安全
+	 */
+//	public static AtomicLong ai=new AtomicLong(0);
  	
 }

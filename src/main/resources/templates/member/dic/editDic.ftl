@@ -12,7 +12,7 @@
 	    </div>
  	</div>
  	<div class="form-group">
-	    <label class="col-sm-2 control-label">是否发布</label>
+	    <label class="col-sm-2 control-label">是否锁定</label>
  		<div class="col-sm-9">
  		<#if dic.status?? && dic.status=='1'>
 		    <input class="myswitch switch-anim-edit" type="checkbox" id="p_" name="p_" onchange="editt()" checked>

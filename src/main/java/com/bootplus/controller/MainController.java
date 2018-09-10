@@ -23,9 +23,11 @@ import com.bootplus.Util.DateUtil;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.model.Blog;
+import com.bootplus.model.Category;
 import com.bootplus.model.Resource;
 import com.bootplus.model.Views;
 import com.bootplus.service.IBlogService;
+import com.bootplus.service.ICategoryService;
 import com.bootplus.service.IResourceService;
 import com.bootplus.service.ISysManageService;
 /**
@@ -41,6 +43,9 @@ public class MainController extends BaseController {
 	private ISysManageService sysManageService;
 	@Autowired
 	private IBlogService blogService;
+	@Autowired
+	private ICategoryService categoryService;
+	private final static String TEMP_DATETIME="2018-09-08";
 	/**
 	 *  主页
 	 * @param model
@@ -51,8 +56,19 @@ public class MainController extends BaseController {
 	public String indexHome(Model model, HttpServletRequest request) {
 		List<Resource> rlist=resourceService.queryResourceList(new Resource());
 		List<Blog> blist=blogService.getBlogList(new Blog());
-		model.addAttribute("viewCount",Constants.ai.get());
+		List<Category> clist=categoryService.queryCategoryList();
+		List<Category> c2list=new ArrayList<Category>();
+		for(Category c:clist) {
+			Blog b=new Blog();
+			b.setCateId(c.getId());
+			List<Blog> bl=blogService.getBlogList(b);
+			c.setArticals(String.valueOf(bl.size()));
+			c2list.add(c);
+		}
+		Views vc=sysManageService.getViewCount(TEMP_DATETIME);
+		model.addAttribute("viewCount",vc.getViewnum());
 		model.addAttribute("blogCount",blist.size());
+		model.addAttribute("catelist",c2list);//分类数量
 		if(rlist.size()==0) {
 			return "redirect:/resource/list";
 		}else {
@@ -66,13 +82,14 @@ public class MainController extends BaseController {
 	 */
 	@RequestMapping(value="/security/initsystem")
 	public String initSystem() {
-		Views vc=sysManageService.getViewCount("2018-09-08");
+		Views vc=sysManageService.getViewCount(TEMP_DATETIME);
 		if(vc==null) {
 			vc=new Views();
-			vc.setDatetag("2018-09-08");//DateUtil.getDate(new Date())
+			//当做日统计的时候需要在定时任务中定期执行创建任务
+			vc.setDatetag(TEMP_DATETIME);//DateUtil.getDate(new Date())
 			sysManageService.saveViewCount(vc);
 		}
-		Constants.ai.set(vc.getViewnum());
+		//Constants.ai.set(vc.getViewnum());
 		return "redirect:/main";
 	}
 	/**

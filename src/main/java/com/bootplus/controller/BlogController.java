@@ -36,6 +36,7 @@ import com.bootplus.core.base.UserSession;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
 import com.bootplus.model.Category;
+import com.bootplus.model.DicItem;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.Tag;
 import com.bootplus.model.TagBlog;
@@ -43,6 +44,7 @@ import com.bootplus.model.UFile;
 import com.bootplus.model.User;
 import com.bootplus.service.IBlogService;
 import com.bootplus.service.ICategoryService;
+import com.bootplus.service.IDicService;
 import com.bootplus.service.ILoginService;
 import com.bootplus.service.ISysManageService;
 import com.bootplus.service.ITagService;
@@ -72,6 +74,8 @@ public class BlogController extends BaseController {
 	private ICategoryService categoryService;
 	@Autowired
 	private ITagService tagService;
+	@Autowired 
+	private IDicService dicService;
 	/**
 	 * 进入我的博客管理页面
 	 * @param model
@@ -97,6 +101,8 @@ public class BlogController extends BaseController {
 	@RequestMapping("/blog/write")
 	public String configList(Model model, HttpServletRequest request) {
 		List<Category> clist=categoryService.queryCategoryList();
+		List<DicItem> dlist=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("dlist",dlist);
 		model.addAttribute("clist",clist);
 		return RESOURCE_MENU_PREFIX+"/writeblog";
 	}
@@ -158,6 +164,8 @@ public class BlogController extends BaseController {
 			}
 			blog.setTags(s.toString().substring(1,s.toString().length()-1));
 		}
+		List<DicItem> dlist=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("dlist",dlist);
 		model.addAttribute("clist",clist);
 		model.addAttribute("blog", blog);
 		return RESOURCE_MENU_PREFIX+"/editblog";
@@ -181,6 +189,7 @@ public class BlogController extends BaseController {
 		b.setSummary(blog.getSummary());
 		b.setStatus(blog.getStatus());
 		b.setDiscuss(blog.getDiscuss());
+		b.setPlate(blog.getPlate());
 		//由0到1需要设置文章meta
 		if("1".equals(blog.getStatus())) {
 			if(StringUtils.hasText(blog.getCateId())) {

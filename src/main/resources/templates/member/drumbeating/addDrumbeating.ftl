@@ -20,10 +20,13 @@
  	<div class="form-group">
 	    <label class="col-sm-2 control-label">版块类型：</label>
 	    <div class="col-sm-9">
-	    <select name="type" id="type" class="form-control">
-	    	<option value="0">头部banner</option>
-	    	<option value="1">右侧轮播</option>
-	    </select>
+	    <select name="type" id="type" class="form-control" style="width: 200px;">
+			<#if dlist?? && dlist?size gt 0>
+				<#list dlist as r>
+					<option value="${r.code!}">${(r.name!)?html}</option>
+				</#list>
+			</#if>
+			</select>
 	    </div>
  	</div>
  	<div class="form-group">

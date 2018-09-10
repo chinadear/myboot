@@ -9,17 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bootplus.core.base.BaseServiceImpl;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.IBlogDao;
-import com.bootplus.dao.IUserDao;
 import com.bootplus.model.Blog;
-import com.bootplus.model.User;
-import com.bootplus.model.UserLogin;
 import com.bootplus.service.IBlogService;
-import com.bootplus.service.ILoginService;
 
 @Service
 @Transactional
 public class BlogService extends BaseServiceImpl implements IBlogService {
-
 	@Autowired
 	private IBlogDao blogDao;
 

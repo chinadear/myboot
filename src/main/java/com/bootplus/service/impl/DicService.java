@@ -81,6 +81,13 @@ public class DicService extends BaseServiceImpl implements IDicService {
 	@Override
 	public void deleteDic(Dic dic) {
 		// TODO Auto-generated method stub
+		//不愿意新写方法了，就懒一下
+		DicItem di=new DicItem();
+		di.setDic(dic);
+		List<DicItem> dlist=this.queryDicItemListInDic(di);
+		for(DicItem d:dlist) {
+			dicDao.delete(d);
+		}
 		dicDao.delete(dic);
 	}
 
@@ -111,6 +118,17 @@ public class DicService extends BaseServiceImpl implements IDicService {
 	public Page queryDicitemPage(DicItem dicitem, int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
 		return dicDao.queryDicitemPage(dicitem, pageNo, pageSize);
+	}
+
+	@Override
+	public List<DicItem> queryDicItemListByDicCode(String code) {
+		// TODO Auto-generated method stub
+		DicItem di=new DicItem();
+		Dic dic=new Dic();
+		dic.setCode(code);
+		di.setDic(dic);
+		di.setStatus("1");
+		return dicDao.queryDicItemListInDic(di);
 	}
 	
 }

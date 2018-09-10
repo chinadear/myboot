@@ -64,6 +64,10 @@ public class DicDao extends BaseDaoImpl implements IDicDao {
 			sb.append(" and dic.id=:dicid");
 			paramMap.put("dicid", di.getDic().getId());
 		}
+		if(di.getDic()!=null && StringUtils.hasText(di.getDic().getCode())) {
+			sb.append(" and dic.code=:diccode");
+			paramMap.put("diccode", di.getDic().getCode());
+		}
 		if(StringUtils.hasText(di.getName())) {
 			sb.append(" and name=:name");
 			paramMap.put("name", di.getName());

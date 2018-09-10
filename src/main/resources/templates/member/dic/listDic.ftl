@@ -161,7 +161,7 @@
  			});
  		}
  	}
- 	//更改发布状态
+ 	//更改锁定状态，由于字典比较重要防止误操作，增加锁定功能
  	function updateStatus(id,status){
  		var qname=$("#qname").val();
  		$.ajax({
@@ -179,9 +179,9 @@
 				var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
 				$("#flushtable").load("${rc.contextPath}/dic/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
 					if(data=="1"){
-						comp.message("发布成功！");
+						comp.message("锁定成功！");
 					}else{
-						comp.message("已取消发布！");
+						comp.message("为防止误操作请及时锁定！");
 					}
 				});
 			}

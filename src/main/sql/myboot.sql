@@ -104,17 +104,18 @@ CREATE TABLE `USER_ROLE` (
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
  
-CREATE TABLE `BOLG` (
+ CREATE TABLE `BOLG` (
    `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
    `CONTENT` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '内容源码',
    `HTML_CONTENT` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '转为HTML的内容',
    `SUMMARY` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '摘要',
    `TITLE` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '标题',
-   `CATEGORY` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类别',
    `VIEW_NUM` int(11) DEFAULT '0' COMMENT '浏览量',
+   `CATEGORY` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类别',
    `POSTER` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '海报',
    `USER_ID` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '博客拥有者',
    `DISCUSS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否开启评论',
+   `PLATE` varchar(2) COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '所属板块，默认0博客',
    `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
    `CREATE_TIME` datetime DEFAULT NULL,
    `UPDATE_TIME` datetime DEFAULT NULL,

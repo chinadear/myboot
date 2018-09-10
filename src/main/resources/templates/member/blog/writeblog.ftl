@@ -25,6 +25,7 @@
 			<input type="hidden" name="cateId" id="categoryid" value=""/>
 			<input type="hidden" name="tags" id="tags" value=""/>
 			<input type="hidden" id="discuss" name="discuss" value="0">
+			<input type="hidden" id="plate" name="plate" value="0">
 			<div class="editormd" id="test-editormd"><!-- test-editormd-markdown-doc -->
 			    <textarea class="editormd-markdown-textarea" name="content" id="content"></textarea>
 			    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
@@ -59,6 +60,18 @@
 	        </div>  
 			<div class="modal-body"> 
 				<form class="form-horizontal">
+					<div class="form-group">
+					    <label class="col-sm-2 control-label">所属板块</label>
+					    <div class="col-sm-9">
+					    <select name="plated" id="plated" class="form-control">
+					    	<#if dlist??>
+					    		<#list dlist as d>
+					    			<option value="${d.code!}">${(d.name!)?html}</option>
+					    		</#list>
+					    	</#if>
+					    </select>
+					    </div>
+				 	</div>
 				 	<div class="form-group">
 					    <label class="col-sm-2 control-label">分类</label>
 					    <div class="col-sm-9">
@@ -171,6 +184,7 @@ window.onload = function(){
 	}
       	$("#title").val($("#title_").val());
       	$("#status").val(status);
+      	$("#plate").val($("#plated").val());
       	$("#blogform").submit();
 	}
 	//返回博客列表

@@ -26,6 +26,7 @@
 			<input type="hidden" name="tags" id="tags" value=""/>
 			<input type="hidden" name="status" id="status" value=""/>
 			<input type="hidden" id="discuss" name="discuss" value="${blog.discuss!'0'}">
+			<input type="hidden" id="plate" name="plate" value="${blog.plate!'0'}">
 			<div class="editormd" id="test-editormd"><!-- test-editormd-markdown-doc -->
 			    <textarea class="editormd-markdown-textarea" name="content" id="content">${blog.content!}</textarea>
 			    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
@@ -59,6 +60,22 @@
 	        </div>  
 			<div class="modal-body"> 
 				<form class="form-horizontal">
+					<div class="form-group">
+					    <label class="col-sm-2 control-label">所属板块</label>
+					    <div class="col-sm-9">
+					    <select name="plated" id="plated" class="form-control">
+					    	<#if dlist??>
+					    		<#list dlist as d>
+					    			<#if  blog??&&blog.plate==d.code>
+					    				<option value="${d.code!}" selected>${(d.name!)?html}</option>
+					    			<#else>
+					    				<option value="${d.code!}">${(d.name!)?html}</option>
+					    			</#if>
+					    		</#list>
+					    	</#if>
+					    </select>
+					    </div>
+				 	</div>
 				 	<div class="form-group">
 					    <label class="col-sm-2 control-label">分类</label>
 					    <div class="col-sm-9">
@@ -155,7 +172,7 @@ window.onload = function(){
 	function sure(){
 		var status=$("#prestatus").val();
 		$("#categoryid").val($("#cate").val());
-		if(status=='0'){
+		if(status=='0'){//格式化tag标签内容
 			var str=$("#tagstr").val();
 			str=str.replace(/，/g,",").replace(/\s/g,'');
 			$("#tags").val(str);
@@ -166,6 +183,7 @@ window.onload = function(){
     function publishblog() {
       	$("#title").val($("#title_").val());
       	$("#status").val("1");
+      	$("#plate").val($("#plated").val());
       	$("#blogform").submit();
     }
     //保存博客状态不变，保存分两种状态草稿保存还为草稿状态，未发布状态保存还为未发布状态

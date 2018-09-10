@@ -16,6 +16,12 @@ public interface IDicService {
 	 * @return
 	 */
 	public List<DicItem> queryDicItemListInDic(DicItem di);
+	/**
+	 * 通过字典code查找字典项
+	 * @param code
+	 * @return
+	 */
+	public List<DicItem> queryDicItemListByDicCode(String code);
 	public void save(Dic dic);
 	public void save(DicItem di);
 	public void update(Dic dic);

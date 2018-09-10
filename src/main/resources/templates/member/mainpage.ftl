@@ -5,25 +5,66 @@
     <title>首页</title>
 </head>
 <body>
+<div  class="inner-header">
+	<a class="btn btn-success btn-sm optionbtn" href="/security/initsystem">初始化系统数据</a>
+</div>
 <div class="container-fluid innerScroll">
-	<div class="row hr-bottom">
+	<div class="row ">
+		<div class="col-md-5">
+			<div class="row ">
+				<div class="col-md-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">统计</div>
+					  	<div class="panel-body">
+							<p class="text-left">网站访问量：${viewCount!'0'}</p>
+							<p class="text-left">文章数量：${blogCount!'0'}</p>
+							<p class="text-left">分类数量：${(catelist!'0')?size}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-md-12">
+					<div class="panel panel-primary" style="height:290px;overflow-y:scroll;">
+						<div class="panel-heading">分类下文章数量</div>
+					  	<div class="panel-body">
+					  		<#if catelist??>
+					  		<#list catelist as cl>
+								<p class="text-left">${(cl.name!)?html}<span class="badge" style="float: right;">${cl.articals!}</span></p>
+							</#list>
+							</#if>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="panel panel-primary">
+				<div class="panel-heading">板块访问量</div>
+			  	<div class="panel-body">
+					<div id="chartmain" style="width:600px; height: 400px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-md-12">
-			<p class="text-left">网站访问量：${viewCount!'0'}</p>
-			<p class="text-left">文章数量：${blogCount!'0'}</p>
-			<p class="text-right"><a class="btn btn-success text-right" href="/security/initsystem">初始化系统数据</a></p>
+			<div class="panel panel-primary">
+				<div class="panel-heading">分类浏览量</div>
+			  	<div class="panel-body">
+					<div id="chartmain1" style="width:1050px; height: 400px;"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="row ">
-		<div class="col-md-6">
-			<div id="chartmain" style="width:600px; height: 400px;"></div>
-		</div>
-		<div class="col-md-6">
-			<div id="chartmain1" style="width:600px; height: 400px;"></div>
-		</div>
-	</div>
-	<div class="row ">
 		<div class="col-md-12">
-			<div id="chartmain2" style="width:900px; height: 400px;"></div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">网站访问趋势</div>
+			  	<div class="panel-body">
+					<div id="chartmain2" style="width:1050px; height: 400px;"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -32,7 +73,7 @@
 		//指定图标的配置和数据
 		var option = {
 		    title : {
-		        text: '各板块访问量',
+		        text: '各板块访问量统计',
 		        subtext: '纯属虚构',
 		        x:'center'
 		    },
@@ -62,7 +103,7 @@
 		                    }
 		                }
 		            },
-		            restore : {show: true},
+		          /*   restore : {show: true}, */
 		            saveAsImage : {show: true}
 		        }
 		    },
@@ -71,7 +112,7 @@
 		        {
 		            name:'访问量',
 		            type:'pie',
-		            radius : '55%',
+		            radius : '65%',
 		            center: ['50%', '60%'],
 		            data:[
 		                {value:1335, name:'博客'},
@@ -98,7 +139,12 @@
 	                 name:'浏览量',
 	                 type:'bar'  ,
 	                 data:[1500,2098,369,102,1506,2077]
-	             }
+	             },
+	             toolbox:{
+	                 feature:{
+	                     saveAsImage:{}
+	                 }
+	            }
 	         };
         //2.创建Oprion
         var option3={
@@ -132,34 +178,34 @@
             }  ,
             series:[
                      {
-                             name  :   '博客',
-                             type  :   'line'     ,
-                             stack  :  '总量' ,
-                             data   :  [120,132,101,134,90,230,210]
+                        name  :   '博客',
+                        type  :   'line'     ,
+                        stack  :  '总量' ,
+                        data   :  [120,132,101,134,90,230,210]
                      } ,
                      {
-                             name  : '工具速递' ,
-                             type  :  'line'   ,
-                             stack :  '总量'   ,
-                             data  :[220,182,191,234,290,330,310]
+                        name  : '工具速递' ,
+                        type  :  'line'   ,
+                        stack :  '总量'   ,
+                        data  :[220,182,191,234,290,330,310]
                      } ,
                     {
-                               name  :   '联盟广告' ,
-                               type  :  'line' ,
-                               stack :  '总量' ,
-                               data  :  [150,232,201,154,190,330,410]
+                        name  :   '联盟广告' ,
+                        type  :  'line' ,
+                        stack :  '总量' ,
+                        data  :  [150,232,201,154,190,330,410]
                     } ,
                    {
-                                name  :  '系列主题',
-                                type  :  'line'  ,
-                                stack :'   总量'  ,
-                                 data :[320,332,301,334,390,330,320]
+                        name  :  '系列主题',
+                        type  :  'line'  ,
+                        stack :'   总量'  ,
+                        ata :[320,332,301,334,390,330,320]
                    },
                   {
-                                 name : '新闻'  ,
-                                 type : 'line'   ,
-                                 stack : '总量' ,
-                                 data : [920,932,901,934,1290,1330,1320]
+                        name : '新闻'  ,
+                        type : 'line'   ,
+                        stack : '总量' ,
+                        data : [920,932,901,934,1290,1330,1320]
                   }
             ]};
 		//初始化echarts实例

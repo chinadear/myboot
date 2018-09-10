@@ -10,13 +10,15 @@
 		<div class="form-group" style="margin-top: 5px;margin-left:5px;">
     		<label for="roleId">版块：</label>
 			<select name="queryType" id="queryType" class="form-control" onchange="flushList(this)" style="width: 200px;">
-					<#list [["0","头部banner"],["1","右侧轮播"]] as r>
-						<#if type==r[0]>
-							<option value="${r[0]}" selected>${r[1]}</option>
-						<#else>
-							<option value="${r[0]}">${r[1]}</option>
-						</#if>
-					</#list>
+					<#if dlist?? && dlist?size gt 0>
+						<#list dlist as r>
+							<#if type==r.code>
+								<option value="${r.code!}" selected>${(r.name!)?html}</option>
+							<#else>
+								<option value="${r.code!}">${(r.name!)?html}</option>
+							</#if>
+						</#list>
+					</#if>
 			</select>
 		</div>
 		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addDrum()">增加推广</button>

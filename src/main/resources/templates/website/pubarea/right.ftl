@@ -70,7 +70,7 @@
        	<#if structModel??&&structModel.cate??&&structModel.cate?size gt 0>
             <#list structModel.cate as h>
 	            <li>
-	                <a href="##"  target="_blank" title="${(h.name!)?html}">    
+	                <a href="${rc.contextPath}/articals/cate/${h.id!}"  target="_blank" title="${(h.name!)?html}">    
 	                <#if h.name?length gt 15>
 				    	${h.name?substring(0,15)}...
 				    <#else>
@@ -81,7 +81,7 @@
             </#list>
         </#if>
         </ul>
-        <a href="##" class="genric-btn link circle" style="text-decoration:none;">更多...</a>
+        <a href="${rc.contextPath}/articals/tagAndcate/more" class="genric-btn link circle" style="text-decoration:none;" target="_blank">更多...</a>
     </div>
  	
     <!-- tag -->
@@ -98,7 +98,7 @@
             </#list>
         </#if>
         </ul>
-        <a href="##" class="genric-btn link circle" style="text-decoration:none;">更多...</a>
+        <a href="${rc.contextPath}/articals/tagAndcate/more" class="genric-btn link circle" style="text-decoration:none;" target="_blank">更多...</a>
     </div>                                                 
 
 </div>
