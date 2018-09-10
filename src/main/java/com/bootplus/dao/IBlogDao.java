@@ -25,4 +25,6 @@ public interface IBlogDao<T> extends IBaseDao{
 	 * @param articalId
 	 */
 	public void updateViewNum(String articalId);
+	
+	public Page getBlogSearchPage(List<String> words,int pageNo, int pageSize);
 }

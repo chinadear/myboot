@@ -24,4 +24,5 @@ public interface IBlogService {
 	 * @param articalId
 	 */
 	public void updateViewNum(String articalId);
+	public Page getBlogSearchPage(List<String> words,int pageNo, int pageSize);
 }

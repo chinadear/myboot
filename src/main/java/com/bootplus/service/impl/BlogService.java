@@ -15,6 +15,7 @@ import com.bootplus.service.IBlogService;
 @Service
 @Transactional
 public class BlogService extends BaseServiceImpl implements IBlogService {
+
 	@Autowired
 	private IBlogDao blogDao;
 
@@ -70,5 +71,11 @@ public class BlogService extends BaseServiceImpl implements IBlogService {
 	public void updateViewNum(String articalId) {
 		// TODO Auto-generated method stub
 		blogDao.updateViewNum(articalId);
+	}
+	
+	@Override
+	public Page getBlogSearchPage(List<String> words, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return blogDao.getBlogSearchPage(words, pageNo, pageSize);
 	}
 }

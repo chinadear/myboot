@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
 import com.bootplus.Util.GetRemoteIP;
+import com.bootplus.Util.SplitWordUtil;
 import com.bootplus.Util.GetRemoteIP;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.dao.page.Page;
@@ -61,7 +62,10 @@ public class WebSiteController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/articals/search")
-	public String searcg(Model model, HttpServletRequest request) {
+	public String searcg(Model model, HttpServletRequest request,String words) {
+		List<String> w=SplitWordUtil.split(words);
+		Page page=blogService.getBlogSearchPage(w, 1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/search";
 	}
 	/**

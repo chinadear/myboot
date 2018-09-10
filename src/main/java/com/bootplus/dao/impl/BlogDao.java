@@ -1,5 +1,6 @@
 package com.bootplus.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,5 +82,28 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 	public void updateViewNum(String articalId) {
 		// TODO Auto-generated method stub
 		this.executeHql("update Blog set viewNum=viewNum+1 where id=?",articalId);
+	}
+
+	@Override
+	public Page getBlogSearchPage(List words, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		StringBuffer sb=new StringBuffer("from Blog where status='1' ");
+//		Map paramMap = new HashMap();
+		List<String> paramMap=new ArrayList<String>();
+		if(words.size()>0) {
+			for(int i=0;i<words.size();i++) {
+				if(i==0) {
+					sb.append(" and title like ?");
+					paramMap.add("%"+words.get(i)+"%");
+				}else {
+					sb.append(" or title like ?");
+					paramMap.add("%"+words.get(i)+"%");
+				}
+			}
+		}else {
+			sb.append(" and 1!=1");
+		}
+		sb.append(" order by createTime DESC");
+		return this.pagedQuery(sb.toString(), pageNo, pageSize, paramMap.toArray());
 	}
 }

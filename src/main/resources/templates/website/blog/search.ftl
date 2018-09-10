@@ -24,16 +24,18 @@
                     <div class="row justify-content-center align-items-center d-flex">
                         <div class="col-lg-8">
                             <div id="imaginary_container"> 
+                            <form action="/articals/search">
                                 <div class="input-group stylish-input-group">
-                                    <input type="text" class="form-control"  placeholder="站内搜索" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Addictionwhen gambling '" required="">
+                                    <input type="text" name="words" class="form-control"  placeholder="站内搜索" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Addictionwhen gambling '" required="">
                                     <span class="input-group-addon">
                                         <button type="submit">
                                             <span class="lnr lnr-magnifier"></span>
                                         </button>  
                                     </span>
                                 </div>
+                            </form>
                             </div> 
-                            <p class="mt-20 text-center text-white">169 results found for “Addictionwhen gambling”</p>
+                            <p class="mt-20 text-center text-white">检索出100条数据</p>
                         </div>
                     </div>
                 </div>  
