@@ -4,7 +4,7 @@
     <div class="single_widget search_widget">
         <div id="imaginary_container"> 
             <div class="input-group stylish-input-group">
-                <input type="text" class="form-control"  placeholder="站内搜索" >
+                <input type="text" id="words" class="form-control"  placeholder="站内搜索" >
                 <span class="input-group-addon">
                     <button type="button" onclick="search()">
                         <span class="lnr lnr-magnifier"></span>
@@ -104,7 +104,7 @@
 </div>
 <script type="text/javascript">
 function search(){
-	window.open("${rc.contextPath}/articals/search");
+	window.open("${rc.contextPath}/articals/search?words="+$("#words").val());
 }
 </script>
 <!-- 右侧end -->

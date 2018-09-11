@@ -66,7 +66,27 @@ public class WebSiteController extends BaseController {
 		List<String> w=SplitWordUtil.split(words);
 		Page page=blogService.getBlogSearchPage(w, 1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("page", page);
+		model.addAttribute("words", words);
+		model.addAttribute("count", page.getTotalCount());
 		return RESOURCE_MENU_PREFIX+"/search";
+	}
+	/**
+	 * 搜索更多-搜索结果的加载更多
+	 * @param model
+	 * @param request
+	 * @param pageNum
+	 * @param pageSize
+	 * @param words
+	 * @return
+	 */
+	@RequestMapping(value="/articals/search/more",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String searchmore(Model model, HttpServletRequest request,int pageNum,int pageSize,String words) {
+		List<Blog> list=new ArrayList<Blog>();
+		List<String> w=SplitWordUtil.split(words);
+		Page page=blogService.getBlogSearchPage(w, pageNum,pageSize);
+		list=(List<Blog>)page.getResult();
+		return CompUtil.array2Json(list);
 	}
 	/**
 	 * tag以及分类的更多
