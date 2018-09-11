@@ -60,6 +60,21 @@ public class WebSiteController extends BaseController {
 		return RESOURCE_MENU_PREFIX+"/search";
 	}
 	/**
+	 * 从0-1系列
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/articals/series")
+	public String series(Model model, HttpServletRequest request) {
+		Blog blog=new Blog();
+		blog.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		blog.setPlate("2");//行业资讯板块
+		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
+		return RESOURCE_MENU_PREFIX+"/series";
+	}
+	/**
 	 * 行业资讯
 	 * Industry information
 	 * @param model
