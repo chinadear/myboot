@@ -111,7 +111,9 @@ public class DicController extends BaseController {
 		return "T";
 	}
 	/**
-	 * 更改发布状态
+	 * 更改锁定状态
+	 * 由于字典比较重要，防止误删除，因此平时就把删除编辑按钮屏蔽，处于锁定状态，锁定状态不影响使用
+	 * 锁定唯一一个作用就是 屏蔽操作按钮，防止误操作
 	 * @param model
 	 * @param request
 	 * @return

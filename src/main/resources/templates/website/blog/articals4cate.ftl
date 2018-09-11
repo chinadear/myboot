@@ -63,8 +63,12 @@
                         </#if>
                         </div>                          
                         <div class="justify-content-center d-flex">
+                        <#if page??&&page.result?size gt 0>                          
                             <button class="text-uppercase primary-btn loadmore-btn mt-40 mb-60" id="loadmore" onclick="loadmore()" >加载更多...</button>
-                        </div>                                                                     
+                        <#else>
+                        	该分类下暂无相关文章~
+                        </#if>                                                                      
+                        </div>                                                                    
                     </div>
 <#include "../pubarea/right.ftl">
                 </div>

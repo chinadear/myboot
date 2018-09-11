@@ -23,12 +23,14 @@ import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
 import com.bootplus.model.Category;
 import com.bootplus.model.Comment;
+import com.bootplus.model.Drumbeating;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.Tag;
 import com.bootplus.model.TagBlog;
 import com.bootplus.service.IBlogService;
 import com.bootplus.service.ICategoryService;
 import com.bootplus.service.ICommentService;
+import com.bootplus.service.IDrumbeatingService;
 import com.bootplus.service.ISysManageService;
 import com.bootplus.service.ITagService;
 
@@ -45,6 +47,8 @@ public class WebSiteController extends BaseController {
 	private ICommentService commentService;
 	@Autowired
 	private ICategoryService categoryService;
+	@Autowired
+	private IDrumbeatingService drumbeatingService;
 	/**
 	 * 首页-待开发
 	 * @param model
@@ -54,6 +58,40 @@ public class WebSiteController extends BaseController {
 	@RequestMapping("/")
 	public String index(Model model, HttpServletRequest request) {
 		return RESOURCE_MENU_PREFIX+"/search";
+	}
+	/**
+	 * 行业资讯
+	 * Industry information
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/articals/news")
+	public String news(Model model, HttpServletRequest request) {
+		Blog blog=new Blog();
+		blog.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		blog.setPlate("2");//行业资讯板块
+		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
+		return RESOURCE_MENU_PREFIX+"/news";
+	}
+	/**
+	 * 行业资讯-加载更多
+	 * @param model
+	 * @param request
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value="/articals/news/more",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String newsmore(Model model, HttpServletRequest request,int pageNum,int pageSize) {
+		Blog blog=new Blog();
+		blog.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		blog.setPlate("2");//行业资讯板块
+		Page page=blogService.getBlogPage(blog,pageNum,pageSize);
+		List<Blog> list=(List<Blog>)page.getResult();
+		return CompUtil.array2Json(list);
 	}
 	/**
 	 * 站内检索
@@ -89,6 +127,70 @@ public class WebSiteController extends BaseController {
 		return CompUtil.array2Json(list);
 	}
 	/**
+	 * 进入工具箱
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/articals/toolsbox")
+	public String toolsbox(Model model, HttpServletRequest request) {
+		Drumbeating db=new Drumbeating();
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType(Constants.SYSTEM_DIC_DICITEM_FUNC_TOOLS);
+		List<Drumbeating> tools=drumbeatingService.queryDrumbList(db);
+		model.addAttribute("tools", tools);
+		return RESOURCE_MENU_PREFIX+"/toolsbox";
+	}
+	/**
+	 * 刷新工具箱
+	 * @param model
+	 * @param request
+	 * @param title
+	 * @return
+	 */
+	@RequestMapping("/articals/flashToolsBox")
+	public String flashToolsBox(Model model, HttpServletRequest request,String title) {
+		Drumbeating db=new Drumbeating();
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType(Constants.SYSTEM_DIC_DICITEM_FUNC_TOOLS);
+		db.setTitle(title);
+		List<Drumbeating> tools=drumbeatingService.queryDrumbList(db);
+		model.addAttribute("tools", tools);
+		return RESOURCE_MENU_PREFIX+"/innerpage/innertoolsbox";
+	}
+	/**
+	 * 进入资源下载
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/articals/resdownload")
+	public String resdownload(Model model, HttpServletRequest request) {
+		Drumbeating db=new Drumbeating();
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType(Constants.SYSTEM_DIC_DICITEM_FUNC_RESDOWNLOAD);
+		List<Drumbeating> downloads=drumbeatingService.queryDrumbList(db);
+		model.addAttribute("downloads", downloads);
+		return RESOURCE_MENU_PREFIX+"/resdownload";
+	}
+	/**
+	 * 刷新资源下载
+	 * @param model
+	 * @param request
+	 * @param title
+	 * @return
+	 */
+	@RequestMapping("/articals/flashResDownload")
+	public String flashResDownload(Model model, HttpServletRequest request,String title) {
+		Drumbeating db=new Drumbeating();
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType(Constants.SYSTEM_DIC_DICITEM_FUNC_RESDOWNLOAD);
+		db.setTitle(title);
+		List<Drumbeating> downloads=drumbeatingService.queryDrumbList(db);
+		model.addAttribute("downloads", downloads);
+		return RESOURCE_MENU_PREFIX+"/innerpage/innerresdownload";
+	}
+	/**
 	 * tag以及分类的更多
 	 * @param model
 	 * @param request
@@ -111,7 +213,8 @@ public class WebSiteController extends BaseController {
 	@RequestMapping("/articals")
 	public String articials(Model model, HttpServletRequest request) {
 		Blog blog=new Blog();
-		blog.setStatus("1");
+		blog.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		blog.setPlate("0");//博客板块
 		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/articals";
@@ -169,7 +272,7 @@ public class WebSiteController extends BaseController {
 		return "t";
 	}
 	/**
-	 * 指定tag下的博文列表
+	 * tag检索博文列表
 	 * @param model
 	 * @param request
 	 * @param id
@@ -190,7 +293,7 @@ public class WebSiteController extends BaseController {
 		return RESOURCE_MENU_PREFIX+"/articals4tag";
 	}
 	/**
-	 * 指定cate下的博文列表
+	 * cate检索博文列表
 	 * @param model
 	 * @param request
 	 * @param id
@@ -208,6 +311,7 @@ public class WebSiteController extends BaseController {
 	}
 	/**
 	 * 文章加载更多
+	 * 共用：包括tag,cat，文章，3块的加载更多
 	 * @param model
 	 * @param request
 	 * @param pageNum
@@ -236,6 +340,7 @@ public class WebSiteController extends BaseController {
 			Page page=blogService.getBlogPage(blog, pageNum, pageSize);
 			list=(List<Blog>)page.getResult();
 		}else {//文章的加载更多
+			blog.setPlate("0");
 			Page page=blogService.getBlogPage(blog, pageNum, pageSize);
 			list=(List<Blog>)page.getResult();
 		}

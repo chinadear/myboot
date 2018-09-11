@@ -70,7 +70,7 @@ public class DrumbeatingController extends BaseController {
 	@Autowired 
 	private IDicService dicService;
 	/**
-	 * 进入我的博客管理页面
+	 * 进入页面
 	 * @param model
 	 * @param request
 	 * @return
@@ -80,9 +80,10 @@ public class DrumbeatingController extends BaseController {
 		Drumbeating db=new Drumbeating();
 		type=StringUtils.hasText(type)?type:"0";
 		db.setType(type);
-		List<Drumbeating> dblist = drumbeatingService.queryDrumbList(db);
+//		List<Drumbeating> dblist = drumbeatingService.queryDrumbList(db);
+		Page page=drumbeatingService.queryDrumbPage(db, 1, Page.DEFAULT_PAGE_SIZE);
 		List<DicItem> dlist=dicService.queryDicItemListByDicCode("POSITION");
-		model.addAttribute("dblist", dblist);
+		model.addAttribute("page", page);
 		model.addAttribute("dlist", dlist);
 		model.addAttribute("type",type);
 		return RESOURCE_MENU_PREFIX+"/listDrumbeating";
@@ -95,11 +96,12 @@ public class DrumbeatingController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/drumbeating/noSitemesh/loadDurmbeatingtable")
-	public String loadDurmbeatingtable(Model model, HttpServletRequest request,String type) {
+	public String loadDurmbeatingtable(Model model, HttpServletRequest request,String pageNo,String type) {
 		Drumbeating db=new Drumbeating();
 		db.setType(type);
-		List<Drumbeating> dblist = drumbeatingService.queryDrumbList(db);
-		model.addAttribute("dblist", dblist);
+//		List<Drumbeating> dblist = drumbeatingService.queryDrumbList(db);
+		Page page=drumbeatingService.queryDrumbPage(db,StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/tableDrumbeating";
 	}
 	/**

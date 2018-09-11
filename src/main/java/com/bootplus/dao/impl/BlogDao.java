@@ -58,6 +58,10 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 			sb.append(" and category.id=:cateid");
 			paramMap.put("cateid", blog.getCateId());
 		}
+		if(StringUtils.hasText(blog.getPlate())) {
+			sb.append(" and plate=:plate");
+			paramMap.put("plate", blog.getPlate());
+		}
 		if(blog.getViewNum()>0) {//如果传过来浏览量任意值，那么代表要使用浏览量进行排序
 			sb.append(" order by viewNum DESC");
 		}else {

@@ -92,7 +92,7 @@
 					dataType :"json",
 					type:"POST",
 					timeout: 100000,
-					url: "${rc.contextPath}/articals/more",
+					url: "${rc.contextPath}/articals/news/more",
 					data:{pageNum:pageNum,pageSize:pageSize},
 					error: function () {//请求失败处理函数
 						alert("请求失败！");

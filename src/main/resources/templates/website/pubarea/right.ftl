@@ -3,14 +3,16 @@
 <!-- 搜索 -->
     <div class="single_widget search_widget">
         <div id="imaginary_container"> 
+            <form action="${rc.contextPath}/articals/search">
             <div class="input-group stylish-input-group">
-                <input type="text" id="words" class="form-control"  placeholder="站内搜索" >
+                <input type="text" id="words" name="words" maxlength="50" class="form-control"  placeholder="站内文章搜索" >
                 <span class="input-group-addon">
-                    <button type="button" onclick="search()">
+                    <button type="submit">
                         <span class="lnr lnr-magnifier"></span>
                     </button>  
                 </span>
             </div>
+            </form>
         </div> 
     </div>
     <!-- 广告 -->

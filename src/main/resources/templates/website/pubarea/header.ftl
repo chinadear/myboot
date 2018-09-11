@@ -13,22 +13,20 @@
 		<div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
 			<ul class="navbar-nav scrollable-menu">
 				<li><a href="#home">首页</a></li>
-				<li><a href="#news">新闻</a></li>
-				<li><a href="#travel">springboot</a></li>
-				<li><a href="#fashion">java工具类</a></li>
+				<li><a href="${rc.contextPath}/articals/news">行业资讯</a></li>
+				<li><a href="#travel">从0到1系列</a></li>
 				<li><a href="${rc.contextPath}/articals">博客</a></li>
 				<!-- Dropdown -->
 			    <li class="dropdown">
 					<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					  阿里云
+					  便捷入口
 					</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="single.html">Single</a>
-						<a class="dropdown-item" href="category.html">Category</a>
-						<a class="dropdown-item" href="search.html">Search</a>
-						<a class="dropdown-item" href="archive.html">Archive</a>
-						<a class="dropdown-item" href="generic.html">Generic</a>
-						<a class="dropdown-item" href="elements.html">Elements</a>
+						<a class="dropdown-item" href="${rc.contextPath}/articals/tagAndcate/more">内容地图</a>
+						<a class="dropdown-item" href="${rc.contextPath}/articals/search">站内搜索</a>
+						<a class="dropdown-item" href="${rc.contextPath}/articals/toolsbox">工具箱</a>
+						<a class="dropdown-item" href="${rc.contextPath}/articals/resdownload">资源下载</a>
+						<a class="dropdown-item" href="##">关于我</a>
 					</div>
 			    </li>                               
 			</ul>

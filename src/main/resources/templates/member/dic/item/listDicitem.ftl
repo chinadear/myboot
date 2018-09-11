@@ -79,7 +79,7 @@
  		initAddValidate();
  	}
  	function dicTable(currPage) {
-		$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:currPage},function(){});
+		$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:currPage,dicId:$("#dicId").val()},function(){});
 	}
 	//翻页组件初始化，翻页组件暂时职能采用table的load来刷新翻页的列表
 	function callBackPagination() {
@@ -122,7 +122,7 @@
 				},
 				success:function(data){ //请求成功后处理函数。  
 					var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
-					$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
+					$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname,dicId:$("#dicId").val()},function(){
 						comp.message("删除成功！");
 					});
 				}
@@ -155,7 +155,7 @@
  				},
  				success:function(data){ //请求成功后处理函数。  
  					var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
-					$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
+					$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname,dicId:$("#dicId").val()},function(){
 						comp.message("修改成功！");
 						comp.hideModal('editModal');
 					});
@@ -179,7 +179,7 @@
 			},
 			success:function(data){ //请求成功后处理函数。  
 				var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
-				$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname},function(){
+				$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{pageNo:page,name:qname,dicId:$("#dicId").val()},function(){
 					if(data=="1"){
 						comp.message("发布成功！");
 					}else{
@@ -191,7 +191,7 @@
  	}
  	//select框检索字典
  	function flushList(obj){
- 		$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{name:obj.value},function(){});
+ 		$("#flushtable").load("${rc.contextPath}/dicitem/noSitemesh/loadDictable",{name:obj.value,dicId:$("#dicId").val()},function(){});
  	}
  	//新增-发布开关切换
  	function addt(){

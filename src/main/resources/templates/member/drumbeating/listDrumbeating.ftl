@@ -21,7 +21,7 @@
 					</#if>
 			</select>
 		</div>
-		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addDrum()">增加推广</button>
+		<button type="button" class="btn btn-primary btn-sm optionbtn" onclick="addDrum()">增加条目</button>
 	</form>
 </div>
 <div class="container-fluid innerScroll">
@@ -72,7 +72,23 @@
 </div><!-- /.modal -->
  <script type="text/javascript">
  	window.onload = function(){
+ 		callBackPagination();
  	}
+ 	function drumTable(currPage) {
+ 		var type=$("#queryType").val();
+ 		$("#flushtable").load("${rc.contextPath}/drumbeating/noSitemesh/loadDurmbeatingtable",{pageNo:currPage,type:type},function(){});
+	}
+	//翻页组件初始化，翻页组件暂时职能采用table的load来刷新翻页的列表
+	function callBackPagination() {
+	    $('.paging-component').extendPagination({
+	        totalCount:${page.totalCount},//总记录数
+	        showPage:5,//分页栏显示页数，其他页数...代替
+	        limit:10,//每页显示记录数
+	        callback: function (curr, limit, totalCount) {//curr当前页数
+	        	drumTable(curr);
+	        }
+	    });
+	}
  	function editDrum(id){
 	 	$("#edittemp").load("${rc.contextPath}/drumbeating/noSitemesh/editDrum",{"id":id},function(){
 			comp.showModal('editModal');
@@ -98,7 +114,8 @@
 					return;
 				},
 				success:function(data){ //请求成功后处理函数。  
-					$("#flushtable").load("${rc.contextPath}/drumbeating/noSitemesh/loadDurmbeatingtable",{type:type},function(){
+					var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
+					$("#flushtable").load("${rc.contextPath}/drumbeating/noSitemesh/loadDurmbeatingtable",{pageNo:page,type:type},function(){
 						comp.message("删除成功！");
 					});
 				}
@@ -125,7 +142,8 @@
 				return;
 			},
 			success:function(data){ //请求成功后处理函数。  
-				$("#flushtable").load("${rc.contextPath}/drumbeating/noSitemesh/loadDurmbeatingtable",{type:type},function(){
+				var page=Number($('.paging-component').find('li[class="active"]').find('a').html());
+				$("#flushtable").load("${rc.contextPath}/drumbeating/noSitemesh/loadDurmbeatingtable",{pageNo:page,type:type},function(){
 					if(status=="1"){
 						comp.message("已成功发布！");
 					}else{

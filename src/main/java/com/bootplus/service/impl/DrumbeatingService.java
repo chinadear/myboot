@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseServiceImpl;
+import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.IDrumbeatingDao;
 import com.bootplus.dto.StructModel;
 import com.bootplus.model.Blog;
@@ -67,17 +68,17 @@ public class DrumbeatingService extends BaseServiceImpl implements IDrumbeatingS
 	public StructModel getStructModel() {
 		// TODO Auto-generated method stub
 		Drumbeating db=new Drumbeating();
-		db.setStatus("1");
-		db.setType("0");
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType(Constants.SYSTEM_DIC_DICITEM_HEADER_BANNER);//头部banner
 		List<Drumbeating> banner=drumbeatingDao.queryDrumbList(db);
-		db.setType("1");
+		db.setType(Constants.SYSTEM_DIC_DICITEM_RIGHT_DRUM);//右侧轮播
 		List<Drumbeating> rightdrum=drumbeatingDao.queryDrumbList(db);
 		StructModel sm=new StructModel();
 		sm.setBanner(banner.size()>0?banner.get(0):null);
 		sm.setRightdrum(rightdrum);
 		Blog blog=new Blog();
 		blog.setViewNum(2);
-		blog.setStatus("1");
+		blog.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		List<Blog> hot=(List<Blog>)blogService.getBlogPage(blog, 1, 10).getResult();
 		sm.setHot(hot);
 		List<Tag> tag=(List<Tag>)tagService.queryTagPage(new Tag(), 1, 10).getResult();
@@ -88,4 +89,11 @@ public class DrumbeatingService extends BaseServiceImpl implements IDrumbeatingS
 		sm.setCate(cate);
 		return sm;
 	}
+
+	@Override
+	public Page queryDrumbPage(Drumbeating db, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return drumbeatingDao.queryDrumbPage(db, pageNo, pageSize);
+	}
+	
 }

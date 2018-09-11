@@ -187,6 +187,7 @@ public class BlogController extends BaseController {
 		b.setContent(blog.getContent());
 		b.setTitle(blog.getTitle());
 		b.setSummary(blog.getSummary());
+		b.setHtmlContent(blog.getHtmlContent());
 		b.setStatus(blog.getStatus());
 		b.setDiscuss(blog.getDiscuss());
 		b.setPlate(blog.getPlate());

@@ -12,8 +12,8 @@
 		</tr>
 	</thead>
 	<tbody>
-		<#if dblist??>
-			<#list dblist as r>
+		<#if page??>
+			<#list page.result as r>
 				<tr>   
 	                <td>${r_index+1}</td>
 	                <td class="autocut">${(r.title!)?html}</td>

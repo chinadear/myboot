@@ -1,8 +1,5 @@
 package com.bootplus.Util;
 
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
 public class Constants {
 	/**
 	 * 根菜单名称
@@ -57,5 +54,26 @@ public class Constants {
 	 * 全局变量，线程安全
 	 */
 //	public static AtomicLong ai=new AtomicLong(0);
+	//字典，与业务相关的
+	/**
+	 * 头部banner
+	 */
+	public static final String SYSTEM_DIC_DICITEM_HEADER_BANNER="0";
+	/**
+	 * 右侧轮播图
+	 */
+	public static final String SYSTEM_DIC_DICITEM_RIGHT_DRUM="1";
+	/**
+	 * 资源下载
+	 */
+	public static final String SYSTEM_DIC_DICITEM_FUNC_RESDOWNLOAD="2";
+	/**
+	 * 工具箱
+	 */
+	public static final String SYSTEM_DIC_DICITEM_FUNC_TOOLS="3";
+	/**
+	 * 文章类型-博客
+	 */
+	public static final String SYSTEM_DIC_DICITEM_ARTICAL_TYPE_BLOG="0";
  	
 }
