@@ -23,11 +23,14 @@ public class Drumbeating extends BaseModel implements java.io.Serializable{
     //0草稿，1发布，2未发布，3禁用
     @Column(name="STATUS") 
     private String status;
-    //类型，属于哪个版块
+    //类型，属于哪个区域
     @Column(name="TYPE") 
     private String type;
     @Column(name="URL") 
     private String url;
+    //属于哪个板块
+    @Column(name="PLATE") 
+    private String plate;
     @ManyToOne()
 	@JoinColumn(name = "FILE", nullable=true)
     @NotFound(action=NotFoundAction.IGNORE)
@@ -77,6 +80,12 @@ public class Drumbeating extends BaseModel implements java.io.Serializable{
 	}
 	public void setClosingDate(Date closingDate) {
 		this.closingDate = closingDate;
+	}
+	public String getPlate() {
+		return plate;
+	}
+	public void setPlate(String plate) {
+		this.plate = plate;
 	}
 
 }

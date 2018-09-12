@@ -56,7 +56,7 @@ public class MainController extends BaseController {
 	public String indexHome(Model model, HttpServletRequest request) {
 		List<Resource> rlist=resourceService.queryResourceList(new Resource());
 		List<Blog> blist=blogService.getBlogList(new Blog());
-		List<Category> clist=categoryService.queryCategoryList();
+		List<Category> clist=categoryService.queryCategoryList(new Category());
 		List<Category> c2list=new ArrayList<Category>();
 		for(Category c:clist) {
 			Blog b=new Blog();

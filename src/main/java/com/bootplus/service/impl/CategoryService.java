@@ -23,9 +23,9 @@ public class CategoryService extends BaseServiceImpl implements ICategoryService
 	private ICategoryDao categoryDao;
 
 	@Override
-	public List<Category> queryCategoryList() {
+	public List<Category> queryCategoryList(Category cate) {
 		// TODO Auto-generated method stub
-		return categoryDao.queryCategoryList();
+		return categoryDao.queryCategoryList(cate);
 	}
 
 	@Override

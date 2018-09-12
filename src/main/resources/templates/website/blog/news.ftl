@@ -29,7 +29,7 @@
                         <div class="post-lists search-list">
                         <#if page??>
 							<#list page.result as r>
-								<#if false><!-- 图文结合的列表还没有调好，暂时不支持 -->
+								<#if r_index==2><!-- 图文结合的列表还没有调好，暂时不支持 -->
 		                            <div class="single-list flex-row d-flex">
 		                                <div class="detail">
 		                                    <a href="${rc.contextPath}/articals/${r.id!}"  target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
@@ -55,11 +55,10 @@
 													<img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=950379029,1521686261&fm=173&app=25&f=JPEG?w=218&h=146&s=EA2DA044FA31EBCE2C373D81030080A8" class="img-responsive center-block" alt="">
 												<#break> 
 												<#default><img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" class="img-responsive center-block" alt="">
-																										
 											</#switch>
 							        	</div>
 							        	<div class="col-sm-8 detail">
-								        	<a href="#"><h4 class="pb-10">${(r.title!)?html}</h4></a>
+								        	<a href="${rc.contextPath}/articals/${r.id!}" target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
 		                                    <p>${(r.summary!)?html}</p>
 		                                    <p class="footer">
 		                                    	<i class="vd-right"> 发布时间：${r.createTime!}</i>

@@ -4,10 +4,11 @@
 			<th width="5%">编号</th>
 			<th>标题</th>
 			<th>摘要</th>
-			<th width="6%">板块</th>
-			<th width="6%">评论</th>
-			<th width="6%">状态</th>
-			<th width="15%">创建日期</th>
+			<th width="8%">分类</th>
+			<th width="8%">板块</th>
+			<th width="5%">评论</th>
+			<th width="5%">状态</th>
+			<th width="13%">创建日期</th>
 			<th width="8%">操作</th>
 		</tr>
 	</thead>
@@ -18,12 +19,23 @@
 	                <td>${u_index+1}</td>
 	                <td class="autocut">${(u.title!)?html}</td>
 	                <td class="autocut">${(u.summary!)?html}</td>
-	                <#switch u.plate> 
+	             <!--    <#switch u.plate> 
 						<#case '1'><td class="autocut">从0-1</td><#break> 
 						<#case '2'><td class="autocut">行业资讯</td><#break> 
 						<#case '3'><td class="autocut">首页</td><#break> 
 						<#default><td class="autocut">博客</td>
-					</#switch>
+					</#switch> -->
+					<td class="autocut"><#if u.category??>${(u.category.name!)?html}<#else>其他</#if></td>
+					<td class="autocut">
+						<#if list??>
+							<#list list as l>
+								<#if l.code==u.plate>
+									${l.name!}
+									<#break>
+								</#if>
+							</#list>
+						</#if>
+					</td>
 	                <td class="autocut"><#if u.discuss?? && u.discuss=='0'>关闭<#else>开启</#if></td>
 	                <td class="autocut"><#if u.status??><#if u.status=='0'>草稿<#elseif u.status=='1'>发布<#elseif u.status='2'>未发布<#else>禁用</#if></#if></td>
 	                <td class="autocut">${u.createTime!}</td>

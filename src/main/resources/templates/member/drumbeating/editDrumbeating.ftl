@@ -18,7 +18,23 @@
 	    </div>
  	</div>
  	<div class="form-group">
-	    <label class="col-sm-2 control-label">版块类型：</label>
+		<label class="col-sm-2 control-label">所属板块：</label>
+		<div class="col-sm-9">
+			<select name="plate" id="plate" class="form-control" style="width: 200px;">
+				<#if list??>
+					<#list list as r>
+						<#if drum.plate?? && drum.plate==r.code>
+							<option value="${r.code!}" selected>${(r.name!)?html}</option>
+						<#else>
+							<option value="${r.code!}">${(r.name!)?html}</option>
+						</#if>
+					</#list>
+				</#if>
+			</select>
+		</div>
+	</div>
+ 	<div class="form-group">
+	    <label class="col-sm-2 control-label">区域：</label>
 	    <div class="col-sm-9">
 		    <select name="type" id="type" class="form-control" style="width: 200px;">
 				<#if dlist?? && dlist?size gt 0>

@@ -5,6 +5,7 @@
 			<th>标题</th>
 			<th>摘要</th>
 			<th>链接</th>
+			<th>板块</th>
 			<th>状态</th>
 			<th>创建日期</th>
 			<th>下架日期</th>
@@ -19,6 +20,16 @@
 	                <td class="autocut">${(r.title!)?html}</td>
 	                <td class="autocut">${(r.summary!)?html}</td>
 	                <td class="autocut">${(r.url!)?html}</td>
+	                <td class="autocut">
+	                <#if list??&&r.plate??>
+							<#list list as l>
+								<#if l.code==r.plate>
+									${l.name!}
+									<#break>
+								</#if>
+							</#list>
+						</#if>
+					</td>
 	                <td class="autocut"><#if r.status?? && r.status=="1">发布<#else>未发布</#if></td>
 	                <td class="autocut">${r.createTime!}</td>
 	                <td class="autocut">${r.closingDate!}</td>

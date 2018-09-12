@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import com.bootplus.Util.SplitWordUtil;
 import com.bootplus.Util.GetRemoteIP;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.dao.page.Page;
+import com.bootplus.dto.StructModel;
 import com.bootplus.model.Blog;
 import com.bootplus.model.Category;
 import com.bootplus.model.Comment;
@@ -57,7 +59,20 @@ public class WebSiteController extends BaseController {
 	 */
 	@RequestMapping("/")
 	public String index(Model model, HttpServletRequest request) {
-		return RESOURCE_MENU_PREFIX+"/search";
+		Drumbeating db=new Drumbeating();
+		db.setPlate("3");//板块类型，3：首页；从右到左分别为博客0，从0-1系列1，行业资讯2，首页3
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db);
+		if(drumlist.size()>0) {
+			db=drumlist.get(0);
+		}else {
+			db=null;
+		}
+		HttpSession session=request.getSession();
+		StructModel sm=(StructModel)session.getAttribute("structModel");
+		sm.setBanner(db);
+		session.setAttribute("structModel", sm);
+		return RESOURCE_MENU_PREFIX+"/index";
 	}
 	/**
 	 * 从0-1系列
@@ -67,11 +82,23 @@ public class WebSiteController extends BaseController {
 	 */
 	@RequestMapping("/articals/series")
 	public String series(Model model, HttpServletRequest request) {
-		Blog blog=new Blog();
-		blog.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
-		blog.setPlate("2");//行业资讯板块
-		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
-		model.addAttribute("page", page);
+		Category cate=new Category();
+		cate.setType("1");//板块类型，1：从0-1板块
+		List<Category> clist=categoryService.queryCategoryList(cate);
+		Drumbeating db=new Drumbeating();
+		db.setPlate("1");//板块类型，1：从0-1板块
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db);
+		if(drumlist.size()>0) {
+			db=drumlist.get(0);
+		}else {
+			db=null;
+		}
+		HttpSession session=request.getSession();
+		StructModel sm=(StructModel)session.getAttribute("structModel");
+		sm.setBanner(db);
+		session.setAttribute("structModel", sm);
+		model.addAttribute("clist", clist);
 		return RESOURCE_MENU_PREFIX+"/series";
 	}
 	/**
@@ -87,6 +114,19 @@ public class WebSiteController extends BaseController {
 		blog.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		blog.setPlate("2");//行业资讯板块
 		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
+		Drumbeating db=new Drumbeating();
+		db.setPlate("2");//板块类型，2：行业资讯
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db);
+		if(drumlist.size()>0) {
+			db=drumlist.get(0);
+		}else {
+			db=null;
+		}
+		HttpSession session=request.getSession();
+		StructModel sm=(StructModel)session.getAttribute("structModel");
+		sm.setBanner(db);
+		session.setAttribute("structModel", sm);
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/news";
 	}
@@ -153,6 +193,19 @@ public class WebSiteController extends BaseController {
 		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		db.setType(Constants.SYSTEM_DIC_DICITEM_FUNC_TOOLS);
 		List<Drumbeating> tools=drumbeatingService.queryDrumbList(db);
+		Drumbeating db2=new Drumbeating();
+		db2.setPlate("5");//板块类型，5：首页；从右到左分别为博客0，从0-1系列1，行业资讯2，首页3
+		db2.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db2);
+		if(drumlist.size()>0) {
+			db2=drumlist.get(0);
+		}else {
+			db2=null;
+		}
+		HttpSession session=request.getSession();
+		StructModel sm=(StructModel)session.getAttribute("structModel");
+		sm.setBanner(db2);
+		session.setAttribute("structModel", sm);
 		model.addAttribute("tools", tools);
 		return RESOURCE_MENU_PREFIX+"/toolsbox";
 	}
@@ -185,6 +238,19 @@ public class WebSiteController extends BaseController {
 		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		db.setType(Constants.SYSTEM_DIC_DICITEM_FUNC_RESDOWNLOAD);
 		List<Drumbeating> downloads=drumbeatingService.queryDrumbList(db);
+		Drumbeating db2=new Drumbeating();
+		db2.setPlate("6");//板块类型，5：首页；从右到左分别为博客0，从0-1系列1，行业资讯2，首页3
+		db2.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db2);
+		if(drumlist.size()>0) {
+			db2=drumlist.get(0);
+		}else {
+			db2=null;
+		}
+		HttpSession session=request.getSession();
+		StructModel sm=(StructModel)session.getAttribute("structModel");
+		sm.setBanner(db2);
+		session.setAttribute("structModel", sm);
 		model.addAttribute("downloads", downloads);
 		return RESOURCE_MENU_PREFIX+"/resdownload";
 	}
@@ -206,15 +272,28 @@ public class WebSiteController extends BaseController {
 		return RESOURCE_MENU_PREFIX+"/innerpage/innerresdownload";
 	}
 	/**
-	 * tag以及分类的更多
+	 * tag以及分类的更多-内容导航
 	 * @param model
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping("/articals/tagAndcate/more")
 	public String tagAndcateMore(Model model, HttpServletRequest request) {
-		List<Category> clist=categoryService.queryCategoryList();
+		List<Category> clist=categoryService.queryCategoryList(new Category());
 		List<Tag> tlist=tagService.queryTagList(new Tag());
+		Drumbeating db2=new Drumbeating();
+		db2.setPlate("4");//板块类型，4：首页；从右到左分别为博客0，从0-1系列1，行业资讯2，首页3
+		db2.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db2);
+		if(drumlist.size()>0) {
+			db2=drumlist.get(0);
+		}else {
+			db2=null;
+		}
+		HttpSession session=request.getSession();
+		StructModel sm=(StructModel)session.getAttribute("structModel");
+		sm.setBanner(db2);
+		session.setAttribute("structModel", sm);
 		model.addAttribute("clist", clist);
 		model.addAttribute("tlist", tlist);
 		return RESOURCE_MENU_PREFIX+"/tagandcate";
@@ -231,6 +310,19 @@ public class WebSiteController extends BaseController {
 		blog.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
 		blog.setPlate("0");//博客板块
 		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
+		Drumbeating db=new Drumbeating();
+		db.setPlate("0");//板块类型，0：博客
+		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db);
+		if(drumlist.size()>0) {
+			db=drumlist.get(0);
+		}else {
+			db=null;
+		}
+		HttpSession session=request.getSession();
+		StructModel sm=(StructModel)session.getAttribute("structModel");
+		sm.setBanner(db);
+		session.setAttribute("structModel", sm);
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/articals";
 	}

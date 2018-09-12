@@ -26,33 +26,26 @@
                 <div class="row justify-content-center d-flex">
                 	<!-- 左侧 -->
                     <div class="col-lg-8">
-                    <!-- 分类 -->
-                    	<div class="single_widget tag_widget">
-					        <h4 class="text-uppercase pb-20">分类</h4>
-					        <div class="row">
-					        	<div class="col-sm-4">
-					        		<img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
-					        	</div>
-					        	<div class="col-sm-8">
-						        	<h1 class="text-black mb-20">spring boot 从0到1</h1>
-	                				<p class="text-black">从开发环境，到开发工具，再到框架代码，最后上线云端</p>
-					        	</div>
-					        </div>
-					    </div>
-					    <!-- 标签 -->
-					    <div class="single_widget tag_widget">
-					        <h4 class="text-uppercase pb-20">标签</h4>
-					        <div class="row">
-					        	<div class="col-sm-4"> 
-					        		<img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2532104642,3296323948&fm=173&app=25&f=JPEG?w=218&h=146&s=49B022D1D764070D940DD40D0300E0D1" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
-					        	</div>
-					        	<div class="col-sm-8">
-						        	<h1 class="text-black mb-20">spring boot 从0到1</h1>
-	                				<p class="text-black">从开发环境，到开发工具，再到框架代码，最后上线云端</p>
-					        	</div>
-					        </div>
-					    </div>     
-                    </div>
+                    <#if clist??>
+                    	<#list clist as c>
+	                    	<a href="${rc.contextPath}/articals/cate/${c.id!}"><div class="single_widget tag_widget">
+						        <div class="row">
+						        	<div class="col-sm-4">
+						        		<#if c.file??>
+						        			<img src="${rc.contextPath}/blog/noSecurity/img/${c.file.id!}" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
+						        		<#else>
+							        		<img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
+						        		</#if>
+						        	</div>
+						        	<div class="col-sm-8">
+							        	<h1 class="text-black mb-20">${(c.name!)?html}</h1>
+		                				<p class="text-black">${(c.comments!)?html}</p>
+						        	</div>
+						        </div>
+						    </div></a>
+						</#list>
+					</#if>
+					</div>
 <#include "../pubarea/right.ftl">
                 </div>
             </div>    

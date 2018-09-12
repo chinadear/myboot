@@ -8,7 +8,7 @@
 <div  class="inner-header">
 <form class="form-inline">
 		<div class="form-group" style="margin-top: 5px;margin-left:5px;">
-    		<label for="roleId">版块：</label>
+    		<label for="roleId">区域：</label>
 			<select name="queryType" id="queryType" class="form-control" onchange="flushList(this)" style="width: 200px;">
 					<#if dlist?? && dlist?size gt 0>
 						<#list dlist as r>

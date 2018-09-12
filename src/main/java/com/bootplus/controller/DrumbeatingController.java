@@ -1,57 +1,25 @@
 package com.bootplus.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bootplus.Util.CompUtil;
-import com.bootplus.Util.Constants;
 import com.bootplus.core.base.BaseController;
-import com.bootplus.core.base.UserSession;
 import com.bootplus.core.dao.page.Page;
-import com.bootplus.model.Blog;
-import com.bootplus.model.Category;
-import com.bootplus.model.Comment;
 import com.bootplus.model.DicItem;
 import com.bootplus.model.Drumbeating;
-import com.bootplus.model.SysConfig;
-import com.bootplus.model.Tag;
-import com.bootplus.model.TagBlog;
 import com.bootplus.model.UFile;
-import com.bootplus.model.User;
-import com.bootplus.service.IBlogService;
-import com.bootplus.service.ICategoryService;
-import com.bootplus.service.ICommentService;
 import com.bootplus.service.IDicService;
 import com.bootplus.service.IDrumbeatingService;
-import com.bootplus.service.ILoginService;
 import com.bootplus.service.ISysManageService;
-import com.bootplus.service.ITagService;
 /**
  * 推广管理
  * 负责banner 以及轮播图，版位等管理
@@ -83,6 +51,8 @@ public class DrumbeatingController extends BaseController {
 //		List<Drumbeating> dblist = drumbeatingService.queryDrumbList(db);
 		Page page=drumbeatingService.queryDrumbPage(db, 1, Page.DEFAULT_PAGE_SIZE);
 		List<DicItem> dlist=dicService.queryDicItemListByDicCode("POSITION");
+		List<DicItem> list=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		model.addAttribute("dlist", dlist);
 		model.addAttribute("type",type);
@@ -101,6 +71,8 @@ public class DrumbeatingController extends BaseController {
 		db.setType(type);
 //		List<Drumbeating> dblist = drumbeatingService.queryDrumbList(db);
 		Page page=drumbeatingService.queryDrumbPage(db,StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		List<DicItem> list=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/tableDrumbeating";
 	}
@@ -120,7 +92,6 @@ public class DrumbeatingController extends BaseController {
 			}
 		}
 		drumbeatingService.save(db);
-	
 		return "redirect:/drumbeating/list?type="+db.getType();
 	}
 	/**
@@ -134,6 +105,8 @@ public class DrumbeatingController extends BaseController {
 	public String edit(Model model, HttpServletRequest request,String id) {
 		Drumbeating drum=drumbeatingService.getDrumbeatingById(id);
 		List<DicItem> dlist=dicService.queryDicItemListByDicCode("POSITION");
+		List<DicItem> list=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("list", list);
 		model.addAttribute("dlist", dlist);
 		model.addAttribute("drum",drum);
 		return RESOURCE_MENU_PREFIX+"/editDrumbeating";
@@ -153,6 +126,7 @@ public class DrumbeatingController extends BaseController {
 		drum.setSummary(db.getSummary());
 		drum.setType(db.getType());
 		drum.setUrl(db.getUrl());
+		drum.setPlate(db.getPlate());
 		if(!ufile.isEmpty()) {
 			UFile uf=sysManageService.uploadFile(ufile,"1",null,request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
 			if(StringUtils.hasText(uf.getId())) {

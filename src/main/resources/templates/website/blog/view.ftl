@@ -62,15 +62,12 @@
                                         <ul class="social-icons">
                                             <li style="margin-right: 0;">
 		                        				<a href="##" onclick="toSinawebo('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')" title="分享到新浪微博"><img src="${rc.contextPath}/lib/blog/img/wb.png" style="width:30px;height:30px;float:right;margin-left:10px;background-color:#fff""></a>
-	                                           <!--  <a href="##" class="btn share-iconbtn share-iconbtn-red"  onclick="toSinawebo('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')">
-	                                           <span class="vd-left">分享到新浪微博</span>
-			                        			</a> -->
 		                        			</li>
 		                        			<li>
 			                        			<a href="##" onclick="toQQSpace('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')" title="分享到QQ空间"><img src="${rc.contextPath}/lib/blog/img/qq.png" style="width:30px;height:30px;float:right;margin-left:10px;background-color:#fff;margin-top: 2px;"></a>
-	                                           <!--  <a href="##" class="btn share-iconbtn share-iconbtn-blue"  onclick="toQQSpace('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','')">
-	                                           <span class="vd-left">分享到QQ空间</span>
-			                        			</a> -->
+		                        			</li>
+		                        			<li style="margin-left: -18px;">
+			                        			<a href="##" onclick="toQQ('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','','${(artical.summary!)?html}')" title="分享到QQ"><img src="${rc.contextPath}/lib/blog/img/qqlogo.png" style="width:30px;height:30px;float:right;margin-left:10px;background-color:#fff;margin-top: 2px;"></a>
 		                        			</li>
                                         </ul>
                                     </div>
@@ -222,6 +219,12 @@
 		    var shareqqzonestring='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?summary='+title+'&url='+url+'&pics='+picurl;  
 		    window.open(shareqqzonestring,'newwindow','height=400,width=400,top=100,left=100');  
 	    } 
+	    function toQQ(title,url,picurl,summary){
+	    	var domain = window.location.host;
+	    	url="http://"+domain+url;
+	    	var shareqqstring = "http://connect.qq.com/widget/shareqq/index.html?url="+url+"&title="+title+"&source=&desc=&pics=&summary="+summary;
+	    	window.open(shareqqstring,'newwindow','height=600,width=800,top=50,left=250'); 
+	    }
 	    </script>
     </body>
 </html>

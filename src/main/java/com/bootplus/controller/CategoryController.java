@@ -29,6 +29,7 @@ import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Category;
+import com.bootplus.model.DicItem;
 import com.bootplus.model.Role;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.UFile;
@@ -37,6 +38,7 @@ import com.bootplus.model.UserLogin;
 import com.bootplus.model.UserRole;
 import com.bootplus.service.IAuthService;
 import com.bootplus.service.ICategoryService;
+import com.bootplus.service.IDicService;
 import com.bootplus.service.ILoginService;
 import com.bootplus.service.IRoleService;
 import com.bootplus.service.ISysManageService;
@@ -51,6 +53,10 @@ public class CategoryController extends BaseController {
 	private final static String RESOURCE_MENU_PREFIX="/member/category";
 	@Autowired
 	private ICategoryService categoryService;
+	@Autowired 
+	private IDicService dicService;
+	@Autowired
+	private ISysManageService sysManageService;
 	/**
 	 * 分类管理
 	 * @param model
@@ -60,6 +66,8 @@ public class CategoryController extends BaseController {
 	@RequestMapping("/category/list")
 	public String categoryPage(Model model, HttpServletRequest request) {
 		Page page=categoryService.queryCategoryPage(new Category(),1, Page.DEFAULT_PAGE_SIZE);
+		List<DicItem> list=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("list", list);
 		model.addAttribute("cateList", page);
 		return RESOURCE_MENU_PREFIX+"/categoryList";
 	}
@@ -75,6 +83,8 @@ public class CategoryController extends BaseController {
 	@RequestMapping("/category/noSitemesh/loadcatetable")
 	public String loadcatetable(Model model, HttpServletRequest request,String pageNo) {
 		Page page=categoryService.queryCategoryPage(new Category(),StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		List<DicItem> list=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("list", list);
 		model.addAttribute("cateList", page);
 		return RESOURCE_MENU_PREFIX+"/categoryTable";
 	}
@@ -87,6 +97,8 @@ public class CategoryController extends BaseController {
 	@RequestMapping("/category/noSitemesh/editCate")
 	public String editCate(Model model,String id){
 		Category category=categoryService.getCategoryById(id);
+		List<DicItem> list=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("list", list);
 		model.addAttribute("category", category);
 		return RESOURCE_MENU_PREFIX+"/editCategory";
 	}
@@ -97,11 +109,18 @@ public class CategoryController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/category/add")
-	public String add(Model model, String name_,String comments_) {
+	public String add(Model model,HttpServletRequest request,@RequestParam("ufile") MultipartFile ufile, String name_,String comments_,String type_) {
 		Category cate=new Category();
+		if(!ufile.isEmpty()) {
+			UFile uf=sysManageService.uploadFile(ufile,"4","218",request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
+			if(StringUtils.hasText(uf.getId())) {
+				cate.setFile(uf);
+			}
+		}
 		cate.setName(name_);
 		cate.setComments(comments_);
 		cate.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		cate.setType(type_);
 		categoryService.save(cate);
 		return "redirect:/category/list";
 	}
@@ -112,10 +131,17 @@ public class CategoryController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/category/edit")
-	public String edit(Model model,Category cat){
+	public String edit(Model model,HttpServletRequest request,@RequestParam("ufile") MultipartFile ufile,Category cat){
 		Category cate=categoryService.getCategoryById(cat.getId());
 		cate.setName(cat.getName());
 		cate.setComments(cat.getComments());
+		cate.setType(cat.getType());
+		if(!ufile.isEmpty()) {
+			UFile uf=sysManageService.uploadFile(ufile,"4","218",request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
+			if(StringUtils.hasText(uf.getId())) {
+				cate.setFile(uf);
+			}
+		}
 		categoryService.update(cate);
 		return "redirect:/category/list";
 	}

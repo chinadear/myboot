@@ -36,6 +36,10 @@ public class DrumbeatingDao extends BaseDaoImpl implements IDrumbeatingDao {
 			sb.append(" and title=:title");
 			paramMap.put("title",db.getTitle());
 		}
+		if(StringUtils.hasText(db.getPlate())) {
+			sb.append(" and plate=:plate");
+			paramMap.put("plate",db.getPlate());
+		}
 		sb.append(" order by createTime");
 		return (List<Drumbeating>)this.query(sb.toString(), paramMap);
 	}

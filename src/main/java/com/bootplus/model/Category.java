@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.bootplus.core.base.BaseModel;
 
 @Entity
@@ -20,8 +23,13 @@ public class Category extends BaseModel implements Serializable {
 	private String name;
 	@Column(name = "CODE")
 	private String code;
+	//分类所属类型，或所属板块
 	@Column(name = "TYPE")
 	private String type;
+	@ManyToOne()
+	@JoinColumn(name = "FILE", nullable=true)
+    @NotFound(action=NotFoundAction.IGNORE)
+	private UFile file;
 	@Column(name = "COMMENTS")
 	private String comments;
 	//状态0，删除，1正常
@@ -65,5 +73,11 @@ public class Category extends BaseModel implements Serializable {
 	}
 	public void setArticals(String articals) {
 		this.articals = articals;
+	}
+	public UFile getFile() {
+		return file;
+	}
+	public void setFile(UFile file) {
+		this.file = file;
 	}
 }

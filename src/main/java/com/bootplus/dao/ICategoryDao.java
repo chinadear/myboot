@@ -8,7 +8,7 @@ import com.bootplus.model.Category;
 
 public interface ICategoryDao<T> extends IBaseDao{
 
-	public List<Category> queryCategoryList();
+	public List<Category> queryCategoryList(Category cate);
 	public List<Category> getCategoryByName(String name);
 	public Page queryCategoryPage(Category cate, int pageNo, int pageSize);
 }

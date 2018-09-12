@@ -12,7 +12,7 @@
 		</button>
 		<div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
 			<ul class="navbar-nav scrollable-menu">
-				<li><a href="#home">首页</a></li>
+				<li><a href="${rc.contextPath}/">首页</a></li>
 				<li><a href="${rc.contextPath}/articals/news">行业资讯</a></li>
 				<li><a href="${rc.contextPath}/articals/series">从0到1系列</a></li>
 				<li><a href="${rc.contextPath}/articals">博客</a></li>

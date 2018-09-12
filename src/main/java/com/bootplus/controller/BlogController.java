@@ -89,6 +89,8 @@ public class BlogController extends BaseController {
 		Blog blog=new Blog();
 		blog.setUser(user);
 		Page page=blogService.getBlogPage(blog, 1, Page.DEFAULT_PAGE_SIZE);
+		List<DicItem> list=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/listblog";
 	}
@@ -100,7 +102,7 @@ public class BlogController extends BaseController {
 	 */
 	@RequestMapping("/blog/write")
 	public String configList(Model model, HttpServletRequest request) {
-		List<Category> clist=categoryService.queryCategoryList();
+		List<Category> clist=categoryService.queryCategoryList(new Category());
 		List<DicItem> dlist=dicService.queryDicItemListByDicCode("PLATE");
 		model.addAttribute("dlist",dlist);
 		model.addAttribute("clist",clist);
@@ -153,7 +155,7 @@ public class BlogController extends BaseController {
 	@RequestMapping("/blog/editblog/{id}")
 	public String editblog(Model model, HttpServletRequest request,@PathVariable String id) {
 		Blog blog=blogService.getBlogById(id);
-		List<Category> clist=categoryService.queryCategoryList();
+		List<Category> clist=categoryService.queryCategoryList(new Category());
 		TagBlog tb=new TagBlog();
 		tb.setBlog(blog);
 		List<TagBlog> tblist=tagService.queryTagBlogList(tb);
@@ -277,6 +279,8 @@ public class BlogController extends BaseController {
 		Blog blog=new Blog();
 		blog.setUser(user);
 		Page page=blogService.getBlogPage(blog,StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		List<DicItem> list=dicService.queryDicItemListByDicCode("PLATE");
+		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		return RESOURCE_MENU_PREFIX+"/blogTable";
 	}

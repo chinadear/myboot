@@ -7,7 +7,7 @@ import com.bootplus.model.Category;
 
 public interface ICategoryService {
 
-	public List<Category> queryCategoryList();
+	public List<Category> queryCategoryList(Category cate);
 	
 	public Page queryCategoryPage(Category cate, int pageNo, int pageSize);
 	public void save(Category cate);

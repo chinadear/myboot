@@ -122,11 +122,12 @@ CREATE TABLE `USER_ROLE` (
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `CATEGORY` (
+ CREATE TABLE `CATEGORY` (
    `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
    `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '分类名称',
    `CODE` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '编码',
    `TYPE` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型',
+   `FILE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '图片，用于单独展示',
    `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态',
    `COMMENTS` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
    `CREATE_TIME` datetime DEFAULT NULL,
@@ -163,13 +164,14 @@ CREATE TABLE `CATEGORY` (
    PRIMARY KEY (`ID`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
  
-CREATE TABLE `DRUMBEATING` (
+ CREATE TABLE `DRUMBEATING` (
    `ID` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
    `FILE` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '图片文件',
    `TITLE` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '标题',
    `SUMMARY` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '摘要',
    `URL` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '链接',
    `STATUS` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '状态，停用启用等',
+   `PLATE` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '板块',
    `CLOSINGDATE` datetime DEFAULT NULL COMMENT '截止日期，下架日期',
    `TYPE` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类型，哪个版块的',
    `CREATE_TIME` datetime DEFAULT NULL,
@@ -215,3 +217,6 @@ insert into `SYSCONFIG` (`ID`, `CONFIG_KEY`, `CONFIG_VALUE`, `COMMENTS`, `STATUS
 insert into `SYSCONFIG` (`ID`, `CONFIG_KEY`, `CONFIG_VALUE`, `COMMENTS`, `STATUS`, `CREATE_TIME`, `UPDATE_TIME`) values('4028a881658b11d301658b1522030000','COMMENT_SWITCH','1','是否开启评论，0关闭，1开启，关闭评论后评论内容不可见','1','2018-08-30 21:45:42','2018-08-30 21:48:20');
 insert into `SYSCONFIG` (`ID`, `CONFIG_KEY`, `CONFIG_VALUE`, `COMMENTS`, `STATUS`, `CREATE_TIME`, `UPDATE_TIME`) values('4028a881658b11d301658b171dbd0001','COMMENT_CHECK','1','是否开启评论审核，0关闭，1开启，开启审核时，评论进入未发布状态 需要审核后手动发布，发布后才可在页面看到','1','2018-08-30 21:47:52','2018-08-30 21:47:52');
  
+#==================
+ALTER TABLE `DRUMBEATING` ADD COLUMN `PLATE` VARCHAR(2) NULL COMMENT '板块' AFTER `STATUS`;
+ALTER TABLE `CATEGORY` ADD COLUMN `FILE` VARCHAR(32) NULL COMMENT '图片，用于单独展示' AFTER `TYPE`;
