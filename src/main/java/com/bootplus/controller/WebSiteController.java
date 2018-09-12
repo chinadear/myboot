@@ -62,6 +62,7 @@ public class WebSiteController extends BaseController {
 		Drumbeating db=new Drumbeating();
 		db.setPlate("3");//板块类型，3：首页；从右到左分别为博客0，从0-1系列1，行业资讯2，首页3
 		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType("0");
 		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db);
 		if(drumlist.size()>0) {
 			db=drumlist.get(0);
@@ -88,6 +89,7 @@ public class WebSiteController extends BaseController {
 		Drumbeating db=new Drumbeating();
 		db.setPlate("1");//板块类型，1：从0-1板块
 		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType("0");
 		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db);
 		if(drumlist.size()>0) {
 			db=drumlist.get(0);
@@ -117,6 +119,7 @@ public class WebSiteController extends BaseController {
 		Drumbeating db=new Drumbeating();
 		db.setPlate("2");//板块类型，2：行业资讯
 		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType("0");
 		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db);
 		if(drumlist.size()>0) {
 			db=drumlist.get(0);
@@ -196,6 +199,7 @@ public class WebSiteController extends BaseController {
 		Drumbeating db2=new Drumbeating();
 		db2.setPlate("5");//板块类型，5：首页；从右到左分别为博客0，从0-1系列1，行业资讯2，首页3
 		db2.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db2.setType("0");
 		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db2);
 		if(drumlist.size()>0) {
 			db2=drumlist.get(0);
@@ -241,6 +245,7 @@ public class WebSiteController extends BaseController {
 		Drumbeating db2=new Drumbeating();
 		db2.setPlate("6");//板块类型，5：首页；从右到左分别为博客0，从0-1系列1，行业资讯2，首页3
 		db2.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db2.setType("0");
 		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db2);
 		if(drumlist.size()>0) {
 			db2=drumlist.get(0);
@@ -284,6 +289,7 @@ public class WebSiteController extends BaseController {
 		Drumbeating db2=new Drumbeating();
 		db2.setPlate("4");//板块类型，4：首页；从右到左分别为博客0，从0-1系列1，行业资讯2，首页3
 		db2.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db2.setType("0");
 		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db2);
 		if(drumlist.size()>0) {
 			db2=drumlist.get(0);
@@ -313,6 +319,7 @@ public class WebSiteController extends BaseController {
 		Drumbeating db=new Drumbeating();
 		db.setPlate("0");//板块类型，0：博客
 		db.setStatus(Constants.SYSTEM_DIC_NORMAL_STATUS);
+		db.setType("0");
 		List<Drumbeating> drumlist=drumbeatingService.queryDrumbList(db);
 		if(drumlist.size()>0) {
 			db=drumlist.get(0);
