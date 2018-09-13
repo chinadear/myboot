@@ -15,21 +15,6 @@
 	                <td>${c_index+1}</td>
 	                <td class="autocut">${(c.name!)?html}</td>
 	                <td class="autocut">
-						<!-- <#switch c.type> 
-							<#case '0'>
-								博客
-							<#break> 
-							<#case '1'>
-								从0-1
-							<#break> 
-							<#case '2'>
-								行业资讯
-							<#break> 
-							<#case '3'>
-								首页
-							<#break> 
-							<#default>博客
-						</#switch> -->
 						<#if list??>
 							<#list list as l>
 								<#if l.code==c.type>

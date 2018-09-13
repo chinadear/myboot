@@ -16,6 +16,7 @@
 				<li><a href="${rc.contextPath}/articals/news">行业资讯</a></li>
 				<li><a href="${rc.contextPath}/articals/series">从0到1系列</a></li>
 				<li><a href="${rc.contextPath}/articals">博客</a></li>
+				<li><a href="${rc.contextPath}/articals/toolsbox">工具箱</a></li>
 				<!-- Dropdown -->
 			    <li class="dropdown">
 					<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -24,7 +25,6 @@
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="${rc.contextPath}/articals/tagAndcate/more">内容导航</a>
 						<a class="dropdown-item" href="${rc.contextPath}/articals/search">站内搜索</a>
-						<a class="dropdown-item" href="${rc.contextPath}/articals/toolsbox">工具箱</a>
 						<a class="dropdown-item" href="${rc.contextPath}/articals/resdownload">资源下载</a>
 					</div>
 			    </li>                               

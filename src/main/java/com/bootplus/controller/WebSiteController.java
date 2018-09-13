@@ -80,6 +80,10 @@ public class WebSiteController extends BaseController {
 		StructModel sm=(StructModel)session.getAttribute("structModel");
 		sm.setBanner(db);
 		session.setAttribute("structModel", sm);
+		Category cate=new Category();
+		cate.setType("1");//板块类型，1：从0-1板块
+		List<Category> clist=categoryService.queryCategoryList(cate);
+		model.addAttribute("clist", clist);
 		return RESOURCE_MENU_PREFIX+"/index";
 	}
 	/**
@@ -487,8 +491,11 @@ public class WebSiteController extends BaseController {
 	@RequestMapping("/articals/share2wx/QRcode/{id}")
 	public void showQR(HttpServletResponse response,@PathVariable String id){
         int width = 300; 
-        int height = 300; 
+        int height = 300;
         String text="https://www.bootplus.com.cn/articals/"+id;
+        if(!StringUtils.hasText(id)) {
+        	text="https://www.bootplus.com.cn";
+        }
         String format = "jpg"; 
         Hashtable hints = new Hashtable(); 
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); 

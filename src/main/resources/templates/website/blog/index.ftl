@@ -21,29 +21,24 @@
 	<section class="category-area section-gap" id="news">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
-				<div class="menu-content pb-70 col-lg-8">
+				<div class="menu-content col-lg-8">
 					<div class="title text-center">
-						<h1 class="mb-10">Latest News from all categories</h1>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua.</p>
+						<h1 class="mb-10">今日推荐</h1>
+						<p>不积跬步无以至千里，不积小流无以成江海。学习就要循序渐进，不断积累坚持不懈，快看看今天学点啥！</p>
 					</div>
 				</div>
 			</div>						
 			<div class="active-cat-carusel">
-				<div class="item single-cat">
-					<img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3486262091,1760605442&fm=173&app=25&f=JPEG?w=218&h=146&s=1D2FC71482A8410F1C7A35D80300C0BE" alt="">
-					<p class="date">10 Jan 2018</p>
-					<h4><a href="#">It S Hurricane Season Visiting Hilton</a></h4>
-				</div>
-				<div class="item single-cat">
-					<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2646551676,729013745&fm=173&app=25&f=JPEG?w=218&h=146&s=55B58F740041734D021795C70300E0B9" alt="">
-					<p class="date">10 Jan 2018</p>
-					<h4><a href="#">What Makes A Hotel Boutique</a></h4>
-				</div>
-				<div class="item single-cat">
-					<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3904588938,2179784957&fm=173&app=25&f=JPEG?w=218&h=146&s=569403650159D467568BA9D30300C0BB" alt="">
-					<p class="date">10 Jan 2018</p>
-					<h4><a href="#">Les Houches The Hidden Gem Valley</a></h4>
-				</div>							
+			<#if clist??>
+				<#list clist as c>
+					<div class="item single-cat">
+					<a href="${rc.contextPath}/articals/cate/${c.id!}" target="_blank">
+						<img src="${rc.contextPath}/blog/noSecurity/img/${c.file.id!}" style="width:100%;height:250px;" class="img-responsive center-block" alt="">
+						<p class="date" style="width: 100%;"><h3>${(c.name!)?html}</h3></p>
+						${(c.comments!)?html}</a>
+					</div>
+				</#list>
+			</#if>
 			</div>												
 		</div>	
 	</section>    
