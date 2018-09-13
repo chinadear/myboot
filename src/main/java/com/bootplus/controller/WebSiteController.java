@@ -1,9 +1,11 @@
 package com.bootplus.controller;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
 import com.bootplus.Util.GetRemoteIP;
+import com.bootplus.Util.QRUtil;
 import com.bootplus.Util.SplitWordUtil;
 import com.bootplus.Util.GetRemoteIP;
 import com.bootplus.core.base.BaseController;
@@ -35,6 +38,10 @@ import com.bootplus.service.ICommentService;
 import com.bootplus.service.IDrumbeatingService;
 import com.bootplus.service.ISysManageService;
 import com.bootplus.service.ITagService;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 
 @Controller
 public class WebSiteController extends BaseController {
@@ -459,5 +466,43 @@ public class WebSiteController extends BaseController {
 			list=(List<Blog>)page.getResult();
 		}
 		return CompUtil.array2Json(list);
+	}
+	/**
+	 * 弹出分享到微信的窗口
+	 * @param model
+	 * @param response
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/articals/share2wx/{id}")
+	public String share2wx(Model model,HttpServletResponse response,@PathVariable String id){
+		model.addAttribute("id",id);
+		return RESOURCE_MENU_PREFIX+"/innerpage/qrcode";
+	}
+	/**
+	 * 分享到微信，显示二维码
+	 * @param response
+	 * @param id
+	 */
+	@RequestMapping("/articals/share2wx/QRcode/{id}")
+	public void showQR(HttpServletResponse response,@PathVariable String id){
+        int width = 300; 
+        int height = 300; 
+        String text="https://www.bootplus.com.cn/articals/"+id;
+        String format = "jpg"; 
+        Hashtable hints = new Hashtable(); 
+        hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); 
+        BitMatrix bitMatrix;
+		try {
+			text = new String(text.trim().getBytes("ISO-8859-1"),"UTF-8");
+			bitMatrix = new MultiFormatWriter().encode(text, 
+			        BarcodeFormat.QR_CODE, width, height, hints);
+//			QRUtil.writeToFile(bitMatrix, format, outputFile); 
+			QRUtil.writeToStream(bitMatrix, format, response.getOutputStream());
+//			BufferedImage bi=QRUtil.toBufferedImage(bitMatrix);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 }

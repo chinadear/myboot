@@ -1,5 +1,7 @@
 package com.bootplus.Util;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,13 @@ public class Test {
 		ThreadTaskManager.stop();
 		Thread.sleep(5000);
 		ThreadTaskManager.interrupt();*/
-		String words = "中国;是;世.界。四——大【】文明！古国   @之一，有  着{悠久的}历、史,history sprngboot";
+		                     //水印字体
+        String srcImgPath="E:\\oa.jpg"; //源图片地址
+        String tarImgPath="E:\\ttt.jpg"; //待存储的地址
+        String waterMarkContent="https://www.bootplus.com.cn";  //水印内容
+                                      //水印图片色彩以及透明度
+        ImageProcessingComp.addWaterMark(srcImgPath, tarImgPath, waterMarkContent);
+		/*String words = "中国;是;世.界。四——大【】文明！古国   @之一，有  着{悠久的}历、史,history sprngboot";
 		words=words.replaceAll("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……;*（）——+|{}【】‘；：”“’。，、？|-]", "");
 		System.out.println(words);
 		JiebaSegmenter segmenter = new JiebaSegmenter();
@@ -35,7 +43,7 @@ public class Test {
 				System.out.println(s+":"+s.trim().length());
 			}
 		}
-        System.out.println(r.get(1).length());
+        System.out.println(r.get(1).length());*/
 	}
 	
 	public static boolean q(String a) {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=10">
-  <title>BOOTPLUS</title>
+  <title>BootPlus</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="${rc.contextPath}/webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
   <link rel="stylesheet" href="${rc.contextPath}/lib/dist/css/ionicons.min.css"/>
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="${rc.contextPath}/lib/sticky/sticky.css" />
   <link rel="stylesheet" href="${rc.contextPath}/lib/editormd/css/editormd.css"/>
   <link rel="stylesheet" href="${rc.contextPath}/lib/bootstrap-select/css/bootstrap-select.min.css"/>
-  <link rel="shortcut icon" href="" type="image/x-icon"/>
+  <link rel="shortcut icon" href="${rc.contextPath}/lib/blog/img/icon.png"/>
   <!--[if lt IE 9]>
   <script src="${rc.contextPath}/lib/dist/js/html5shiv.min.js"></script>
   <script src="${rc.contextPath}/lib/dist/js/respond.min.js"></script>

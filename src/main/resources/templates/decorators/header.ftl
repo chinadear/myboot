@@ -1,10 +1,10 @@
 <header class="main-header">
 	<a href="#" class="logo" style="position:fixed;"> 
 		<span class="logo-mini"> 
-			<img src="${rc.contextPath}/lib/vince/images/angelheart.png" class="logo-img" >
+			<img src="${rc.contextPath}/lib/blog/img/adminlogo.png" class="logo-img" >
 		</span> 
 		<span class="logo-lg"> 
-			<img src="${rc.contextPath}/lib/vince/images/angelheart.png" class="logo-img" alt="Responsive image">BOOTPLUS
+			<img src="${rc.contextPath}/lib/blog/img/adminlogo.png" class="logo-img" alt="Responsive image">-BootPlus
 		</span>
 	</a>
 	<nav class="navbar navbar-fixed-top">

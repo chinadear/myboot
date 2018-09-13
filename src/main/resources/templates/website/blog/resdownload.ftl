@@ -8,7 +8,7 @@
 		<!-- Meta Description -->
 		<meta name="description" content="">
 		<!-- Meta Keyword -->
-		<meta name="keywords" content="">
+		<meta name="keywords" content="工具软件，框架，开发平台，linux，设计工具">
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->

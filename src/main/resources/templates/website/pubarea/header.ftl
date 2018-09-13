@@ -3,7 +3,7 @@
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container">
 			<a class="navbar-brand" href="##">
-				<img src="${rc.contextPath}/lib/blog/img/logo.png" alt="bootplus">
+				<img src="${rc.contextPath}/lib/blog/img/weblogo.png" alt="bootplus">
 			</a>
 	        <!-- 响应式菜单样式start -->
         <!-- 移动端菜单控制按钮，只有移动端浏览才会出现 -->
@@ -19,14 +19,13 @@
 				<!-- Dropdown -->
 			    <li class="dropdown">
 					<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					  便捷入口
+					  快速通道
 					</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="${rc.contextPath}/articals/tagAndcate/more">内容地图</a>
+						<a class="dropdown-item" href="${rc.contextPath}/articals/tagAndcate/more">内容导航</a>
 						<a class="dropdown-item" href="${rc.contextPath}/articals/search">站内搜索</a>
 						<a class="dropdown-item" href="${rc.contextPath}/articals/toolsbox">工具箱</a>
 						<a class="dropdown-item" href="${rc.contextPath}/articals/resdownload">资源下载</a>
-						<a class="dropdown-item" href="##">关于我</a>
 					</div>
 			    </li>                               
 			</ul>

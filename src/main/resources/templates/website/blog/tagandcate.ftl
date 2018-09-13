@@ -6,9 +6,9 @@
 		<!-- Author Meta -->
 		<meta name="author" content="colorlib">
 		<!-- Meta Description -->
-		<meta name="description" content="">
+		<meta name="description" content="站内导航">
 		<!-- Meta Keyword -->
-		<meta name="keywords" content="">
+		<meta name="keywords" content="一起学习吧,云服务器搭建,springboot产品开发,从0到1学习,项目管理,产品经理,个人实践经验填坑">
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->

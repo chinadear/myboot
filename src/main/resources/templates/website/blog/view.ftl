@@ -69,6 +69,9 @@
 		                        			<li style="margin-left: -18px;">
 			                        			<a href="##" onclick="toQQ('${(artical.title!)?html}','${rc.contextPath}/articals/${artical.id}','','${(artical.summary!)?html}')" title="分享到QQ"><img src="${rc.contextPath}/lib/blog/img/qqlogo.png" style="width:30px;height:30px;float:right;margin-left:10px;background-color:#fff;margin-top: 2px;"></a>
 		                        			</li>
+		                        			<li style="margin-left: -18px;">
+			                        			<a href="##" onclick="toWX('${artical.id!}')" title="分享到微信"><img src="${rc.contextPath}/lib/blog/img/wx.png" style="width:30px;height:30px;float:right;margin-left:10px;background-color:#fff;margin-top: 2px;"></a>
+		                        			</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -224,6 +227,9 @@
 	    	url="http://"+domain+url;
 	    	var shareqqstring = "http://connect.qq.com/widget/shareqq/index.html?url="+url+"&title="+title+"&source=&desc=&pics=&summary="+summary;
 	    	window.open(shareqqstring,'newwindow','height=600,width=800,top=50,left=250'); 
+	    }
+	    function toWX(id){
+	    	window.open("${rc.contextPath}/articals/share2wx/"+id,'newwindow','height=330,width=330,top=150,left=450'); 
 	    }
 	    </script>
     </body>
