@@ -18,7 +18,7 @@
 		</form>
 	</div>
 	<div class="container-fluid innerScroll">
-		<form id="blogform" action="${rc.contextPath}/blog/modify" method="post" >
+		<form id="blogform" enctype="multipart/form-data" action="${rc.contextPath}/blog/modify" method="post" >
 			<input type="hidden" name="title" id="title" value=""/>
 			<input type="hidden" name="prestatus" id="prestatus" value="${blog.status!}"/><!-- 进到编辑页面的状态只可能是0草稿,2未发布,此状态为记录编辑前的状态用于分辨是否草稿状态 -->
 			<input type="hidden" name="id" id="id" value="${blog.id!}"/>
@@ -40,10 +40,28 @@
 					        <h4 class="modal-title">摘要</h4>  
 				        </div>  
 						<div class="modal-body">  
-					    	<textarea class="form-control" rows="3" id="summary" name="summary" maxlength="150" placeholder="请填写150字以内的文章摘要">${(blog.summary!)?html}</textarea>
+					    	<textarea class="form-control" rows="3" id="summary" name="summary" maxlength="120" placeholder="请填写120字以内的文章摘要">${(blog.summary!)?html}</textarea>
 					    </div>  
 						<div class="modal-footer">  
 							<button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>  
+						</div>  
+					</div><!-- /.modal-content -->  
+				</div><!-- /.modal-dialog -->  
+			</div><!-- /.modal -->
+			<!-- 设置海报-->
+			<div class="modal fade in" id="setPoster" tabindex="-1" role="dialog" aria-hidden="true">  
+				<div class="modal-dialog">  
+					<div class="modal-content">  
+						<div class="modal-header">  
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>  
+					        <h4 class="modal-title">设置海报</h4>  
+				        </div>  
+						<div class="modal-body"> 
+						      <input type="file" id="file" name="file" class="upfile">
+						      <div class="alert alert-info" role="alert">请上传jpg、png图片文件</div>
+					    </div>  
+						<div class="modal-footer">  
+							<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
 						</div>  
 					</div><!-- /.modal-content -->  
 				</div><!-- /.modal-dialog -->  
@@ -141,6 +159,7 @@ window.onload = function(){
            imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
            imageUploadURL : "/blog/uploadimg",
            onsummary:function(){comp.showModal('editModal');},
+           onposter:function(){comp.showModal('setPoster');},
            onload: function () {
                //console.log('onload', this);
                //this.fullscreen();

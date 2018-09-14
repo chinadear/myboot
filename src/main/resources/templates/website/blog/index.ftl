@@ -32,8 +32,12 @@
 			<#if clist??>
 				<#list clist as c>
 					<div class="item single-cat">
-					<a href="${rc.contextPath}/articals/cate/${c.id!}" target="_blank">
-						<img src="${rc.contextPath}/blog/noSecurity/img/${c.file.id!}" style="width:100%;height:250px;" class="img-responsive center-block" alt="">
+					<a href="${rc.contextPath}/articals/cate/${c.id!}" target="_blank"><!-- 340*250 -->
+						<#if c.file??>
+							<img src="${rc.contextPath}/blog/noSecurity/img/${c.file.id!}" style="width:100%;height:250px;" class="img-responsive center-block" alt="">
+			        	<#else>
+		        			<img src="${rc.contextPath}/lib/blog/img/defult_mini.png" style="width:100%;height:250px;" class="img-responsive center-block" alt="">
+			        	</#if>
 						<p class="date" style="width: 100%;"><h3>${(c.name!)?html}</h3></p>
 						${(c.comments!)?html}</a>
 					</div>

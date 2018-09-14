@@ -4,7 +4,7 @@
 	<#if structModel.banner.file??>
 		<section class="banner-area relative section-gap" id="home" data-parallax="scroll" data-image-src="${rc.contextPath}/blog/noSecurity/img/${structModel.banner.file.id!}">
 	<#else>
-		<section class="banner-area relative section-gap" id="home" data-parallax="scroll" data-image-src="${rc.contextPath}/lib/blog/img/header-bg.jpg">
+		<section class="banner-area relative section-gap" id="home" data-parallax="scroll" data-image-src="${rc.contextPath}/lib/blog/img/defult_banner.jpg">
 	</#if>
     <div class="container">
         <div class="row justify-content-start align-items-center d-flex">

@@ -29,7 +29,19 @@
                         <div class="post-lists search-list">
                         <#if page??>
 							<#list page.result as r>
-	                            <div class="single-list flex-row d-flex">
+								<div class="single_widget tag_widget single-list" style="padding: 10px;">
+							        <div class="row">
+							        	<div class="col-sm-12 detail">
+								        	<a href="${rc.contextPath}/articals/${r.id!}" target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
+		                                    <p>${(r.summary!)?html}</p>
+		                                    <p class="footer">
+		                                    	<i class="vd-right"> 发布时间：${r.createTime!}</i>
+	                                    		<i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
+		                                    </p>
+							        	</div>
+							        </div>
+							    </div>
+	                            <!-- <div class="single-list flex-row d-flex">
 	                                <div class="detail">
 	                                    <a href="${rc.contextPath}/articals/${r.id!}"  target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
 	                                    <p>${(r.summary!)?html}</p>
@@ -38,7 +50,7 @@
 		                                    <i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
 	                                    </p>
 	                                </div>
-	                            </div>
+	                            </div> -->
                            	</#list>
                         </#if>
                         </div>                          

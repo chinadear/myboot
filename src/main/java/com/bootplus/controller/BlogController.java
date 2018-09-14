@@ -117,7 +117,7 @@ public class BlogController extends BaseController {
 	* @return
 	*/
 	@RequestMapping("/blog/save")
-	public String saveBlog(Model model, HttpServletRequest request,Blog blog) {
+	public String saveBlog(Model model,@RequestParam("file") MultipartFile file, HttpServletRequest request,Blog blog) {
 		UserSession us=(UserSession)request.getSession().getAttribute(UserSession.SESSION_USER_KEY);
 		User user=loginService.findUserById(us.getUserId());
 		blog.setUser(user);
@@ -125,6 +125,12 @@ public class BlogController extends BaseController {
 			Category cate=new Category();
 			cate.setId(blog.getCateId());
 			blog.setCategory(cate);
+		}
+		if(!file.isEmpty()) {
+			UFile uf=sysManageService.uploadFile(file,"4","250",request);//自动降质
+			if(StringUtils.hasText(uf.getId())) {
+				blog.setPoster(uf);
+			}
 		}
 		blogService.save(blog);
 		if("1".equals(blog.getStatus())) {//如果是发布 则还需要处理标签
@@ -184,7 +190,7 @@ public class BlogController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/blog/modify")
-	public String editblog(Model model, HttpServletRequest request,Blog blog,String prestatus) {
+	public String editblog(Model model,@RequestParam("file") MultipartFile file, HttpServletRequest request,Blog blog,String prestatus) {
 		Blog b = blogService.getBlogById(blog.getId());
 		b.setContent(blog.getContent());
 		b.setTitle(blog.getTitle());
@@ -193,6 +199,12 @@ public class BlogController extends BaseController {
 		b.setStatus(blog.getStatus());
 		b.setDiscuss(blog.getDiscuss());
 		b.setPlate(blog.getPlate());
+		if(!file.isEmpty()) {
+			UFile uf=sysManageService.uploadFile(file,"4","250",request);//自动降质
+			if(StringUtils.hasText(uf.getId())) {
+				b.setPoster(uf);
+			}
+		}
 		//由0到1需要设置文章meta
 		if("1".equals(blog.getStatus())) {
 			if(StringUtils.hasText(blog.getCateId())) {
@@ -285,7 +297,7 @@ public class BlogController extends BaseController {
 		return RESOURCE_MENU_PREFIX+"/blogTable";
 	}
 	/**
-	 * 处理文件上传
+	 * 上传图片
 	 * @param file
 	 * @param request
 	 * @return

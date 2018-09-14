@@ -169,7 +169,7 @@ public class ImageProcessingComp {
             }else if(size>30) {
             	size=30;
             }
-            Font font = new Font("微软雅黑", Font.PLAIN, size);
+            Font font = new Font("微软雅黑", Font.PLAIN, 15);
             // 加水印
             BufferedImage bufImg = new BufferedImage(srcImgWidth, srcImgHeight, BufferedImage.TYPE_INT_RGB);
             Graphics2D g = bufImg.createGraphics();

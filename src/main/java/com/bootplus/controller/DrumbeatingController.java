@@ -86,7 +86,7 @@ public class DrumbeatingController extends BaseController {
 	@RequestMapping("/drumbeating/add")
 	public String add(Model model,@RequestParam("ufile") MultipartFile ufile, HttpServletRequest request,Drumbeating db) {
 		if(!ufile.isEmpty()) {
-			UFile uf=sysManageService.uploadFile(ufile,"1",null,request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
+			UFile uf=sysManageService.uploadFile(ufile,"0",null,request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
 			if(StringUtils.hasText(uf.getId())) {
 				db.setFile(uf);
 			}
@@ -128,7 +128,7 @@ public class DrumbeatingController extends BaseController {
 		drum.setUrl(db.getUrl());
 		drum.setPlate(db.getPlate());
 		if(!ufile.isEmpty()) {
-			UFile uf=sysManageService.uploadFile(ufile,"1",null,request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
+			UFile uf=sysManageService.uploadFile(ufile,"0",null,request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
 			if(StringUtils.hasText(uf.getId())) {
 				drum.setFile(uf);
 			}

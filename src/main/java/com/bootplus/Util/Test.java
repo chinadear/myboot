@@ -26,8 +26,8 @@ public class Test {
 		Thread.sleep(5000);
 		ThreadTaskManager.interrupt();*/
 		                     //水印字体
-        String srcImgPath="E:\\oa.jpg"; //源图片地址
-        String tarImgPath="E:\\ttt.jpg"; //待存储的地址
+        String srcImgPath="E:\\桌面\\opensrc\\17springboot\\图片素材\\0-1躲坑1000x179mh.png"; //源图片地址
+        String tarImgPath="E:\\ttt.png"; //待存储的地址
         String waterMarkContent="https://www.bootplus.com.cn";  //水印内容
                                       //水印图片色彩以及透明度
         ImageProcessingComp.addWaterMark(srcImgPath, tarImgPath, waterMarkContent);

@@ -68,7 +68,7 @@
             "bold", /*"del", */"italic", "quote",/* "ucwords", "uppercase", "lowercase",*/ 
             "h1", "h2", "h3", /*"h4", "h5", "h6",*/ 
             "list-ul", "list-ol", "hr","link", /*"reference-link", */"image", /*"code", "preformatted-text", */"code-block", "table", "datetime",/* "emoji", */"html-entities", /*"pagebreak",*/ "undo", "redo", "|",
-            /*"goto-line", */"clear","summary", "|","watch", "preview", /*"fullscreen","search",*/ "|",
+            /*"goto-line", */"clear","summary","poster", "|","watch", "preview", /*"fullscreen","search",*/ "|",
             "help"//, "info"
     	],
         full : [
@@ -149,6 +149,7 @@
         onpreviewed          : function() {},
         onfullscreen         : function() {},
         onsummary			 : function() {},
+        onposter             : function() {},//海报
         onfullscreenExit     : function() {},
         onscroll             : function() {},
         onpreviewscroll      : function() {},
@@ -229,6 +230,7 @@
             search           : "fa-search",
             fullscreen       : "fa-arrows-alt",
             summary		     : "fa-book",
+            poster           : "fa-pinterest",
             clear            : "fa-edit",
             help             : "fa-question-circle",
             info             : "fa-info-circle"
@@ -275,6 +277,7 @@
                 preview          : "全窗口预览HTML（按 Shift + ESC还原）",
                 fullscreen       : "全屏（按ESC还原）",
                 summary          : "添加摘要",
+                poster           : "添加海报",
                 clear            : "写新文章",
                 search           : "搜索",
                 help             : "使用帮助",
@@ -1283,7 +1286,7 @@
                 }
                 
                 if (name !== "link" && name !== "reference-link" && name !== "image" && name !== "code-block" && 
-                    name !== "preformatted-text" && name !== "watch" && name !== "preview" && name !== "search" && name !== "fullscreen" && name !== "info" && name !="summary") 
+                    name !== "preformatted-text" && name !== "watch" && name !== "preview" && name !== "search" && name !== "fullscreen" && name !== "info" && name !="summary" && name !="poster") 
                 {
                     cm.focus();
                 }
@@ -3193,6 +3196,9 @@
         },
         summary:function(){
         	$.proxy(this.settings.onsummary, this)();
+        },
+        poster:function(){
+        	$.proxy(this.settings.onposter, this)();
         }
      
     };

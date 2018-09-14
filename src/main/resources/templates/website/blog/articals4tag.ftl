@@ -29,35 +29,39 @@
                         <div class="post-lists search-list">
                         <#if page??>
 							<#list page.result as r>
-								<#if true><!-- 图文结合的列表还没有调好，暂时不支持 -->
-		                            <div class="single-list flex-row d-flex">
-		                                <div class="detail">
-		                                    <a href="${rc.contextPath}/articals/${r.blog.id!}"  target="_blank"><h4 class="pb-10">${(r.blog.title!)?html}</h4></a>
-		                                    <p>${(r.blog.summary!)?html}</p>
-		                                    <p class="footer">
-			                                    <i class="vd-right"> 发布时间：${r.blog.createTime!}</i>
-			                                    <i>阅读量：${r.blog.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>     
-		                                    </p>
-		                                </div>
-		                            </div>
+								<#if false><!-- 图文结合的列表还没有调好，暂时不支持 -->
+									<div class="single_widget tag_widget single-list" style="padding: 10px;">
+								        <div class="row">
+								        	<div class="col-sm-4">
+								        	<#if r.blog.poster??>
+								        		<img src="${rc.contextPath}/blog/noSecurity/img/${r.blog.poster.id!}" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
+								        	<#else>
+							        			<img src="${rc.contextPath}/lib/blog/img/defult_mini.png" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
+								        	</#if>
+								        	</div>
+								        	<div class="col-sm-8 detail">
+									        	<a href="${rc.contextPath}/articals/${r.id!}" target="_blank"><h4 class="pb-10">${(r.blog.title!)?html}</h4></a>
+			                                    <p>${(r.blog.summary!)?html}</p>
+			                                    <p class="footer">
+			                                    	<i class="vd-right"> 发布时间：${r.blog.createTime!}</i>
+		                                    		<i>阅读量：${r.blog.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
+			                                    </p>
+								        	</div>
+								        </div>
+								    </div>
 	                            <#else>
-		                            <div class="single-list flex-row d-flex">
-		                                <div class="detail">
-			                                <div class="row">
-				                                <div class="thumb col-sm-4">
-				                                    <img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" class="img-responsive" style="width:170px;height:160px;" alt="">
-				                                </div>
-				                                <div class="col-sm-8">
-				                                    <a href="#"><h4 class="pb-10">${(r.blog.title!)?html}</h4></a>
-				                                    <p>${(r.blog.summary!)?html}</p>
-				                                    <p class="footer">
-					                                    <i class="vd-right"> 发布时间：${r.blog.createTime!}</i>
-			                                    		<i>阅读量：${r.blog.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
-				                                    </p>
-			                                    </div>
-			                                </div>
-		                                </div>
-	                            	</div>
+		                            <div class="single_widget tag_widget single-list" style="padding: 10px;">
+								        <div class="row">
+								        	<div class="col-sm-12 detail">
+									        	<a href="${rc.contextPath}/articals/${r.blog.id!}" target="_blank"><h4 class="pb-10">${(r.blog.title!)?html}</h4></a>
+			                                    <p>${(r.blog.summary!)?html}</p>
+			                                    <p class="footer">
+			                                    	<i class="vd-right"> 发布时间：${r.blog.createTime!}</i>
+		                                    		<i>阅读量：${r.blog.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
+			                                    </p>
+								        	</div>
+								        </div>
+							        </div>
                             	</#if>
                            	</#list>
                         </#if>

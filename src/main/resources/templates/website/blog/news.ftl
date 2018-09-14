@@ -29,8 +29,40 @@
                         <div class="post-lists search-list">
                         <#if page??>
 							<#list page.result as r>
-								<#if r_index==2><!-- 图文结合的列表还没有调好，暂时不支持 -->
-		                            <div class="single-list flex-row d-flex">
+								<#if r.poster??><!-- 是否有海报 -->
+		                            <div class="single_widget tag_widget single-list" style="padding: 10px;">
+								        <div class="row">
+								        	<div class="col-sm-4">
+								        	<#if r.poster??>
+								        		<img src="${rc.contextPath}/blog/noSecurity/img/${r.poster.id!}" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
+								        	<#else>
+							        			<img src="${rc.contextPath}/lib/blog/img/defult_mini.png" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
+								        	</#if>
+								        	</div>
+								        	<div class="col-sm-8 detail">
+									        	<a href="${rc.contextPath}/articals/${r.id!}" target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
+			                                    <p>${(r.summary!)?html}</p>
+			                                    <p class="footer">
+			                                    	<i class="vd-right"> 发布时间：${r.createTime!}</i>
+		                                    		<i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
+			                                    </p>
+								        	</div>
+								        </div>
+								    </div>
+	                            <#else><!-- 无海报 -->
+		                            <div class="single_widget tag_widget single-list" style="padding: 10px;">
+								        <div class="row">
+								        	<div class="col-sm-12 detail">
+									        	<a href="${rc.contextPath}/articals/${r.id!}" target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
+			                                    <p>${(r.summary!)?html}</p>
+			                                    <p class="footer">
+			                                    	<i class="vd-right"> 发布时间：${r.createTime!}</i>
+		                                    		<i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
+			                                    </p>
+								        	</div>
+								        </div>
+								    </div>
+		                            <!-- <div class="single-list flex-row d-flex">
 		                                <div class="detail">
 		                                    <a href="${rc.contextPath}/articals/${r.id!}"  target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
 		                                    <p>${(r.summary!)?html}</p>
@@ -39,51 +71,7 @@
 			                                    <i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
 		                                    </p>
 		                                </div>
-		                            </div>
-	                            <#else>
-	                            <div class="single_widget tag_widget single-list" style="padding: 10px;">
-							        <div class="row">
-							        	<div class="col-sm-4"> 
-							        		<#switch r_index%3> 
-												<#case 0>
-								        			<img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2532104642,3296323948&fm=173&app=25&f=JPEG?w=218&h=146&s=49B022D1D764070D940DD40D0300E0D1" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
-												<#break> 
-												<#case 1>
-													<img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1333422679,1744962616&fm=173&app=25&f=JPEG?w=218&h=146&s=1221716C845A95D413F7E59A0300409F" class="img-responsive center-block" alt="">
-												<#break> 
-												<#case 2>
-													<img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=950379029,1521686261&fm=173&app=25&f=JPEG?w=218&h=146&s=EA2DA044FA31EBCE2C373D81030080A8" class="img-responsive center-block" alt="">
-												<#break> 
-												<#default><img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" class="img-responsive center-block" alt="">
-											</#switch>
-							        	</div>
-							        	<div class="col-sm-8 detail">
-								        	<a href="${rc.contextPath}/articals/${r.id!}" target="_blank"><h4 class="pb-10">${(r.title!)?html}</h4></a>
-		                                    <p>${(r.summary!)?html}</p>
-		                                    <p class="footer">
-		                                    	<i class="vd-right"> 发布时间：${r.createTime!}</i>
-	                                    		<i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
-		                                    </p>
-							        	</div>
-							        </div>
-							    </div>
-		                            <!-- <div class="single-list flex-row d-flex">
-		                                <div class="detail">
-			                                <div class="row">
-				                                <div class="thumb col-sm-4 thumbnail">
-				                                    <img src="${rc.contextPath}/lib/blog/img/header-bg.jpg" class="img-responsive center-block" alt="">
-				                                </div>
-				                                <div class="col-sm-8">
-				                                    <a href="#"><h4 class="pb-10">${(r.title!)?html}</h4></a>
-				                                    <p>${(r.summary!)?html}</p>
-				                                    <p class="footer">
-				                                    	<i class="vd-right"> 发布时间：${r.createTime!}</i>
-			                                    		<i>阅读量：${r.viewNum!'0'}<i class="fa fa-eye" title="阅读量"></i></i>
-				                                    </p>
-			                                    </div>
-			                                </div>
-		                                </div>
-	                            	</div> -->
+		                            </div> -->
                             	</#if>
                            	</#list>
                         </#if>
