@@ -29,15 +29,11 @@
                         <div class="post-lists search-list">
                         <#if page??>
 							<#list page.result as r>
-								<#if false><!-- 图文结合的列表还没有调好，暂时不支持 -->
+								<#if r.blog.poster??><!-- 图文结合的列表还没有调好，暂时不支持 -->
 									<div class="single_widget tag_widget single-list" style="padding: 10px;">
 								        <div class="row">
 								        	<div class="col-sm-4">
-								        	<#if r.blog.poster??>
-								        		<img src="${rc.contextPath}/blog/noSecurity/img/${r.blog.poster.id!}" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
-								        	<#else>
-							        			<img src="${rc.contextPath}/lib/blog/img/defult_mini.png" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
-								        	</#if>
+							        			<img src="${rc.contextPath}/blog/noSecurity/img/${r.blog.poster.id!}" style="width:100%;height:100%;" class="img-responsive center-block" alt="">
 								        	</div>
 								        	<div class="col-sm-8 detail">
 									        	<a href="${rc.contextPath}/articals/${r.id!}" target="_blank"><h4 class="pb-10">${(r.blog.title!)?html}</h4></a>
