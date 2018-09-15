@@ -112,7 +112,7 @@ public class CategoryController extends BaseController {
 	public String add(Model model,HttpServletRequest request,@RequestParam("ufile") MultipartFile ufile, String name_,String comments_,String type_) {
 		Category cate=new Category();
 		if(!ufile.isEmpty()) {
-			UFile uf=sysManageService.uploadFile(ufile,"4","218",request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
+			UFile uf=sysManageService.uploadFile(ufile,"0","218",request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
 			if(StringUtils.hasText(uf.getId())) {
 				cate.setFile(uf);
 			}
@@ -137,7 +137,7 @@ public class CategoryController extends BaseController {
 		cate.setComments(cat.getComments());
 		cate.setType(cat.getType());
 		if(!ufile.isEmpty()) {
-			UFile uf=sysManageService.uploadFile(ufile,"4","218",request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
+			UFile uf=sysManageService.uploadFile(ufile,"0","218",request);//type=0降低画质，1自定义宽高缩放，2等比缩放，3附件
 			if(StringUtils.hasText(uf.getId())) {
 				cate.setFile(uf);
 			}

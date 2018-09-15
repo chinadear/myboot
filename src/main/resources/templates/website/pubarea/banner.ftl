@@ -8,7 +8,7 @@
 	</#if>
     <div class="container">
         <div class="row justify-content-start align-items-center d-flex">
-            <div class="col-lg-8 top-left">
+            <div class="col-lg-8 top-left" style="min-height:120px">
                 <h1 class="text-white mb-20">${(structModel.banner.title!)?html}</h1>
                 <p class="text-white">${(structModel.banner.summary!)?html}</p>
             </div>
