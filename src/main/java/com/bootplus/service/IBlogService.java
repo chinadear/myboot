@@ -3,6 +3,7 @@ package com.bootplus.service;
 import java.util.List;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
+import com.bootplus.model.LeaveMsg;
 
 public interface IBlogService {
 	public List<Blog> getBlogList(Blog blog);
@@ -25,4 +26,9 @@ public interface IBlogService {
 	 */
 	public void updateViewNum(String articalId);
 	public Page getBlogSearchPage(List<String> words,int pageNo, int pageSize);
+	
+	public void saveLeaveMsg(LeaveMsg lm);
+	public void deleteLeaveMsg(LeaveMsg lm);
+	public LeaveMsg getLeaveMsgById(String id);
+	public Page queryLeaveMsgPage(LeaveMsg lm,int pageNo, int pageSize);
 }

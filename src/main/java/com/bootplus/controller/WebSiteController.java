@@ -29,6 +29,7 @@ import com.bootplus.model.Blog;
 import com.bootplus.model.Category;
 import com.bootplus.model.Comment;
 import com.bootplus.model.Drumbeating;
+import com.bootplus.model.LeaveMsg;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.Tag;
 import com.bootplus.model.TagBlog;
@@ -511,5 +512,27 @@ public class WebSiteController extends BaseController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+	}
+	/**
+	 * 留言
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/articals/sendMsg",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String sendMsg(Model model, HttpServletRequest request,String msg) {
+		HttpSession session=request.getSession();
+		String flag=(String)session.getAttribute("user_send_message");
+		if(StringUtils.hasText(flag)&&"1".equals(flag)) {
+			return "S";//已经发送过了，一个session周期只能发送一次，防止高频发送
+		}
+		String ip=GetRemoteIP.getRequestUserIpAddr(request);
+		LeaveMsg lm=new LeaveMsg();
+		lm.setMessage(msg);
+		lm.setIp(ip);
+		blogService.saveLeaveMsg(lm);
+		session.setAttribute("user_send_message", "1");
+		return "T";
 	}
 }

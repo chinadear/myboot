@@ -10,6 +10,7 @@ import com.bootplus.core.base.BaseServiceImpl;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.IBlogDao;
 import com.bootplus.model.Blog;
+import com.bootplus.model.LeaveMsg;
 import com.bootplus.service.IBlogService;
 
 @Service
@@ -77,5 +78,29 @@ public class BlogService extends BaseServiceImpl implements IBlogService {
 	public Page getBlogSearchPage(List<String> words, int pageNo, int pageSize) {
 		// TODO Auto-generated method stub
 		return blogDao.getBlogSearchPage(words, pageNo, pageSize);
+	}
+
+	@Override
+	public void saveLeaveMsg(LeaveMsg lm) {
+		// TODO Auto-generated method stub
+		blogDao.save(lm);
+	}
+
+	@Override
+	public void deleteLeaveMsg(LeaveMsg lm) {
+		// TODO Auto-generated method stub
+		blogDao.delete(lm);
+	}
+
+	@Override
+	public LeaveMsg getLeaveMsgById(String id) {
+		// TODO Auto-generated method stub
+		return (LeaveMsg)blogDao.get(LeaveMsg.class, id);
+	}
+
+	@Override
+	public Page queryLeaveMsgPage(LeaveMsg lm, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return blogDao.queryLeaveMsgPage(lm, pageNo, pageSize);
 	}
 }

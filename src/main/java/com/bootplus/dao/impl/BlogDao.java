@@ -14,6 +14,7 @@ import com.bootplus.core.dao.page.Page;
 import com.bootplus.dao.IBlogDao;
 import com.bootplus.dao.IUserDao;
 import com.bootplus.model.Blog;
+import com.bootplus.model.LeaveMsg;
 import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
 
@@ -110,4 +111,11 @@ public class BlogDao extends BaseDaoImpl implements IBlogDao {
 		sb.append(" order by createTime DESC");
 		return this.pagedQuery(sb.toString(), pageNo, pageSize, paramMap.toArray());
 	}
+
+	@Override
+	public Page queryLeaveMsgPage(LeaveMsg lm, int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		return this.pagedQuery("from LeaveMsg order by createTime DESC", pageNo, pageSize);
+	}
+	
 }

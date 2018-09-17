@@ -29,19 +29,9 @@
         <#else>
             <div class="item">
                 <a href="##"><img src="${rc.contextPath}/lib/blog/img/asset/slider.jpg" alt=""></a>
-                <p class="mt-20 title text-uppercase">阿里云 </p>
-                <p>云服务器（Elastic Compute Service，简称 ECS）是一种简单高效、处理能力可弹性伸缩的计算服务，帮助您快速构建更稳定、安全的应用，提升运维效率，降低 IT 成本，使您更专注于核心业务创新。</p>    
+                <p class="mt-20 title text-uppercase">一起学习吧</p>
+                <p>记录自己学习过程中的点点滴滴，学习就要循序渐进，不断积累。</p>    
             </div>  
-            <div class="item">
-                <a href="##"><img src="${rc.contextPath}/lib/blog/img/asset/slider.jpg" alt=""></a>
-                <p class="mt-20 title text-uppercase">腾讯云 </p>
-                <p>  从这一个介绍里面知道，redis比memcache作为缓存数据库强大的地方，一个是支持的数据类型比较多，另一个就是redis持久化功能。</p>    
-            </div>  
-            <div class="item">
-                <a href="##"><img src="${rc.contextPath}/lib/blog/img/asset/slider.jpg" alt=""></a>
-                <p class="mt-20 title text-uppercase">百度云 </p>
-                <p>baidu</p>
-            </div>                                                                                            
         </#if>
         </div>
     </div> 

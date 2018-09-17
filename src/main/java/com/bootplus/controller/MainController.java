@@ -66,7 +66,7 @@ public class MainController extends BaseController {
 			c2list.add(c);
 		}
 		Views vc=sysManageService.getViewCount(TEMP_DATETIME);
-		model.addAttribute("viewCount",vc.getViewnum());
+		model.addAttribute("viewCount",vc!=null?vc.getViewnum():"0");
 		model.addAttribute("blogCount",blist.size());
 		model.addAttribute("catelist",c2list);//分类数量
 		if(rlist.size()==0) {

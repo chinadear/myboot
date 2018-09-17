@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,12 +32,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
+import com.bootplus.Util.GetRemoteIP;
 import com.bootplus.core.base.BaseController;
 import com.bootplus.core.base.UserSession;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
 import com.bootplus.model.Category;
 import com.bootplus.model.DicItem;
+import com.bootplus.model.LeaveMsg;
 import com.bootplus.model.SysConfig;
 import com.bootplus.model.Tag;
 import com.bootplus.model.TagBlog;
@@ -362,5 +365,45 @@ public class BlogController extends BaseController {
 			}
 		}
 		return null;
+	}
+ //==================================
+    /**
+     * 进入留言列表
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping("/leavemsg/messages") 
+	public String leavemsg(Model model, HttpServletRequest request) {
+		Page page=blogService.queryLeaveMsgPage(new LeaveMsg(),1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
+		return RESOURCE_MENU_PREFIX+"/leavemsg/listLeaveMsg";
+	}
+    /**
+     * 留言翻页
+     * @param model
+     * @param request
+     * @param pageNo
+     * @return
+     */
+    @RequestMapping("/leavemsg/noSitemesh/loadleavemsgtable")
+	public String loadleavemsgtable(Model model, HttpServletRequest request,String pageNo) {
+		Page page=blogService.queryLeaveMsgPage(new LeaveMsg(),StringUtils.hasText(pageNo)?Integer.valueOf(pageNo):1, Page.DEFAULT_PAGE_SIZE);
+		model.addAttribute("page", page);
+		return RESOURCE_MENU_PREFIX+"/leavemsg/leaveMsgTable";
+	}
+    /**
+     * 删除留言
+     * @param model
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping(value="/leavemsg/delete",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String delete(Model model, HttpServletRequest request,String id) {
+		LeaveMsg lm=blogService.getLeaveMsgById(id);
+		blogService.deleteLeaveMsg(lm);
+		return "T";
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.bootplus.core.dao.IBaseDao;
 import com.bootplus.core.dao.page.Page;
 import com.bootplus.model.Blog;
+import com.bootplus.model.LeaveMsg;
 import com.bootplus.model.User;
 import com.bootplus.model.UserLogin;
 
@@ -27,4 +28,12 @@ public interface IBlogDao<T> extends IBaseDao{
 	public void updateViewNum(String articalId);
 	
 	public Page getBlogSearchPage(List<String> words,int pageNo, int pageSize);
+	/**
+	 * 获取留言
+	 * @param lm
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public Page queryLeaveMsgPage(LeaveMsg lm,int pageNo, int pageSize);
 }

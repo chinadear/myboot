@@ -19,7 +19,7 @@
 <#include "../pubarea/header.ftl">
 	<!-- banner area start -->
 	<#if structModel??&&structModel.banner??>
-	<a href="${structModel.banner.url!'##'}" target="_blank">
+	<!-- <a href="${structModel.banner.url!'##'}" target="_blank"> -->
 		<#if structModel.banner.file??>
 			<section class="banner-area relative" style="padding:150px 0;" id="home" data-parallax="scroll" data-image-src="${rc.contextPath}/blog/noSecurity/img/${structModel.banner.file.id!}">
 		<#else>
@@ -34,7 +34,7 @@
 	        </div>
 	    </div>  
 	</section>
-	</a>
+<!-- 	</a> -->
 	</#if>
 	<!-- banner area end -->
 	<section class="category-area section-gap" id="news">

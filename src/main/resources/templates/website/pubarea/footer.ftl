@@ -2,16 +2,19 @@
 <footer class="footer-area section-gap">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-3  col-md-12">
+			<div class="col-lg-4  col-md-12">
 				<div class="single-footer-widget">
-					<h6>联系我</h6>
-					<ul class="footer-nav unordered-list">
-						<li>QQ：61106163</li>
-						<li>邮箱：61106163@qq.com</li>
-					</ul>
+					<h6>留言吧</h6>
+					<p>有什么问题请给我留言.</p>
+					<div class="input-group">
+					    <input type="text" class="form-control" id="message" style="height:100%;" maxlength="150" placeholder="150个字以内" onfocus="this.placeholder = ''" onblur="this.placeholder = '150个字以内'">
+					    <span class="input-group-btn">
+					   		<button class="btn btn-success" style="height:100%" type="button" onclick="sendMsg()">Go!</button>
+					    </span>
+				    </div><!-- /input-group -->
 				</div>
 			</div>
-			<div class="col-lg-6  col-md-12">
+			<div class="col-lg-5  col-md-12">
 				<div class="single-footer-widget newsletter">
 					<h6>一起学习吧</h6>
 					<ul class="unordered-list">
@@ -59,6 +62,35 @@
 	}
 	function tofWX(){
 		window.open("${rc.contextPath}/articals/share2wx/''",'newwindow','height=330,width=330,top=150,left=450'); 
+	}
+	function sendMsg(){
+		var msg=$("#message").val();
+		if(msg=="" || msg==null){
+			alert("说点什么吧！");
+		}else{
+			 $.ajax({
+				async :false,
+				cache :false,
+				type:"POST",
+				dataType :"text",
+				timeout: 100000,
+				url: "${rc.contextPath}/articals/sendMsg",
+				data:{msg:msg},
+				error: function () {//请求失败处理函数
+					comp.message("请求失败，请稍后再试","error");
+					return;
+				},
+				success:function(data){ //请求成功后处理函数。 
+					if(data=="T"){
+						alert("您想说的话已经发给站长了！");
+						$("#message").val('');
+					}else{
+						alert("您已经留过言了，请过一会再来吧！");
+						$("#message").val('');
+					}
+				}
+			});
+		}
 	}
 </script>
 <!-- End footer Area -->        

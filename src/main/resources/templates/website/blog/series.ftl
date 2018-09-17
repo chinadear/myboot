@@ -28,7 +28,7 @@
                     <div class="col-lg-8">
                     <#if clist??>
                     	<#list clist as c>
-	                    	<a href="${rc.contextPath}/articals/cate/${c.id!}"><div class="single_widget tag_widget">
+	                    	<a href="${rc.contextPath}/articals/cate/${c.id!}" style="color:#000;"><div class="single_widget tag_widget">
 						        <div class="row">
 						        	<div class="col-sm-4">
 						        		<#if c.file??>

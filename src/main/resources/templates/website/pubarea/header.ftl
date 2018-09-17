@@ -25,7 +25,7 @@
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="${rc.contextPath}/articals/tagAndcate/more">内容导航</a>
 						<a class="dropdown-item" href="${rc.contextPath}/articals/search">站内搜索</a>
-						<a class="dropdown-item" href="${rc.contextPath}/articals/resdownload">资源下载</a>
+						<!-- <a class="dropdown-item" href="${rc.contextPath}/articals/resdownload">资源下载</a> -->
 					</div>
 			    </li>                               
 			</ul>
