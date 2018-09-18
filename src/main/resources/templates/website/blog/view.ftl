@@ -50,7 +50,7 @@
                             </div>
 <!-- 博文显示区start -->
                             <div class="single-post-content">
-                            	<div id="com"><textarea style="display: none;">${artical.htmlContent!}</textarea></div>
+                            	<div id="com" style="font-size:18px;"><textarea style="display: none;">${(artical.htmlContent!)?html}</textarea></div>
                             </div>
 <!-- 博文显示区end -->		
 							<!-- 分享 -->				
@@ -179,7 +179,7 @@
 			        taskList : true,
 			        tex : true, // 默认不解析
 			        flowChart : true, // 默认不解析
-			        sequenceDiagram : false, // 默认不解析
+			        sequenceDiagram : true, // 默认不解析
 			        codeFold : true
 			    }); 
 	    	})
