@@ -146,12 +146,22 @@
 		  <artifactId>jieba-analysis</artifactId>
 		  <version>1.0.2</version>
 		</dependency>
+		<dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>qrcode</artifactId>
+            <version>1.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/lib/core.jar</systemPath>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>
