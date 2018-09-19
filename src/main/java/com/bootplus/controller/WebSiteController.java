@@ -494,7 +494,7 @@ public class WebSiteController extends BaseController {
         int width = 300; 
         int height = 300;
         String text="https://www.bootplus.com.cn/articals/"+id;
-        if(!StringUtils.hasText(id)) {
+        if("all".equals(id)) {
         	text="https://www.bootplus.com.cn";
         }
         String format = "jpg"; 

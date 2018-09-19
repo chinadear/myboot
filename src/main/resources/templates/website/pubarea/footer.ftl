@@ -61,7 +61,7 @@
 		window.open(shareqqstring,'newwindow','height=600,width=800,top=50,left=250'); 
 	}
 	function tofWX(){
-		window.open("${rc.contextPath}/articals/share2wx/''",'newwindow','height=330,width=330,top=150,left=450'); 
+		window.open("${rc.contextPath}/articals/share2wx/all",'newwindow','height=330,width=330,top=150,left=450'); 
 	}
 	function sendMsg(){
 		var msg=$("#message").val();

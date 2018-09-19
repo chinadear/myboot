@@ -138,7 +138,8 @@ public class SysManageService extends BaseServiceImpl implements ISysManageServi
         		}else if(kb>50){
         			img.compressByQality("0.5");
         		}else {
-        			file.transferTo(dest);
+        			img.compressByQality("1");
+        			//file.transferTo(dest);
         		}
         	}else if("2".equals(type)) {//指定画质
         		img.compressByQality(param);	
