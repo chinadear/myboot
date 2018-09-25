@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration(exclude=HibernateJpaAutoConfiguration.class)
+//java.lang.ClassCastException: org.springframework.orm.jpa.EntityManagerHolder cannot be cast to org.springframework.orm.hibernate5.SessionHolder
 @ComponentScan
 @SpringBootApplication
 @EnableCaching

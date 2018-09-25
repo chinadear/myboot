@@ -3,7 +3,9 @@ package com.bootplus.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bootplus.Util.CompUtil;
 import com.bootplus.Util.Constants;
@@ -132,6 +135,32 @@ public class MainController extends BaseController {
 //		CompUtil.forward2Target(request, response, link);
 		return "redirect:" + link;
 	}
+	@RequestMapping(value="/security/initStatistics",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String initStatistics(){
+		List<PieData> list=new ArrayList<PieData>();
+		List<String> list2=new ArrayList<String>();
+		List<Integer> list3=new ArrayList<Integer>();
+		for(int i=1;i<7;i++) {
+			PieData m1=new PieData();
+			m1.setValue(i);
+			m1.setName("name_"+i);
+			list.add(m1);
+		}
+		for(int i=1;i<7;i++) {
+			list2.add("name_"+i);
+		}
+		for(int i=1;i<7;i++) {
+			list3.add(i);
+		}
+		StringBuffer sb=new StringBuffer();
+		Map<String,String> map=new HashMap<String,String>();
+		map.put("name", CompUtil.array2Json(list));
+		map.put("name2", CompUtil.array2Json(list2));
+		map.put("name3", CompUtil.array2Json(list3));
+		return CompUtil.map2Json(map);
+	}
+	
 	@RequestMapping(value="/security/noSitemesh/noauthority/error")
 	public String error(HttpServletRequest request, HttpServletResponse response){
 		return "/error/error";
@@ -149,4 +178,21 @@ public class MainController extends BaseController {
 		}
 		return list;
 	}
+}
+class PieData{
+	private int value;
+	private String name;
+	public int getValue() {
+		return value;
+	}
+	public void setValue(int value) {
+		this.value = value;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }

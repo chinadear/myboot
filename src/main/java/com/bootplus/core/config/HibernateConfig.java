@@ -24,7 +24,10 @@ public class HibernateConfig {
 	 
 	@Autowired
     private Environment environment;
- 
+    /**
+     * session factory
+     * @return
+     */
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -33,7 +36,10 @@ public class HibernateConfig {
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
      }
-     
+    /**
+     * 数据源配置
+     * @return
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -43,7 +49,10 @@ public class HibernateConfig {
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
         return dataSource;
     }
-     
+    /**
+     * hibernate属性配置
+     * @return
+     */
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
@@ -51,12 +60,16 @@ public class HibernateConfig {
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
         return properties;        
     }
-     
+    /**
+     * 事务管理
+     * @param sf
+     * @return
+     */
     @Bean
     @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory s) {
+    public HibernateTransactionManager transactionManager(SessionFactory sf) {
        HibernateTransactionManager txManager = new HibernateTransactionManager();
-       txManager.setSessionFactory(s);
+       txManager.setSessionFactory(sf);
        return txManager;
     }
 }
