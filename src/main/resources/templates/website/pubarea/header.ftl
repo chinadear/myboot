@@ -14,7 +14,7 @@
 			<ul class="navbar-nav scrollable-menu">
 				<li><a href="${rc.contextPath}/">首页</a></li>
 				<li><a href="${rc.contextPath}/articals/news">行业资讯</a></li>
-				<li><a href="${rc.contextPath}/articals/series">从0到1系列</a></li>
+				<li><a href="${rc.contextPath}/articals/series">爬坑系列</a></li>
 				<li><a href="${rc.contextPath}/articals">博客</a></li>
 				<li><a href="${rc.contextPath}/articals/toolsbox">工具箱</a></li>
 				<!-- Dropdown -->
