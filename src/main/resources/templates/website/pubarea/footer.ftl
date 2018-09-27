@@ -64,7 +64,7 @@
 		window.open("${rc.contextPath}/articals/share2wx/all",'newwindow','height=330,width=330,top=150,left=450'); 
 	}
 	function sendMsg(){
-		var msg=$("#message").val();
+		var msg=$("#message").val().replace(/\s+/g,"");
 		if(msg=="" || msg==null){
 			alert("说点什么吧！");
 		}else{
