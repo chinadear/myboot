@@ -28,7 +28,7 @@
 			<input type="hidden" id="discuss" name="discuss" value="${blog.discuss!'0'}">
 			<input type="hidden" id="plate" name="plate" value="${blog.plate!'0'}">
 			<div class="editormd" id="test-editormd"><!-- test-editormd-markdown-doc -->
-			    <textarea class="editormd-markdown-textarea" name="content" id="content">${blog.content!}</textarea>
+			    <textarea class="editormd-markdown-textarea" name="content" id="content">${(blog.content!)?html}</textarea>
 			    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
 			    <textarea class="editormd-html-textarea" name="htmlContent" id="htmlContent">${blog.htmlContent}</textarea>
 			</div>
@@ -40,7 +40,7 @@
 					        <h4 class="modal-title">摘要</h4>  
 				        </div>  
 						<div class="modal-body">  
-					    	<textarea class="form-control" rows="3" id="summary" name="summary" maxlength="120" placeholder="请填写120字以内的文章摘要">${(blog.summary!)?html}</textarea>
+					    	<textarea class="form-control" rows="3" id="summary" name="summary" maxlength="120" placeholder="请填写120字以内的文章摘要">${blog.summary!}</textarea>
 					    </div>  
 						<div class="modal-footer">  
 							<button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>  
