@@ -22,30 +22,21 @@ import java.util.Map;
  * @author liulu
  * 日志切面 
  */  
-/*@Aspect  
-@Component  */
+@Aspect  
+@Component  
 public class LogAspect {  
-    @Pointcut("execution(public * com.bootplus.controller.WebSiteController.view(..))")  
+	//创建一个切点，切面可以用通配符表示，
+	//例如public *（*代表任意返回值类型） com.spring.controller.WebSiteController.*(..)//（..）表示任意参数:
+	//也可以指定方法如：public * com.spring.controller.WebSiteController.view(..)
+	//还可以任意类：public * com.spring.controller.*.*(..)都可以
+    @Pointcut("execution(public * com.spring.controller.WebSiteController.view(..))")  
     public void webLog(){}  
-  
+    //执行方法前，根据切点规则拦截
     @Before("webLog()")  
     public void deBefore(JoinPoint joinPoint) throws Throwable {  
         // 接收到请求，记录请求内容  
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();  
         HttpServletRequest request = attributes.getRequest();
-        HttpSession session=request.getSession();
-        Map<String,String> m=(Map<String,String>)session.getAttribute("user_space");
-        if(m==null) {
-        	m=new HashMap<String,String>();
-        }
-        String id=String.valueOf(joinPoint.getArgs()[2]);
-        if(!StringUtils.hasText(m.get(id))) {
-        	m.put(id,"1");
-        	System.out.println("=============第一次阅读：key="+id);
-        }else {
-        	System.out.println("=============第二次阅读：key="+id);
-        }
-        session.setAttribute("user_space", m);
         // 记录下请求内容  
         System.out.println("URL : " + request.getRequestURL().toString());  
         System.out.println("HTTP_METHOD : " + request.getMethod());  
@@ -54,11 +45,11 @@ public class LogAspect {
         System.out.println("ARGS : " + Arrays.toString(joinPoint.getArgs()));  
   
     }  
-  
-    @AfterReturning(returning = "ret", pointcut = "webLog()")  
-    public void doAfterReturning(Object ret) throws Throwable {  
+    //方法运行后执行
+    @AfterReturning(returning = "r", pointcut = "webLog()")  
+    public void doAfterReturning(Object r) throws Throwable {  
         // 处理完请求，返回内容  
-        System.out.println("方法的返回值 : " + ret);  
+        System.out.println("方法的返回值 : " + r);  
     }  
   
     //后置异常通知  
@@ -67,20 +58,23 @@ public class LogAspect {
         System.out.println("方法异常时执行.....");  
     }  
   
-    //后置最终通知,final增强，不管是抛出异常或者正常退出都会执行  
+    //退出方法时执行  
     @After("webLog()")  
     public void after(JoinPoint jp){  
         System.out.println("方法最后执行.....");  
     }  
   
-    //环绕通知,环绕增强，相当于MethodInterceptor  
+    //环绕通知,环绕增强，可以控制类中的方法是否可以执行，
+	//也可以修改参数，修改返回内容 ，植入方法处理逻辑
     @Around("webLog()")  
     public Object arround(ProceedingJoinPoint pjp) {  
         System.out.println("方法环绕start.....");  
         try {  
-            Object o =  pjp.proceed();  
-            System.out.println("方法环绕proceed，结果是 :" + o);  
-            return o;  
+        	//执行方法，环绕通知方法
+            Object obj =  pjp.proceed(); 
+            //由于环绕方法功能强大，干预能力强，因此慎用
+            System.out.println("方法环绕proceed，结果是 :" + obj);  
+            return obj;  
         } catch (Throwable e) {  
             e.printStackTrace();  
             return null;  

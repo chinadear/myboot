@@ -84,8 +84,11 @@
 					if(data=="T"){
 						alert("您想说的话已经发给站长了！");
 						$("#message").val('');
-					}else{
+					}else if(data=="S"){
 						alert("您已经留过言了，请过一会再来吧！");
+						$("#message").val('');
+					}else{
+						alert("说点什么吧！");
 						$("#message").val('');
 					}
 				}

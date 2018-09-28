@@ -1,4 +1,3 @@
-<!--这里是我们的ehcache配置-->
 <ehcache
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"

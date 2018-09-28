@@ -522,6 +522,9 @@ public class WebSiteController extends BaseController {
 	@RequestMapping(value="/articals/sendMsg",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String sendMsg(Model model, HttpServletRequest request,String msg) {
+		if(!StringUtils.hasText(msg)) {
+			return "NULL";
+		}
 		HttpSession session=request.getSession();
 		String flag=(String)session.getAttribute("user_send_message");
 		if(StringUtils.hasText(flag)&&"1".equals(flag)) {
