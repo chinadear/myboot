@@ -22,8 +22,8 @@ import java.util.Map;
  * @author liulu
  * 日志切面 
  */  
-@Aspect  
-@Component  
+/*@Aspect  
+@Component  */
 public class LogAspect {  
 	//创建一个切点，切面可以用通配符表示，
 	//例如public *（*代表任意返回值类型） com.spring.controller.WebSiteController.*(..)//（..）表示任意参数:
