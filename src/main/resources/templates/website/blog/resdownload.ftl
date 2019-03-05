@@ -6,13 +6,13 @@
 		<!-- Author Meta -->
 		<meta name="author" content="colorlib">
 		<!-- Meta Description -->
-		<meta name="description" content="">
+		<meta name="description" content="我的足迹,bootplus,基于springboot搭建的学习网站">
 		<!-- Meta Keyword -->
-		<meta name="keywords" content="工具软件，框架，开发平台，linux，设计工具">
+		<meta name="keywords" content="我的足迹,bootplus,经管学习,IT项目,产品经理,金融贸易">
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>boot+</title>
+		<title>我的足迹</title>
 		<#include "../pubarea/styles.ftl">
 	    <link rel="stylesheet" href="${rc.contextPath}/lib/bootstrap-select/css/bootstrap-select.min.css"/>
 	</head>

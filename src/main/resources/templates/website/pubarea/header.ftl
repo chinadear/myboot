@@ -13,9 +13,9 @@
 		<div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
 			<ul class="navbar-nav scrollable-menu">
 				<li><a href="${rc.contextPath}/">首页</a></li>
-				<li><a href="${rc.contextPath}/articals/news">行业资讯</a></li>
-				<li><a href="${rc.contextPath}/articals/series">爬坑系列</a></li>
-				<li><a href="${rc.contextPath}/articals">博客</a></li>
+				<li><a href="${rc.contextPath}/articals/news">热点分析</a></li>
+				<li><a href="${rc.contextPath}/articals/series">主题信息</a></li>
+				<li><a href="${rc.contextPath}/articals">全部文章</a></li>
 				<li><a href="${rc.contextPath}/articals/toolsbox">工具箱</a></li>
 				<!-- Dropdown -->
 			    <li class="dropdown">
