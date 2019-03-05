@@ -42,7 +42,7 @@
 			<div class="row d-flex justify-content-center">
 				<div class="menu-content col-lg-8">
 					<div class="title text-center">
-						<h1 class="mb-10">今日推荐</h1>
+						<h1 class="mb-10">主题</h1>
 						<p>不积跬步无以至千里，不积小流无以成江海。学习就要循序渐进，不断积累坚持不懈，快看看今天学点啥！</p>
 					</div>
 				</div>
